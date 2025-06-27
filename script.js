@@ -117,7 +117,7 @@ class TaxCalculator {
 
         for (const yearData of this.taxData) {
             const year = yearData.year;
-
+            const label = yearData.label || year.toString();
 
             // Calculate what the base year income would be worth in this year's money
             const adjustedIncome = this.adjustForInflation(income, baseYear, year);
@@ -131,6 +131,7 @@ class TaxCalculator {
 
             results.push({
                 year,
+                label,
                 originalIncome: income,
                 adjustedIncome,
                 taxRate,
@@ -155,7 +156,7 @@ class TaxCalculator {
                                        result.purchasingPower < 1 ? 'negative' : '';
 
             row.innerHTML = `
-                <td><strong>${result.year}</strong></td>
+                <td><strong>${result.label}</strong></td>
                 <td>€${result.originalIncome.toLocaleString('pt-PT')}</td>
                 <td>€${result.adjustedIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
                 <td>${result.taxRate.toFixed(2)}%</td>
@@ -178,7 +179,7 @@ class TaxCalculator {
         this.chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: results.map(r => r.year.toString()),
+                labels: results.map(r => r.label),
                 datasets: [
                     {
                         label: 'Tax Rate (%)',

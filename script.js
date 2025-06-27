@@ -211,7 +211,8 @@ class TaxCalculator {
                         title: {
                             display: true,
                             text: 'Year'
-                        }
+                        },
+                        reverse: true
                     },
                     y: {
                         type: 'linear',
@@ -234,7 +235,8 @@ class TaxCalculator {
                             drawOnChartArea: false,
                         },
                     }
-                },
+                }
+              ,
                 plugins: {
                     title: {
                         display: true,

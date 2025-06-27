@@ -48,7 +48,7 @@ class TaxCalculator {
         for (const bracket of brackets) {
             const from = bracket.from;
             const until = bracket.until || Infinity;
-            const rate = bracket.taxa;
+            const rate = bracket.tax;
 
             if (remainingIncome <= 0) break;
 

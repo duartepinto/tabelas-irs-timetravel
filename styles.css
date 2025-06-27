@@ -181,3 +181,26 @@ tr:hover {
         padding: 0.5rem;
     }
 }
+
+.warning-box {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.warning-box h3 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.warning-box ul {
+    margin-bottom: 0;
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.warning-box li {
+    margin-bottom: 0.5rem;
+}

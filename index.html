@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portugal Tax Rate Comparison (Inflation Adjusted)</title>
+    <title>Comparação de Taxas de IRS em Portugal (Ajustado à Inflação)</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Portugal Income Tax Rate Comparison</h1>
-        <p>Compare tax rates across years with inflation adjustment</p>
+        <h1>Comparação de Taxas de IRS em Portugal</h1>
+        <p>Compare taxas de IRS ao longo dos anos com ajuste à inflação</p>
     </header>
 
     <main>
         <section class="controls">
             <div class="input-group">
-                <label for="income">Annual Income (€):</label>
+                <label for="income">Rendimento Anual (€):</label>
                 <input type="number" id="income" value="30000" min="0" step="1000">
             </div>
 
             <div class="input-group">
-                <label for="baseYear">Base Year for Comparison:</label>
+                <label for="baseYear">Ano Base para Comparação:</label>
                 <select id="baseYear">
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
@@ -50,22 +50,22 @@
                 </select>
             </div>
 
-            <button id="calculate">Calculate & Compare</button>
+            <button id="calculate">Calcular & Comparar</button>
         </section>
 
         <section class="results">
             <div class="comparison-table">
-                <h2>Tax Comparison Results</h2>
+                <h2>Resultados da Comparação de Taxas</h2>
                 <table id="resultsTable">
                     <thead>
                         <tr>
-                            <th>Year</th>
-                            <th>Base Income (€)</th>
-                            <th>Equivalent Income (€)</th>
-                            <th>Tax Rate (%)</th>
-                            <th>Tax Amount (€)</th>
-                            <th>Net Income (€)</th>
-                            <th>Real Net vs Base (%)</th>
+                            <th>Ano</th>
+                            <th>Rendimento Base (€)</th>
+                            <th>Rendimento Equivalente (€)</th>
+                            <th>Taxa de IRS (%)</th>
+                            <th>Valor de IRS (€)</th>
+                            <th>Rendimento Líquido (€)</th>
+                            <th>Rendimento Real vs Base (%)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -78,11 +78,11 @@
         </section>
 
         <section class="methodology">
-            <h2>Methodology</h2>
-            <p>This tool adjusts income brackets for inflation using Portuguese consumer price index data.
-            Tax rates are calculated based on the progressive tax brackets for each year, and purchasing
-            power is calculated relative to the selected base year.</p>
-            <p><strong>Note:</strong> Inflation adjustments are approximate and based on annual averages.</p>
+            <h2>Metodologia</h2>
+            <p>Esta ferramenta ajusta os escalões de rendimento à inflação utilizando dados do índice de preços ao consumidor em Portugal.
+            As taxas de IRS são calculadas com base nos escalões progressivos de cada ano, e o poder de compra é calculado
+            relativamente ao ano base selecionado.</p>
+            <p><strong>Nota:</strong> Os ajustes de inflação são aproximados e baseados em médias anuais.</p>
         </section>
     </main>
 

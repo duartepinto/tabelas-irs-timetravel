@@ -182,7 +182,7 @@ class TaxCalculator {
                 labels: results.map(r => r.label),
                 datasets: [
                     {
-                        label: 'Tax Rate (%)',
+                        label: 'Taxa de IRS (%)',
                         data: results.map(r => r.taxRate),
                         borderColor: '#667eea',
                         backgroundColor: 'rgba(102, 126, 234, 0.1)',
@@ -190,7 +190,7 @@ class TaxCalculator {
                         yAxisID: 'y'
                     },
                     {
-                        label: 'Purchasing Power (%)',
+                        label: 'Poder de Compra (%)',
                         data: results.map(r => r.purchasingPower * 100),
                         borderColor: '#764ba2',
                         backgroundColor: 'rgba(118, 75, 162, 0.1)',
@@ -211,7 +211,7 @@ class TaxCalculator {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Year'
+                            text: 'Ano'
                         },
                         reverse: true
                     },
@@ -221,7 +221,7 @@ class TaxCalculator {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Tax Rate (%)'
+                            text: 'Taxa de IRS (%)'
                         },
                     },
                     y1: {
@@ -230,7 +230,7 @@ class TaxCalculator {
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Purchasing Power (%)'
+                            text: 'Poder de Compra (%)'
                         },
                         grid: {
                             drawOnChartArea: false,
@@ -241,7 +241,7 @@ class TaxCalculator {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Tax Rate vs Purchasing Power Over Time'
+                        text: 'Taxa de IRS vs Poder de Compra ao Longo do Tempo'
                     },
                     legend: {
                         display: true

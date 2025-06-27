@@ -1,0 +1,304 @@
+[
+  {
+    "year": 2024,
+    "label": "2024",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7703,
+        "taxa": 0.13
+      },
+      {
+        "from": 7703,
+        "until": 11623,
+        "taxa": 0.165
+      },
+      {
+        "from": 11623,
+        "until": 16472,
+        "taxa": 0.22
+      },
+      {
+        "from": 16472,
+        "until": 21321,
+        "taxa": 0.25
+      },
+      {
+        "from": 21321,
+        "until": 27146,
+        "taxa": 0.32
+      },
+      {
+        "from": 27146,
+        "until": 39791,
+        "taxa": 0.355
+      },
+      {
+        "from": 39791,
+        "until": 43000,
+        "taxa": 0.435
+      },
+      {
+        "from": 43000,
+        "until": null,
+        "taxa": 0.45
+      }
+    ]
+  },
+  {
+    "year": 2023,
+    "label": "2023",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7479,
+        "taxa": 0.145
+      },
+      {
+        "from": 7479,
+        "until": 11284,
+        "taxa": 0.21
+      },
+      {
+        "from": 11284,
+        "until": 15992,
+        "taxa": 0.265
+      },
+      {
+        "from": 15992,
+        "until": 20700,
+        "taxa": 0.285
+      },
+      {
+        "from": 20700,
+        "until": 26355,
+        "taxa": 0.35
+      },
+      {
+        "from": 26355,
+        "until": 38632,
+        "taxa": 0.37
+      },
+      {
+        "from": 38632,
+        "until": 50483,
+        "taxa": 0.435
+      },
+      {
+        "from": 50483,
+        "until": 78834,
+        "taxa": 0.45
+      },
+      {
+        "from": 78834,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  },
+  {
+    "year": 2022,
+    "label": "2022",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7116,
+        "taxa": 0.145
+      },
+      {
+        "from": 7116,
+        "until": 10736,
+        "taxa": 0.23
+      },
+      {
+        "from": 10736,
+        "until": 15216,
+        "taxa": 0.265
+      },
+      {
+        "from": 15216,
+        "until": 19696,
+        "taxa": 0.285
+      },
+      {
+        "from": 19696,
+        "until": 25076,
+        "taxa": 0.35
+      },
+      {
+        "from": 25076,
+        "until": 36757,
+        "taxa": 0.37
+      },
+      {
+        "from": 36757,
+        "until": 48033,
+        "taxa": 0.435
+      },
+      {
+        "from": 48033,
+        "until": 75009,
+        "taxa": 0.45
+      },
+      {
+        "from": 75009,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  },
+  {
+    "year": 2021,
+    "label": "2021",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7112,
+        "taxa": 0.145
+      },
+      {
+        "from": 7112,
+        "until": 10732,
+        "taxa": 0.23
+      },
+      {
+        "from": 10732,
+        "until": 20322,
+        "taxa": 0.285
+      },
+      {
+        "from": 20322,
+        "until": 25075,
+        "taxa": 0.35
+      },
+      {
+        "from": 25075,
+        "until": 36967,
+        "taxa": 0.37
+      },
+      {
+        "from": 36967,
+        "until": 80640,
+        "taxa": 0.45
+      },
+      {
+        "from": 80640,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  },
+  {
+    "year": 2020,
+    "label": "2020",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7112,
+        "taxa": 0.145
+      },
+      {
+        "from": 7112,
+        "until": 10732,
+        "taxa": 0.23
+      },
+      {
+        "from": 10732,
+        "until": 20322,
+        "taxa": 0.285
+      },
+      {
+        "from": 20322,
+        "until": 25075,
+        "taxa": 0.35
+      },
+      {
+        "from": 25075,
+        "until": 36967,
+        "taxa": 0.37
+      },
+      {
+        "from": 36967,
+        "until": 80640,
+        "taxa": 0.45
+      },
+      {
+        "from": 80640,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  },
+  {
+    "year": 2018,
+    "label": "2018",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7091,
+        "taxa": 0.145
+      },
+      {
+        "from": 7091,
+        "until": 10700,
+        "taxa": 0.23
+      },
+      {
+        "from": 10700,
+        "until": 20262,
+        "taxa": 0.285
+      },
+      {
+        "from": 20262,
+        "until": 25000,
+        "taxa": 0.35
+      },
+      {
+        "from": 25000,
+        "until": 36856,
+        "taxa": 0.37
+      },
+      {
+        "from": 36856,
+        "until": 80640,
+        "taxa": 0.45
+      },
+      {
+        "from": 80640,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  },
+  {
+    "year": 2017,
+    "label": "2017",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 7091,
+        "taxa": 0.145
+      },
+      {
+        "from": 7091,
+        "until": 20261,
+        "taxa": 0.285
+      },
+      {
+        "from": 20261,
+        "until": 40522,
+        "taxa": 0.37
+      },
+      {
+        "from": 40522,
+        "until": 80640,
+        "taxa": 0.45
+      },
+      {
+        "from": 80640,
+        "until": null,
+        "taxa": 0.48
+      }
+    ]
+  }
+]

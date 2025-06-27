@@ -43,7 +43,7 @@ main {
     margin-bottom: 2rem;
     display: flex;
     gap: 2rem;
-    align-items: end;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -134,7 +134,10 @@ tr:hover {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    height: 400px;
+}
+
+.chart-container canvas {
+    height: 350px;
 }
 
 .methodology {

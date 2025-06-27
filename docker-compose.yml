@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  portugal-tax-timetravel:
+    build: .
+    container_name: portugal-tax-timetravel
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tax-timetravel.rule=Host(`${TAX_TIMETRAVEL_DOMAIN}`)"
+      - "traefik.http.routers.tax-timetravel.entrypoints=websecure"
+      - "traefik.http.routers.tax-timetravel.tls.certresolver=letsencrypt"
+      - "traefik.http.services.tax-timetravel.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true

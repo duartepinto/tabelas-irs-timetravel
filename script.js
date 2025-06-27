@@ -112,6 +112,7 @@ class TaxCalculator {
     calculate() {
         const income = parseFloat(document.getElementById('income').value) || 0;
         const baseYear = parseInt(document.getElementById('baseYear').value);
+        const currentYear = new Date().getFullYear();
 
         const results = [];
 
@@ -129,6 +130,10 @@ class TaxCalculator {
             const netIncomeInBaseYear = this.adjustForInflation(netIncome, year, baseYear);
             const purchasingPowerRatio = income > 0 ? netIncomeInBaseYear / income : 1;
 
+            // Calculate current year values for tax and net income
+            const taxAmountCurrent = this.adjustForInflation(tax, year, currentYear);
+            const netIncomeCurrent = this.adjustForInflation(netIncome, year, currentYear);
+
             results.push({
                 year,
                 label,
@@ -136,7 +141,9 @@ class TaxCalculator {
                 adjustedIncome,
                 taxRate,
                 taxAmount: tax,
+                taxAmountCurrent,
                 netIncome,
+                netIncomeCurrent,
                 purchasingPower: purchasingPowerRatio
             });
         }
@@ -161,7 +168,9 @@ class TaxCalculator {
                 <td>€${result.adjustedIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
                 <td>${result.taxRate.toFixed(2)}%</td>
                 <td>€${result.taxAmount.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
+                <td>€${result.taxAmountCurrent.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
                 <td>€${result.netIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
+                <td>€${result.netIncomeCurrent.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
                 <td class="${purchasingPowerClass}">${(result.purchasingPower * 100).toFixed(1)}%</td>
             `;
 

@@ -1,6 +1,67 @@
 [
   {
     "year": 2025,
+    "label": "2025 (Jun. Proposta Chega)",
+    "brackets": [
+      {
+        "from": 0,
+        "until": 8059,
+        "tax": 0.12
+      },
+      {
+        "from": 8059,
+        "until": 12160,
+        "tax": 0.157
+      },
+      {
+        "from": 12160,
+        "until": 17233,
+        "tax": 0.212
+      },
+      {
+        "from": 17233,
+        "until": 22306,
+        "tax": 0.241
+      },
+      {
+        "from": 22306,
+        "until": 28400,
+        "tax": 0.311
+      },
+      {
+        "from": 28400,
+        "until": 41629,
+        "tax": 0.349
+      },
+      {
+        "from": 41629,
+        "until": 44987,
+        "tax": 0.431
+      },
+      {
+        "from": 44987,
+        "until": 80000,
+        "tax": 0.446
+      },
+      {
+        "from": 80000,
+        "until": 83696,
+        "tax": 0.471
+      },
+      {
+        "from": 83696,
+        "until": 250000,
+        "tax": 0.505
+      },
+      {
+        "from": 250000,
+        "until": null,
+        "tax": 0.53
+      }
+    ]
+  },
+  {
+    "year": 2025,
     "label": "2025 (Jun)",
     "brackets": [
       {

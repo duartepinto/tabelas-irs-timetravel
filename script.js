@@ -15,6 +15,7 @@ class TaxCalculator {
             // Initial calculations
             this.calculate();
             this.calculateComparison();
+            this.populateSources();
         } catch (error) {
             console.error('Failed to initialize:', error);
         }
@@ -378,6 +379,83 @@ class TaxCalculator {
                     }
                 }
             }
+        });
+    }
+
+    populateSources() {
+        const sourcesContainer = document.getElementById('sourcesList');
+
+        // Group sources by year to handle cases where there are multiple entries per year
+        const sourcesByYear = {};
+
+        this.taxData.forEach(yearData => {
+            const year = yearData.year;
+            const label = yearData.label || year.toString();
+
+            if (!sourcesByYear[year]) {
+                sourcesByYear[year] = [];
+            }
+
+            sourcesByYear[year].push({
+                label: label,
+                source: yearData.source
+            });
+        });
+
+        // Sort years in descending order
+        const sortedYears = Object.keys(sourcesByYear).sort((a, b) => parseInt(b) - parseInt(a));
+
+        sortedYears.forEach(year => {
+            const yearSources = sourcesByYear[year];
+
+            yearSources.forEach(item => {
+                const sourceDiv = document.createElement('div');
+                sourceDiv.className = 'source-item';
+
+                // Create header (clickable)
+                const sourceHeader = document.createElement('div');
+                sourceHeader.className = 'source-header';
+                sourceHeader.innerHTML = `
+                    <h3>${item.label}</h3>
+                    <span class="source-toggle">▶</span>
+                `;
+
+                // Create content (collapsible)
+                const sourceContent = document.createElement('div');
+                sourceContent.className = 'source-content';
+                sourceContent.innerHTML = `
+                    <p>
+                        <strong>Fonte:</strong>
+                        <a href="${item.source.url}" target="_blank" rel="noopener noreferrer">
+                            ${item.source.url}
+                        </a>
+                    </p>
+                    <p>
+                        <strong>Backup:</strong>
+                        <a href="${item.source.backup}" target="_blank" rel="noopener noreferrer">
+                            ${item.source.backup}
+                        </a>
+                    </p>
+                `;
+
+                // Add click event to header
+                sourceHeader.addEventListener('click', () => {
+                    const toggle = sourceHeader.querySelector('.source-toggle');
+                    const isExpanded = sourceContent.classList.contains('expanded');
+
+                    if (isExpanded) {
+                        sourceContent.classList.remove('expanded');
+                        toggle.classList.remove('expanded');
+                    } else {
+                        sourceContent.classList.add('expanded');
+                        toggle.classList.add('expanded');
+                    }
+                });
+
+                sourceDiv.appendChild(sourceHeader);
+                sourceDiv.appendChild(sourceContent);
+                sourcesContainer.appendChild(sourceDiv);
+            });
         });
     }
 }

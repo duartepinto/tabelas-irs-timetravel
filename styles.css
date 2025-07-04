@@ -166,6 +166,95 @@ tr:hover {
     color: #dc3545;
 }
 
+.sources {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.sources h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.source-item {
+    margin-bottom: 1rem;
+    border: 1px solid #e1e5e9;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.source-header {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.source-header:hover {
+    background-color: #e9ecef;
+}
+
+.source-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.source-toggle {
+    font-size: 1rem;
+    color: #667eea;
+    transition: transform 0.3s ease;
+}
+
+.source-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+.source-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: white;
+}
+
+.source-content.expanded {
+    max-height: 200px;
+}
+
+.source-content p {
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 0 1rem;
+}
+
+.source-content p:first-child {
+    padding-top: 1rem;
+}
+
+.source-content p:last-child {
+    padding-bottom: 1rem;
+}
+
+.source-content a {
+    color: #667eea;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.source-content a:hover {
+    text-decoration: underline;
+    color: #764ba2;
+}
+
 @media (max-width: 768px) {
     .controls {
         flex-direction: column;

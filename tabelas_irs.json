@@ -1,68 +1,10 @@
 [
   {
     "year": 2025,
-    "label": "2025 (Jun. Proposta Chega)",
-    "brackets": [
-      {
-        "from": 0,
-        "until": 8059,
-        "tax": 0.12
-      },
-      {
-        "from": 8059,
-        "until": 12160,
-        "tax": 0.157
-      },
-      {
-        "from": 12160,
-        "until": 17233,
-        "tax": 0.212
-      },
-      {
-        "from": 17233,
-        "until": 22306,
-        "tax": 0.241
-      },
-      {
-        "from": 22306,
-        "until": 28400,
-        "tax": 0.311
-      },
-      {
-        "from": 28400,
-        "until": 41629,
-        "tax": 0.349
-      },
-      {
-        "from": 41629,
-        "until": 44987,
-        "tax": 0.431
-      },
-      {
-        "from": 44987,
-        "until": 80000,
-        "tax": 0.446
-      },
-      {
-        "from": 80000,
-        "until": 83696,
-        "tax": 0.471
-      },
-      {
-        "from": 83696,
-        "until": 250000,
-        "tax": 0.505
-      },
-      {
-        "from": 250000,
-        "until": null,
-        "tax": 0.53
-      }
-    ]
-  },
-  {
-    "year": 2025,
     "label": "2025 (Jun)",
+    "source": {
+      "url": "https://www.montepio.org/ei/mais-recentes/impostos-mais-recentes/taxas-do-irs-em-2025-quanto-vao-descer/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -124,6 +66,9 @@
   {
     "year": 2025,
     "label": "2025 (Jan)",
+    "source": {
+      "url": "https://economiafinancas.com/2024/escaloes-do-irs-para-2025/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -185,6 +130,9 @@
   {
     "year": 2024,
     "label": "2024",
+    "source": {
+      "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2024/Paginas/5_Deducoes_beneficios_taxas.aspx#16",
+    },
     "brackets": [
       {
         "from": 0,
@@ -241,6 +189,9 @@
   {
     "year": 2023,
     "label": "2023",
+    "source": {
+      "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2023/Paginas/5_Deducoes_beneficios_taxas.aspx#16",
+    },
     "brackets": [
       {
         "from": 0,
@@ -302,6 +253,9 @@
   {
     "year": 2022,
     "label": "2022",
+    "source": {
+      "url": "http://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/Folhetos_informativos/Documents/IRS_folheto_2022.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -363,6 +317,9 @@
   {
     "year": 2021,
     "label": "2021",
+    "source": {
+      "url": "https://www.aciab.pt/index.php?option=com_content&view=article&id=8838:escaloes-de-irs-para-2021-saiba-quanto-tera-de-entregar-de-imposto&catid=37&Itemid=325&lang=es",
+    },
     "brackets": [
       {
         "from": 0,
@@ -414,6 +371,9 @@
   {
     "year": 2020,
     "label": "2020",
+    "source": {
+      "url": "https://www.aciab.pt/index.php?option=com_content&view=article&id=8838:escaloes-de-irs-para-2021-saiba-quanto-tera-de-entregar-de-imposto&catid=37&Itemid=325&lang=es",
+    },
     "brackets": [
       {
         "from": 0,
@@ -465,6 +425,9 @@
   {
     "year": 2019,
     "label": "2019",
+    "source": {
+      "url": "https://www.aciab.pt/index.php?option=com_content&view=article&id=6838:escaloes-de-irs-2019&catid=37&Itemid=255&lang=en",
+    },
     "brackets": [
       {
         "from": 0,
@@ -516,6 +479,9 @@
   {
     "year": 2018,
     "label": "2018",
+    "source": {
+      "url": "https://economiafinancas.com/tabelas-do-irs/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -548,15 +514,28 @@
         "tax": 0.45
       },
       {
+        "from": 80000,
+        "until": 80640,
+        "tax": 0.475
+      },
+      {
         "from": 80640,
+        "until": 250000,
+        "tax": 0.505
+      },
+      {
+        "from": 250000,
         "until": null,
-        "tax": 0.48
+        "tax": 0.53
       }
     ]
   },
   {
     "year": 2017,
     "label": "2017",
+    "source": {
+      "url": "https://economiafinancas.com/2016/escaloes-do-irs-em-2017/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -598,6 +577,9 @@
   {
     "year": 2016,
     "label": "2016",
+    "source": {
+      "url": "https://economiafinancas.com/2016/escaloes-do-irs-em-2017/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -634,6 +616,9 @@
   {
     "year": 2015,
     "label": "2015",
+    "source": {
+      "url": "https://economiafinancas.com/2014/escaloes-do-irs-2015/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -670,6 +655,9 @@
   {
     "year": 2014,
     "label": "2014",
+    "source": {
+      "url": "http://www.aofa.pt/rimp/SFP_Taxas.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -706,6 +694,9 @@
   {
     "year": 2013,
     "label": "2013",
+    "source": {
+      "url": "https://www.plmj.com/xms/files/v1/newsletters/2013/Maio/Guia_Fiscal_PLMJ_2013.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -742,6 +733,9 @@
   {
     "year": 2012,
     "label": "2012",
+    "source": {
+      "url": "https://www.boletimempresarial.pt/uploads/ficheiros/b76575a1c40ebf9fbb57d46fbcaf116ac7f28fa0.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -788,6 +782,9 @@
   {
     "year": 2011,
     "label": "2011",
+    "source": {
+      "url": "https://economiafinancas.com/2010/escaloes-do-irs-2011/",
+    },
     "brackets": [
       {
         "from": 0,
@@ -834,6 +831,9 @@
   {
     "year": 2010,
     "label": "2010",
+    "source": {
+      "url": "http://www.taxfile.pt/file_bank/news2411_2_1.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -880,6 +880,9 @@
   {
     "year": 2009,
     "label": "2009",
+    "source": {
+      "url": "https://expresso.pt/economia/dinheiro_banco/dinheiro_planear/dinheiro_planear_impostos/irs-2009-escaloes-aumentam-25-por-cento=f563294",
+    },
     "brackets": [
       {
         "from": 0,
@@ -921,6 +924,9 @@
   {
     "year": 2008,
     "label": "2008",
+    "source": {
+      "url": "https://tvi.iol.pt/noticias/orcamento-do-estado/orcamento/oe-2008-escaloes-do-irs-actualizados-em-2",
+    },
     "brackets": [
       {
         "from": 0,
@@ -962,6 +968,9 @@
   {
     "year": 2007,
     "label": "2007",
+    "source": {
+      "url": "https://www.pwc.pt/en/pwcinforfisco/orcamento-estado/imagens/tabela-pratica-irs-2007.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -1003,6 +1012,9 @@
   {
     "year": 2006,
     "label": "2006",
+    "source": {
+      "url": "http://www.estgv.ipv.pt/paginaspessoais/lazaro/Docs/IRS-Manual-2006.pdf",
+    },
     "brackets": [
       {
         "from": 0,
@@ -1044,6 +1056,9 @@
   {
     "year": 2005,
     "label": "2005",
+    "source": {
+      "url": "http://www.estgv.ipv.pt/paginaspessoais/lazaro/Docs/IRS-Manual-2006.pdf",
+    },
     "brackets": [
       {
         "from": 0,

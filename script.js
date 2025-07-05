@@ -10,6 +10,7 @@ class TaxCalculator {
     async init() {
         try {
             await this.loadTaxData();
+            this.populateBaseYearDropdown();
             this.setupEventListeners();
 
             // Initial calculations
@@ -33,6 +34,34 @@ class TaxCalculator {
         } catch (error) {
             console.error('Failed to load data:', error);
             throw error;
+        }
+    }
+
+    populateBaseYearDropdown() {
+        const baseYearSelect = document.getElementById('baseYear');
+
+        // Get years from both inflation data and tax data
+        const inflationYears = Object.keys(this.inflationData);
+        const taxYears = this.taxData.map(data => data.year.toString());
+
+        // Merge and deduplicate years
+        const allYears = [...new Set([...inflationYears, ...taxYears])];
+        const sortedYears = allYears.sort((a, b) => parseInt(b) - parseInt(a));
+
+        // Clear existing options
+        baseYearSelect.innerHTML = '';
+
+        // Add years from merged data
+        sortedYears.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            baseYearSelect.appendChild(option);
+        });
+
+        // Set default to the most recent year
+        if (sortedYears.length > 0) {
+            baseYearSelect.value = sortedYears[0];
         }
     }
 
@@ -169,7 +198,8 @@ class TaxCalculator {
                 taxAmountCurrent: datapoint.taxAmountCurrent,
                 netIncome: datapoint.netIncome,
                 netIncomeCurrent: datapoint.netIncomeCurrent,
-                purchasingPower: datapoint.purchasingPowerRatio
+                purchasingPower: datapoint.purchasingPowerRatio,
+                baseYear // Add baseYear to each result
             });
         }
 
@@ -210,8 +240,13 @@ class TaxCalculator {
             const purchasingPowerClass = result.purchasingPower > 1 ? 'positive' :
                                        result.purchasingPower < 1 ? 'negative' : '';
 
+            // Check if inflation data exists for this year AND if it's different from base year
+            const hasInflationData = this.inflationData.hasOwnProperty(result.year.toString());
+            const isDifferentFromBaseYear = result.year !== result.baseYear;
+            const warningIcon = (hasInflationData || !isDifferentFromBaseYear) ? '' : '<span class="warning-icon" title="Dados de inflação não disponíveis para este ano">⚠️</span>';
+
             row.innerHTML = `
-                <td><strong>${result.label}</strong></td>
+                <td><strong>${result.label}</strong>${warningIcon}</td>
                 <td>€${result.originalIncome.toLocaleString('pt-PT')}</td>
                 <td>€${result.adjustedIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
                 <td>${result.taxRate.toFixed(2)}%</td>

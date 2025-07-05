@@ -158,6 +158,13 @@ tr:hover {
     color: #666;
 }
 
+.warning-icon {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    color: #f39c12;
+    cursor: help;
+}
+
 .positive {
     color: #28a745;
 }

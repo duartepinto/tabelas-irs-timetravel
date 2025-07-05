@@ -72,6 +72,9 @@ class TaxCalculator {
         const compareYear1Select = document.getElementById('compareYear1Select');
         const compareYear2Select = document.getElementById('compareYear2Select');
 
+        // Populate comparison dropdowns
+        this.populateComparisonDropdowns();
+
         calculateBtn.addEventListener('click', () => this.calculate());
         incomeInput.addEventListener('input', () => this.calculate());
         baseYearSelect.addEventListener('change', () => this.calculate());
@@ -492,6 +495,39 @@ class TaxCalculator {
                 sourcesContainer.appendChild(sourceDiv);
             });
         });
+    }
+
+    populateComparisonDropdowns() {
+        const compareYear1Select = document.getElementById('compareYear1Select');
+        const compareYear2Select = document.getElementById('compareYear2Select');
+
+        // Clear existing options
+        compareYear1Select.innerHTML = '';
+        compareYear2Select.innerHTML = '';
+
+        // Create options from tax data (each entry gets its own option)
+        this.taxData.forEach(yearData => {
+            const year = yearData.year;
+            const label = yearData.label || year.toString();
+
+            // Create option for first dropdown
+            const option1 = document.createElement('option');
+            option1.value = year;
+            option1.textContent = label;
+            compareYear1Select.appendChild(option1);
+
+            // Create option for second dropdown
+            const option2 = document.createElement('option');
+            option2.value = year;
+            option2.textContent = label;
+            compareYear2Select.appendChild(option2);
+        });
+
+        // Set default values to first two entries if available
+        if (this.taxData.length >= 2) {
+            compareYear1Select.value = this.taxData[this.taxData.length - 1].year;
+            compareYear2Select.value = this.taxData[0].year;
+        }
     }
 }
 

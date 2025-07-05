@@ -281,6 +281,19 @@ tr:hover {
     }
 }
 
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+    align-self: flex-end;
+}
+
 button:hover {
     transform: translateY(-2px);
 }

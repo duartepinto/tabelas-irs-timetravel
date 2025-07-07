@@ -4,6 +4,7 @@ class TaxCalculator {
         this.inflationData = {};
         this.chart = null;
         this.comparisonChart = null;
+        this.debounceTimer = null;
         this.init();
     }
 
@@ -76,10 +77,22 @@ class TaxCalculator {
         this.populateComparisonDropdowns();
 
         calculateBtn.addEventListener('click', () => this.calculate());
-        incomeInput.addEventListener('input', () => this.calculate());
-        baseYearSelect.addEventListener('change', () => this.calculate());
-        compareYear1Select.addEventListener('change', () => this.calculateComparison());
-        compareYear2Select.addEventListener('change', () => this.calculateComparison());
+        incomeInput.addEventListener('input', () => {
+            this.calculate();
+            this.debounceIncomeTracking(incomeInput.value);
+        });
+        baseYearSelect.addEventListener('change', () => {
+            this.calculate();
+            this.trackInputEvent('base_year_change', baseYearSelect.value);
+        });
+        compareYear1Select.addEventListener('change', () => {
+            this.calculateComparison();
+            this.trackInputEvent('compare_year1_change', compareYear1Select.value);
+        });
+        compareYear2Select.addEventListener('change', () => {
+            this.calculateComparison();
+            this.trackInputEvent('compare_year2_change', compareYear2Select.value);
+        });
     }
 
     calculateTax(income, brackets) {
@@ -527,6 +540,29 @@ class TaxCalculator {
         if (this.taxData.length >= 2) {
             compareYear1Select.value = this.taxData[this.taxData.length - 1].year;
             compareYear2Select.value = this.taxData[0].year;
+        }
+    }
+
+    debounceIncomeTracking(value) {
+        // Clear the previous timer
+        if (this.debounceTimer) {
+            clearTimeout(this.debounceTimer);
+        }
+
+        // Set a new timer to track the event after 1 second of inactivity
+        this.debounceTimer = setTimeout(() => {
+            this.trackInputEvent('income_change', value);
+        }, 1000);
+    }
+
+    trackInputEvent(eventName, value) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, {
+                event_category: 'input_interaction',
+                event_label: eventName,
+                value: value,
+                custom_parameter: value
+            });
         }
     }
 }

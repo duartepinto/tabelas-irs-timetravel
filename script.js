@@ -1,7 +1,9 @@
 class TaxCalculator {
     constructor() {
         this.taxData = [];
+        this.deductionsData = [];
         this.inflationData = {};
+        this.deductionsChart = null;
         this.chart = null;
         this.comparisonChart = null;
         this.debounceTimer = null;
@@ -11,12 +13,14 @@ class TaxCalculator {
     async init() {
         try {
             await this.loadTaxData();
+            await this.loadDeductionsData();
             this.populateBaseYearDropdown();
             this.setupEventListeners();
 
             // Initial calculations
             this.calculate();
             this.calculateComparison();
+            this.calculateDeductionsChart();
             this.populateSources();
         } catch (error) {
             console.error('Failed to initialize:', error);
@@ -34,6 +38,16 @@ class TaxCalculator {
             this.inflationData = await inflationResponse.json();
         } catch (error) {
             console.error('Failed to load data:', error);
+            throw error;
+        }
+    }
+
+    async loadDeductionsData() {
+        try {
+            const response = await fetch('deductions.json');
+            this.deductionsData = await response.json();
+        } catch (error) {
+            console.error('Failed to load deductions data:', error);
             throw error;
         }
     }
@@ -244,6 +258,147 @@ class TaxCalculator {
         }))
 
         this.updateComparisonChart(result)
+    }
+
+    calculateDeductionsChart() {
+        const currentYear = new Date().getFullYear();
+
+        if (!this.deductionsData.length) return;
+
+        // Get all unique deduction types across all years
+        const allDeductionTypes = new Set();
+        this.deductionsData.forEach(yearData => {
+            Object.keys(yearData.deductions).forEach(type => {
+                // Only include deductions with limits to avoid cluttering the chart
+                if (yearData.deductions[type].limit) {
+                    allDeductionTypes.add(type);
+                }
+            });
+        });
+
+        // Generate colors for each deduction type
+        const colors = [
+            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe',
+            '#43e97b', '#38f9d7', '#ffecd2', '#fcb69f'
+        ];
+
+        const datasets = [];
+        let colorIndex = 0;
+
+        // Create dataset for each deduction type
+        allDeductionTypes.forEach(deductionType => {
+            const data = [];
+
+            this.deductionsData.forEach(yearData => {
+                const deduction = yearData.deductions[deductionType];
+                if (deduction && deduction.limit) {
+                    // Convert limit to current year value
+                    const limitCurrentValue = this.adjustForInflation(deduction.limit, yearData.year, currentYear);
+                    data.push(limitCurrentValue);
+                } else {
+                    data.push(null); // No data for this year
+                }
+            });
+
+            // Only add dataset if it has at least one non-null value
+            if (data.some(value => value !== null)) {
+                const deductionName = this.deductionsData[0].deductions[deductionType]?.name || deductionType;
+
+                datasets.push({
+                    label: deductionName,
+                    data: data,
+                    borderColor: colors[colorIndex % colors.length],
+                    backgroundColor: colors[colorIndex % colors.length] + '20',
+                    tension: 0.1,
+                    pointRadius: 2,
+                    pointHoverRadius: 4,
+                    borderWidth: 2,
+                    spanGaps: false // Don't connect across null values
+                });
+                colorIndex++;
+            }
+        });
+
+        this.updateDeductionsChart(datasets, this.deductionsData.map(d => d.label || d.year.toString()));
+    }
+
+    updateDeductionsChart(datasets, labels) {
+        const ctx = document.getElementById('deductionsChart').getContext('2d');
+
+        if (this.deductionsChart) {
+            this.deductionsChart.destroy();
+        }
+
+        this.deductionsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 750
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Ano'
+                        },
+                        reverse: true
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Limite de Dedução (€)'
+                        },
+                        beginAtZero: true,
+                        ticks: {
+                            maxTicksLimit: 8
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Evolução dos Limites de Deduções IRS (Valores Atuais)'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 6
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.parsed.y === null) {
+                                    return context.dataset.label + ': Não disponível';
+                                }
+                                return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
+                            }
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        hoverRadius: 4
+                    }
+                }
+            }
+        });
     }
 
     displayResults(results) {
@@ -508,6 +663,8 @@ class TaxCalculator {
                 sourcesContainer.appendChild(sourceDiv);
             });
         });
+
+        this.populateDeductionsSources();
     }
 
     populateComparisonDropdowns() {
@@ -541,6 +698,57 @@ class TaxCalculator {
             compareYear1Select.value = this.taxData[this.taxData.length - 1].year;
             compareYear2Select.value = this.taxData[0].year;
         }
+    }
+
+    populateDeductionsSources() {
+        const sourcesContainer = document.getElementById('sourcesList');
+
+        // Add deductions sources
+        this.deductionsData.forEach(yearData => {
+            const sourceDiv = document.createElement('div');
+            sourceDiv.className = 'source-item';
+
+            const sourceHeader = document.createElement('div');
+            sourceHeader.className = 'source-header';
+            sourceHeader.innerHTML = `
+                <h3>Deduções ${yearData.label}</h3>
+                <span class="source-toggle">▶</span>
+            `;
+
+            const sourceContent = document.createElement('div');
+            sourceContent.className = 'source-content';
+            sourceContent.innerHTML = `
+                <p>
+                    <strong>Fonte:</strong>
+                    <a href="${yearData.source.url}" target="_blank" rel="noopener noreferrer">
+                        ${yearData.source.url}
+                    </a>
+                </p>
+                <p>
+                    <strong>Backup:</strong>
+                    <a href="${yearData.source.backup}" target="_blank" rel="noopener noreferrer">
+                        ${yearData.source.backup}
+                    </a>
+                </p>
+            `;
+
+            sourceHeader.addEventListener('click', () => {
+                const toggle = sourceHeader.querySelector('.source-toggle');
+                const isExpanded = sourceContent.classList.contains('expanded');
+
+                if (isExpanded) {
+                    sourceContent.classList.remove('expanded');
+                    toggle.classList.remove('expanded');
+                } else {
+                    sourceContent.classList.add('expanded');
+                    toggle.classList.add('expanded');
+                }
+            });
+
+            sourceDiv.appendChild(sourceHeader);
+            sourceDiv.appendChild(sourceContent);
+            sourcesContainer.appendChild(sourceDiv);
+        });
     }
 
     debounceIncomeTracking(value) {

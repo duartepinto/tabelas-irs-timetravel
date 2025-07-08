@@ -137,7 +137,11 @@ tr:hover {
 }
 
 .chart-container canvas {
-    height: 350px;
+    height: 450px;
+}
+
+.chart-container:has(#deductionsChart) canvas {
+    height: 500px !important;
 }
 
 .methodology {
@@ -278,6 +282,14 @@ tr:hover {
 
     th, td {
         padding: 0.4rem;
+    }
+
+    .chart-container canvas {
+        height: 300px;
+    }
+
+    .chart-container:has(#deductionsChart) canvas {
+        height: 350px !important;
     }
 }
 

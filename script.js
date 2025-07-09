@@ -319,14 +319,22 @@ class TaxCalculator {
             }
         });
 
-        // Add overall limit as a line
-        const limitData = this.deductionsData.map(yearData => {
-            return this.adjustForInflation(yearData.limit, yearData.year, currentYear);
+        // Add total deductions as a line
+        const totalDeductionsData = this.deductionsData.map(yearData => {
+            // Calculate total of all deduction limits for this year
+            let totalDeductions = 0;
+            Object.values(yearData.deductions).forEach(deduction => {
+                if (deduction.limit) {
+                    totalDeductions += deduction.limit;
+                }
+            });
+            return this.adjustForInflation(totalDeductions, yearData.year, currentYear);
         });
 
+
         datasets.push({
-            label: 'Limite Total de Deduções',
-            data: limitData,
+            label: 'Total',
+            data: totalDeductionsData,
             type: 'line',
             borderColor: '#DC2626',
             backgroundColor: 'rgba(220, 38, 38, 0.1)',

@@ -6,8 +6,13 @@
       "url": "https://www.pwc.pt/pt/pwcinforfisco/guia-fiscal/2025/irs.html",
       "backup": ""
     },
-    "limit": 4462.15,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4462.15,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -101,8 +106,13 @@
       "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2024/Paginas/5_Deducoes_beneficios_taxas.aspx",
       "backup": ""
     },
-    "limit": 4350.24,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4350.24,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -196,8 +206,13 @@
       "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2023/Paginas/5_Deducoes_beneficios_taxas.aspx",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -291,8 +306,13 @@
       "url": "https://aciab.pt/index.php?option=com_content&view=article&id=9665:deducoes-a-coleta-de-irs-despesas-e-quais-os-limites&catid=40&Itemid=394&lang=fr",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -380,8 +400,13 @@
       "url": "https://aciab.pt/index.php?option=com_content&view=article&id=8951:deducoes-a-coleta-de-irs-o-que-pode-deduzir-e-quais-os-limites&catid=37&lang=fr&Itemid=393",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -469,8 +494,13 @@
       "url": "https://www.cgd.pt/Site/Saldo-Positivo/leis-e-impostos/Pages/deducoes-no-irs.aspx",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -552,8 +582,13 @@
       "url": "https://s3-eu-central-1.amazonaws.com/cja-blogassets/wp-content/uploads/sites/3/2020/12/11131645/IRS_folheto_2019.pdf",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -635,8 +670,13 @@
       "url": "https://www.plmj.com/xms/files/v1/Guias_Investimento/2018/Guia_Fiscal_2018.pdf",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -718,8 +758,13 @@
       "url": "https://ind.millenniumbcp.pt/pt/geral/fiscalidade/Pages/IRS-2017-verificacao-de-despesas.aspx",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -801,8 +846,101 @@
       "url": "http://carlosribeiro.pt/wp-content/uploads/2015/12/Tipo-de-Despesas-3-1.pdf",
       "backup": ""
     },
-    "limit": 4104.00,
     "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
+      "health": {
+        "name": "Saúde",
+        "limit": 1000,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 502,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas gerais familiares"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "IVA de serviços veterinários"
+      },
+      "vatPublicTransport": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de passes mensais de transportes públicos"
+      }
+    }
+  },
+  {
+    "year": 2015,
+    "label": "2015",
+    "source": {
+      "url": "https://invoicexpress.com/blog/deducoes-irs-2015",
+      "backup": ""
+    },
+    "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4104.00,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,

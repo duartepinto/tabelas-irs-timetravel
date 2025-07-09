@@ -10,7 +10,7 @@
     "deductions": {
       "health": {
         "name": "Saúde",
-        "limit": null,
+        "limit": 1000,
         "percentage": 0.15,
         "description": "Despesas médicas e de saúde"
       },
@@ -22,7 +22,7 @@
       },
       "mortgageInterest": {
         "name": "Habitação - Juros",
-        "limit": null,
+        "limit": 296,
         "percentage": 0.15,
         "description": "Juros de empréstimos para habitação própria permanente (não especificado limite para 2025)"
       },
@@ -38,12 +38,6 @@
         "percentage": 0.25,
         "description": "Encargos com lares de idosos"
       },
-      "insurance": {
-        "name": "Seguros",
-        "limit": null,
-        "percentage": 0.25,
-        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade (sem limite específico para 2025)"
-      },
       "retirementSavings": {
         "name": "PPR/Pensões",
         "limit": 2000,
@@ -52,8 +46,8 @@
       },
       "vatGeneral": {
         "name": "IVA - Despesas Gerais",
-        "limit": 500,
-        "percentage": 0.35,
+        "limit": 250,
+        "percentage": 0.15,
         "description": "IVA de despesas gerais familiares (casados)"
       },
       "vatRestaurants": {
@@ -111,7 +105,7 @@
     "deductions": {
       "health": {
         "name": "Saúde",
-        "limit": null,
+        "limit": 1000,
         "percentage": 0.15,
         "description": "Despesas médicas e de saúde"
       },
@@ -139,12 +133,6 @@
         "percentage": 0.25,
         "description": "Encargos com lares de idosos"
       },
-      "insurance": {
-        "name": "Seguros",
-        "limit": 1000,
-        "percentage": 0.25,
-        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade"
-      },
       "retirementSavings": {
         "name": "PPR/Pensões",
         "limit": 2000,
@@ -154,7 +142,7 @@
       "vatGeneral": {
         "name": "IVA - Despesas Gerais",
         "limit": 250,
-        "percentage": 0.35,
+        "percentage": 0.15,
         "description": "IVA de despesas gerais familiares"
       },
       "vatRestaurants": {
@@ -212,7 +200,7 @@
     "deductions": {
       "health": {
         "name": "Saúde",
-        "limit": null,
+        "limit": 1000,
         "percentage": 0.15,
         "description": "Despesas médicas e de saúde"
       },
@@ -240,12 +228,6 @@
         "percentage": 0.25,
         "description": "Encargos com lares de idosos"
       },
-      "insurance": {
-        "name": "Seguros",
-        "limit": 1000,
-        "percentage": 0.25,
-        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade"
-      },
       "retirementSavings": {
         "name": "PPR/Pensões",
         "limit": 2000,
@@ -255,7 +237,7 @@
       "vatGeneral": {
         "name": "IVA - Despesas Gerais",
         "limit": 250,
-        "percentage": 0.35,
+        "percentage": 0.15,
         "description": "IVA de despesas gerais familiares"
       },
       "vatRestaurants": {
@@ -299,6 +281,285 @@
         "limit": 250,
         "percentage": 1.0,
         "description": "IVA de jornais e revistas"
+      }
+    }
+  },
+  {
+    "year": 2022,
+    "label": "2022",
+    "source": {
+      "url": "https://aciab.pt/index.php?option=com_content&view=article&id=9665:deducoes-a-coleta-de-irs-despesas-e-quais-os-limites&catid=40&Itemid=394&lang=fr",
+      "backup": ""
+    },
+    "limit": 4104.00,
+    "deductions": {
+      "health": {
+        "name": "Saúde",
+        "limit": 1000,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 502,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "insurance": {
+        "name": "Seguros",
+        "limit_percentage": 0.15,
+        "percentage": 0.25,
+        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas gerais familiares"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "IVA de serviços veterinários"
+      },
+      "vatPublicTranspor": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de passes mensais de transportes públicos"
+      },
+      "vatFitness": {
+        "name": "IVA - Ginásios",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de ginásios e atividades desportivas"
+      }
+    }
+  },
+  {
+    "year": 2021,
+    "label": "2021",
+    "source": {
+      "url": "https://aciab.pt/index.php?option=com_content&view=article&id=8951:deducoes-a-coleta-de-irs-o-que-pode-deduzir-e-quais-os-limites&catid=37&lang=fr&Itemid=393",
+      "backup": ""
+    },
+    "limit": 4104.00,
+    "deductions": {
+      "health": {
+        "name": "Saúde",
+        "limit": 1000,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 502,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "insurance": {
+        "name": "Seguros",
+        "limit_percentage": 0.15,
+        "percentage": 0.25,
+        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas gerais familiares"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "IVA de serviços veterinários"
+      },
+      "vatPublicTranspor": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de passes mensais de transportes públicos"
+      },
+      "vatFitness": {
+        "name": "IVA - Ginásios",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de ginásios e atividades desportivas"
+      }
+    }
+  },
+  {
+    "year": 2020,
+    "label": "2020",
+    "source": {
+      "url": "https://www.cgd.pt/Site/Saldo-Positivo/leis-e-impostos/Pages/deducoes-no-irs.aspx",
+      "backup": ""
+    },
+    "limit": null,
+    "deductions": {
+      "health": {
+        "name": "Saúde",
+        "limit": 1000,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 502,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "insurance": {
+        "name": "Seguros",
+        "limit_percentage": 0.15,
+        "percentage": 0.25,
+        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas gerais familiares"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "IVA de serviços veterinários"
+      },
+      "vatPublicTranspor": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de passes mensais de transportes públicos"
       }
     }
   }

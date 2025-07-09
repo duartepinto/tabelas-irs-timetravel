@@ -13,6 +13,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 500,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -112,6 +118,12 @@
         "limit": 4350.24,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
       },
       "health": {
         "name": "Saúde",
@@ -213,6 +225,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -313,6 +331,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -406,6 +430,12 @@
         "limit": 4104.00,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
       },
       "health": {
         "name": "Saúde",
@@ -501,6 +531,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -588,6 +624,12 @@
         "limit": 4104.00,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
       },
       "health": {
         "name": "Saúde",
@@ -677,6 +719,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -764,6 +812,12 @@
         "limit": 4104.00,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
       },
       "health": {
         "name": "Saúde",
@@ -853,6 +907,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -941,6 +1001,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
       "health": {
         "name": "Saúde",
         "limit": 1000,
@@ -1012,6 +1078,87 @@
         "limit": 250,
         "percentage": 1.0,
         "description": "IVA de passes mensais de transportes públicos"
+      }
+    }
+  },
+  {
+    "year": 2014,
+    "label": "2014",
+    "source": {
+      "backup": "https://web.archive.org/web/20150914063936/https://www.pwc.pt/pt/pwcinforfisco/orcamento-estado/2014/docs/pwc-oe2014.pdf"
+    },
+    "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": null,
+        "percentage": 1.0,
+        "description": "Deduções à coleta"
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": null,
+        "percentage": 0.35,
+        "description": "Despesas com educação, saúde e habitação"
+      },
+      "health": {
+        "name": "Saúde",
+        "limit": 838.44,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 760,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 502,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas gerais familiares"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
       }
     }
   }

@@ -278,8 +278,8 @@ class TaxCalculator {
 
         // Generate colors for each deduction type
         const colors = [
-            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe',
-            '#43e97b', '#38f9d7', '#ffecd2', '#fcb69f'
+            '#6B7280', '#8B5A3C', '#6366F1', '#DC2626', '#059669', '#0891B2',
+            '#7C2D12', '#4338CA', '#BE185D', '#9333EA'
         ];
 
         const datasets = [];
@@ -308,7 +308,7 @@ class TaxCalculator {
                     label: deductionName,
                     data: data,
                     borderColor: colors[colorIndex % colors.length],
-                    backgroundColor: colors[colorIndex % colors.length] + '20',
+                    backgroundColor: colors[colorIndex % colors.length] + 'CC',
                     tension: 0.1,
                     pointRadius: 2,
                     pointHoverRadius: 4,
@@ -330,7 +330,7 @@ class TaxCalculator {
         }
 
         this.deductionsChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: datasets
@@ -352,7 +352,8 @@ class TaxCalculator {
                             display: true,
                             text: 'Ano'
                         },
-                        reverse: true
+                        reverse: true,
+                        stacked: true
                     },
                     y: {
                         type: 'linear',
@@ -365,7 +366,8 @@ class TaxCalculator {
                         beginAtZero: true,
                         ticks: {
                             maxTicksLimit: 8
-                        }
+                        },
+                        stacked: true
                     }
                 },
                 plugins: {
@@ -377,8 +379,8 @@ class TaxCalculator {
                         display: true,
                         position: 'top',
                         labels: {
-                            usePointStyle: true,
-                            boxWidth: 6
+                            usePointStyle: false,
+                            boxWidth: 12
                         }
                     },
                     tooltip: {
@@ -390,11 +392,6 @@ class TaxCalculator {
                                 return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
                             }
                         }
-                    }
-                },
-                elements: {
-                    point: {
-                        hoverRadius: 4
                     }
                 }
             }

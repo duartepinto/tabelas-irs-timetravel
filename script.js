@@ -319,6 +319,24 @@ class TaxCalculator {
             }
         });
 
+        // Add overall limit as a line
+        const limitData = this.deductionsData.map(yearData => {
+            return this.adjustForInflation(yearData.limit, yearData.year, currentYear);
+        });
+
+        datasets.push({
+            label: 'Limite Total de Deduções',
+            data: limitData,
+            type: 'line',
+            borderColor: '#DC2626',
+            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            tension: 0.1,
+            borderDash: [5, 5]
+        });
+
         this.updateDeductionsChart(datasets, this.deductionsData.map(d => d.label || d.year.toString()));
     }
 

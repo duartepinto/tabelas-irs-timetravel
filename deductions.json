@@ -1,11 +1,113 @@
 [
   {
+    "year": 2025,
+    "label": "2025",
+    "source": {
+      "url": "https://www.pwc.pt/pt/pwcinforfisco/guia-fiscal/2025/irs.html",
+      "backup": ""
+    },
+    "limit": 4462.15,
+    "deductions": {
+      "health": {
+        "name": "Saúde",
+        "limit": null,
+        "percentage": 0.15,
+        "description": "Despesas médicas e de saúde"
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.30,
+        "description": "Despesas de educação e formação"
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": null,
+        "percentage": 0.15,
+        "description": "Juros de empréstimos para habitação própria permanente (não especificado limite para 2025)"
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 700,
+        "percentage": 0.15,
+        "description": "Rendas para habitação própria permanente"
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "Encargos com lares de idosos"
+      },
+      "insurance": {
+        "name": "Seguros",
+        "limit": null,
+        "percentage": 0.25,
+        "description": "Prémios de seguros de vida, acidentes pessoais, saúde e incapacidade (sem limite específico para 2025)"
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 2000,
+        "percentage": 0.20,
+        "description": "Contribuições para PPR e regimes complementares de pensões (varia por idade)"
+      },
+      "vatGeneral": {
+        "name": "IVA - Despesas Gerais",
+        "limit": 500,
+        "percentage": 0.35,
+        "description": "IVA de despesas gerais familiares (casados)"
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de despesas em restauração e alojamento"
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de reparação e manutenção de veículos"
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "IVA de serviços veterinários"
+      },
+      "vatPublicTranspor": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de passes mensais de transportes públicos"
+      },
+      "vatFitness": {
+        "name": "IVA - Ginásios",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de ginásios e atividades desportivas"
+      },
+      "vatPress": {
+        "name": "IVA - Jornais e Revistas",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "IVA de jornais e revistas"
+      }
+    }
+  },
+  {
     "year": 2024,
     "label": "2024",
     "source": {
       "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2024/Paginas/5_Deducoes_beneficios_taxas.aspx",
       "backup": ""
     },
+    "limit": 4350.24,
     "deductions": {
       "health": {
         "name": "Saúde",
@@ -27,7 +129,7 @@
       },
       "rent": {
         "name": "Habitação - Rendas",
-        "limit": 502,
+        "limit": 600,
         "percentage": 0.15,
         "description": "Rendas para habitação própria permanente"
       },
@@ -106,6 +208,7 @@
       "url": "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/IRS/IRS_2023/Paginas/5_Deducoes_beneficios_taxas.aspx",
       "backup": ""
     },
+    "limit": 4104.00,
     "deductions": {
       "health": {
         "name": "Saúde",

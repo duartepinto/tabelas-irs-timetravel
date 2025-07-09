@@ -141,7 +141,7 @@ tr:hover {
 }
 
 .chart-container:has(#deductionsChart) canvas {
-    height: 500px !important;
+    height: 600px !important;
 }
 
 .methodology {
@@ -289,7 +289,7 @@ tr:hover {
     }
 
     .chart-container:has(#deductionsChart) canvas {
-        height: 350px !important;
+        height: 400px !important;
     }
 }
 

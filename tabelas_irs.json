@@ -1,5 +1,70 @@
 [
   {
+    "year": 2026,
+    "label": "2026 (Proposta OE)",
+    "source": {
+      "url": "https://www.pwc.pt/pt/pwcinforfisco/orcamentoestado/irs-e-seguranca-social.html",
+      "backup": "https://web.archive.org/web/20251020163142/https://www.pwc.pt/pt/pwcinforfisco/orcamentoestado/irs-e-seguranca-social.html"
+    },
+    "brackets": [
+      {
+        "from": 0,
+        "until": 8342,
+        "tax": 0.125
+      },
+      {
+        "from": 8342,
+        "until": 12587,
+        "tax": 0.157
+      },
+      {
+        "from": 12587,
+        "until": 17838,
+        "tax": 0.212
+      },
+      {
+        "from": 17838,
+        "until": 23089,
+        "tax": 0.241
+      },
+      {
+        "from": 23089,
+        "until": 29397,
+        "tax": 0.311
+      },
+      {
+        "from": 29397,
+        "until": 43090,
+        "tax": 0.349
+      },
+      {
+        "from": 43090,
+        "until": 46566,
+        "tax": 0.431
+      },
+      {
+        "from": 46566,
+        "until": 80000,
+        "tax": 0.446
+      },
+      {
+        "from": 80000,
+        "until": 86634,
+        "tax": 0.471
+      },
+      {
+        "from": 86634,
+        "until": 250000,
+        "tax": 0.505
+      },
+      {
+        "from": 250000,
+        "until": null,
+        "tax": 0.53
+      }
+    ]
+  },
+  {
     "year": 2025,
     "label": "2025 (Jun)",
     "source": {

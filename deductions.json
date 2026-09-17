@@ -55,53 +55,41 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares (casados)"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
-      },
-      "vatFitness": {
-        "name": "IVA - Ginásios",
-        "limit": 250,
-        "percentage": 1.0,
-        "description": "IVA de ginásios e atividades desportivas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPress": {
         "name": "IVA - Jornais e Revistas",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de jornais e revistas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de assinaturas de jornais e revistas (art. 78.º-F n.º 7). Aditado pela Lei n.º 24-D/2022 (OE2023), aplicável a partir de 2023."
       }
     }
   },
@@ -161,53 +149,41 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
-      },
-      "vatFitness": {
-        "name": "IVA - Ginásios",
-        "limit": 250,
-        "percentage": 1.0,
-        "description": "IVA de ginásios e atividades desportivas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPress": {
         "name": "IVA - Jornais e Revistas",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de jornais e revistas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de assinaturas de jornais e revistas (art. 78.º-F n.º 7). Aditado pela Lei n.º 24-D/2022 (OE2023), aplicável a partir de 2023."
       }
     }
   },
@@ -267,53 +243,47 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de ginásios e atividades desportivas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       },
       "vatPress": {
         "name": "IVA - Jornais e Revistas",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de jornais e revistas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de assinaturas de jornais e revistas (art. 78.º-F n.º 7). Aditado pela Lei n.º 24-D/2022 (OE2023), aplicável a partir de 2023."
       }
     }
   },
@@ -373,47 +343,41 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de ginásios e atividades desportivas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       }
     }
   },
@@ -473,47 +437,41 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de ginásios e atividades desportivas"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       }
     }
   },
@@ -573,41 +531,35 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       }
     }
   },
@@ -667,41 +619,35 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       }
     }
   },
@@ -761,41 +707,35 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       }
     }
   },
@@ -855,41 +795,35 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       }
     }
   },
@@ -949,41 +883,35 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       },
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
         "limit": 250,
         "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (art. 78.º-F n.º 3). Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
       }
     }
   },
@@ -1043,41 +971,23 @@
         "percentage": 0.2,
         "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo"
       },
-      "vatGeneral": {
-        "name": "IVA - Despesas Gerais",
-        "limit": 250,
-        "percentage": 0.15,
-        "description": "IVA de despesas gerais familiares"
-      },
       "vatRestaurants": {
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de despesas em restauração e alojamento"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de reparação e manutenção de veículos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "IVA de serviços de cabeleireiro, institutos de beleza e ginásios"
-      },
-      "vatVet": {
-        "name": "IVA - Veterinários",
-        "limit": 250,
-        "percentage": 0.35,
-        "description": "IVA de serviços veterinários"
-      },
-      "vatPublicTransport": {
-        "name": "IVA - Passes Mensais",
-        "limit": 250,
-        "percentage": 1.0,
-        "description": "IVA de passes mensais de transportes públicos"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       }
     }
   },
@@ -1141,19 +1051,19 @@
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção I - Alojamento, restauração e similares"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos, peças e acessórios)"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção S, classe 9602 - cabeleireiros e institutos de beleza"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       }
     }
   },
@@ -1217,19 +1127,19 @@
         "name": "IVA - Restauração",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção I - Alojamento, restauração e similares"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
       },
       "vatMechanic": {
         "name": "IVA - Reparação Automóveis",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos, peças e acessórios)"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
       },
       "vatHairdressers": {
         "name": "IVA - Cabeleireiros",
         "limit": 250,
         "percentage": 0.15,
-        "description": "EBF art. 66.º-B (DL n.º 197/2012; taxa elevada de 5% para 15% pela Lei n.º 51/2013, com efeitos a 01/01/2013): 15% do IVA suportado, com o limite GLOBAL de 250 € por agregado, repartido por todos os sectores elegíveis. Sector: Secção S, classe 9602 - cabeleireiros e institutos de beleza"
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
       }
     }
   },

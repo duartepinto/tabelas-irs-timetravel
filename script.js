@@ -650,6 +650,47 @@ class TaxCalculator {
         return Math.max(0, withoutIt - withIt);
     }
 
+    // VAT rate applicable to a category in a given year, used to recover the VAT
+    // contained in a gross price: VAT = spend * rate / (1 + rate).
+    vatRateFor(category, year) {
+        const rates = (this.profilesData.meta.vatRates || {})[category];
+        if (!rates) return null;
+        const override = rates.overrides && rates.overrides[String(year)];
+        return override === undefined ? rates.rate : override;
+    }
+
+    isVatCategory(category) {
+        return category.startsWith('vat');
+    }
+
+    // Every invoice-VAT deduction shares ONE global ceiling of 250 EUR per
+    // household (art. 78.o-F n.o 1, and n.os 3, 6 and 7 explicitly count towards
+    // it), so the sectors are summed first and capped once. Showing them as
+    // separate capped rows would multiply the ceiling by the number of sectors.
+    vatDeduction(yearData, spending, baseYear) {
+        let total = 0;
+        let cap = null;
+
+        for (const category of this.profilesData.categories) {
+            if (!this.isVatCategory(category)) continue;
+
+            const rule = this.deductionRule(yearData, category);
+            if (!rule) continue;
+            cap = rule.cap;
+
+            const rate = this.vatRateFor(category, yearData.year);
+            const spend = spending[category];
+            if (rate == null || !spend) continue;
+
+            const gross = this.adjustForInflation(spend, baseYear, yearData.year);
+            const vatBorne = gross * rate / (1 + rate);
+            total += rule.percentage * vatBorne;
+        }
+
+        if (cap === null) return 0;
+        return Math.min(total, cap);
+    }
+
     calculateProfileChart() {
         if (!this.deductionsData.length || !this.profilesData) return;
 
@@ -659,7 +700,9 @@ class TaxCalculator {
         const taxpayers = this.currentTaxpayers || 1;
 
         const housingKeys = ['mortgageInterest', 'rent'];
-        const plainKeys = this.profilesData.categories.filter(c => !housingKeys.includes(c));
+        const plainKeys = this.profilesData.categories.filter(
+            c => !housingKeys.includes(c) && !this.isVatCategory(c)
+        );
 
         const years = this.deductionsData;
 
@@ -700,6 +743,23 @@ class TaxCalculator {
             ),
             backgroundColor: TaxCalculator.PROFILE_COLORS[plainKeys.length % TaxCalculator.PROFILE_COLORS.length]
         });
+
+        const vatNominal = years.map(yearData =>
+            this.vatDeduction(yearData, spending, baseYear)
+        );
+        if (vatNominal.some(value => value > 0)) {
+            datasets.push({
+                label: 'IVA em faturas',
+                data: vatNominal.map((value, j) =>
+                    this.adjustForInflation(value, years[j].year, currentYear)
+                ),
+                capped: vatNominal.map((value, j) => {
+                    const rule = this.deductionRule(years[j], 'vatRestaurants');
+                    return !!rule && value > 0 && Math.abs(value - rule.cap) < 0.005;
+                }),
+                backgroundColor: TaxCalculator.PROFILE_COLORS[(plainKeys.length + 1) % TaxCalculator.PROFILE_COLORS.length]
+            });
+        }
 
         // Employment-income allowance (art. 25.o), expressed in euros of tax.
         const incomeInput = document.getElementById('income');

@@ -18,9 +18,45 @@
       "rendasEfetivas": 818,
       "quotaArrendatarios": 0.16,
       "note": "A despesa média nacional inclui 6 539 € de rendas subjetivas (arrendamento fictício imputado a proprietários), que não são dinheiro gasto nem dedutíveis. Nos perfis de proprietário essa componente é retirada."
+    },
+    "vatRates": {
+      "_note": "Taxa de IVA usada para extrair o IVA contido numa despesa a preços finais: IVA = despesa x taxa / (1 + taxa). A dedução incide sobre esse IVA, não sobre a despesa.",
+      "vatRestaurants": {
+        "rate": 0.13,
+        "overrides": {
+          "2013": 0.23,
+          "2014": 0.23,
+          "2015": 0.23,
+          "2016": 0.18
+        },
+        "note": "Serviços de restauração estiveram na taxa normal (23%) de 2012 a junho de 2016 e passaram à taxa intermédia (13%) a partir de julho de 2016; 2016 usa uma média do ano. Bebidas (23%) e alojamento (6%) têm taxas diferentes, pelo que é uma aproximação."
+      },
+      "vatMechanic": {
+        "rate": 0.23,
+        "note": "Taxa normal."
+      },
+      "vatHairdressers": {
+        "rate": 0.23,
+        "note": "Taxa normal."
+      },
+      "vatFitness": {
+        "rate": 0.23,
+        "note": "Taxa normal."
+      },
+      "vatVet": {
+        "rate": 0.06,
+        "note": "Medicamentos de uso veterinário, taxa reduzida. Os serviços veterinários estão a 23% mas deduzem 15%, não 35%."
+      },
+      "vatPublicTransport": {
+        "rate": 0.06,
+        "note": "Passes e bilhetes, taxa reduzida."
+      },
+      "vatPress": {
+        "rate": 0.06,
+        "note": "Assinaturas de jornais e revistas, taxa reduzida."
+      }
     }
   },
-
   "categories": [
     "health",
     "education",
@@ -28,68 +64,342 @@
     "mortgageInterest",
     "nursingHome",
     "retirementSavings",
-    "familyExpenses"
+    "familyExpenses",
+    "vatRestaurants",
+    "vatMechanic",
+    "vatHairdressers",
+    "vatVet",
+    "vatPublicTransport",
+    "vatFitness",
+    "vatPress"
   ],
-
   "profiles": [
     {
       "id": "jovem-arrendatario",
       "name": "Jovem a arrendar",
       "description": "1 adulto não idoso, em casa arrendada",
-      "household": { "taxpayers": 1, "dependents": 0, "tenure": "arrendatario" },
+      "household": {
+        "taxpayers": 1,
+        "dependents": 0,
+        "tenure": "arrendatario"
+      },
       "spending": {
-        "health": { "value": 662, "basis": "idef-derivado", "note": "919 € (média nacional, COICOP 06) x 0,72, o índice de despesa total de um agregado de 1 adulto não idoso (17 105 € vs 23 900 €)" },
-        "education": { "value": 68, "basis": "idef-derivado", "note": "0,4% da despesa total em agregados sem crianças x 17 105 €" },
-        "rent": { "value": 5113, "basis": "idef-derivado", "note": "818 € (rendas efetivas, COICOP 041, média de TODOS os agregados) / 16,0% (quota de agregados arrendatários). A média nacional de 818 € é diluída pelos 76% que são proprietários." },
-        "mortgageInterest": { "value": 0, "basis": "idef", "note": "Arrendatário: sem crédito à habitação" },
-        "nursingHome": { "value": 0, "basis": "idef", "note": "Sem encargos com lar" },
-        "retirementSavings": { "value": 0, "basis": "estimativa", "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede. Ajuste conforme o seu caso." },
-        "familyExpenses": { "value": 11262, "basis": "idef-derivado", "note": "Despesa total (17 105 €) menos renda, saúde e educação. Satura sempre o limite de 250 €/sujeito passivo." }
+        "health": {
+          "value": 662,
+          "basis": "idef-derivado",
+          "note": "919 € (média nacional, COICOP 06) x 0,72, o índice de despesa total de um agregado de 1 adulto não idoso (17 105 € vs 23 900 €)"
+        },
+        "education": {
+          "value": 68,
+          "basis": "idef-derivado",
+          "note": "0,4% da despesa total em agregados sem crianças x 17 105 €"
+        },
+        "rent": {
+          "value": 5113,
+          "basis": "idef-derivado",
+          "note": "818 € (rendas efetivas, COICOP 041, média de TODOS os agregados) / 16,0% (quota de agregados arrendatários). A média nacional de 818 € é diluída pelos 76% que são proprietários."
+        },
+        "mortgageInterest": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Arrendatário: sem crédito à habitação"
+        },
+        "nursingHome": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Sem encargos com lar"
+        },
+        "retirementSavings": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede. Ajuste conforme o seu caso."
+        },
+        "familyExpenses": {
+          "value": 11262,
+          "basis": "idef-derivado",
+          "note": "Despesa total (17 105 €) menos renda, saúde e educação. Satura sempre o limite de 250 €/sujeito passivo."
+        },
+        "vatRestaurants": {
+          "value": 1473,
+          "basis": "idef-derivado",
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,72"
+        },
+        "vatMechanic": {
+          "value": 324,
+          "basis": "estimativa",
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,72."
+        },
+        "vatHairdressers": {
+          "value": 144,
+          "basis": "estimativa",
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,72."
+        },
+        "vatVet": {
+          "value": 22,
+          "basis": "estimativa",
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,72."
+        },
+        "vatPublicTransport": {
+          "value": 177,
+          "basis": "idef-derivado",
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,72. Só passes e bilhetes contam para a dedução."
+        },
+        "vatFitness": {
+          "value": 72,
+          "basis": "estimativa",
+          "note": "Parcela de ginásios dentro dos 279 € da COICOP 094 (serviços recreativos). Escalado x 0,72. Só dedutível de 2021 a 2023."
+        },
+        "vatPress": {
+          "value": 22,
+          "basis": "estimativa",
+          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 0,72."
+        }
       }
     },
     {
       "id": "familia-com-filhos",
       "name": "Família com filhos",
       "description": "2 adultos e 2 crianças dependentes, casa própria",
-      "household": { "taxpayers": 2, "dependents": 2, "tenure": "proprietario" },
+      "household": {
+        "taxpayers": 2,
+        "dependents": 2,
+        "tenure": "proprietario"
+      },
       "spending": {
-        "health": { "value": 1296, "basis": "idef-derivado", "note": "919 € x 1,41, o índice de despesa total de 2 adultos com 2 crianças (33 795 € vs 23 900 €)" },
-        "education": { "value": 1284, "basis": "idef-derivado", "note": "3,8% da despesa total em agregados com 2 ou mais crianças x 33 795 € (o IDEF indica 0,4% sem crianças, 2,1% com uma, 3,8% com duas ou mais)" },
-        "rent": { "value": 0, "basis": "idef", "note": "Casa própria" },
-        "mortgageInterest": { "value": 1500, "basis": "estimativa", "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo). Desde 2012 a dedução só cobre contratos até 31/12/2011, o que o gráfico mostra como queda." },
-        "nursingHome": { "value": 0, "basis": "idef", "note": "Sem encargos com lar" },
-        "retirementSavings": { "value": 0, "basis": "estimativa", "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede." },
-        "familyExpenses": { "value": 21955, "basis": "idef-derivado", "note": "Despesa total (33 795 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite." }
+        "health": {
+          "value": 1296,
+          "basis": "idef-derivado",
+          "note": "919 € x 1,41, o índice de despesa total de 2 adultos com 2 crianças (33 795 € vs 23 900 €)"
+        },
+        "education": {
+          "value": 1284,
+          "basis": "idef-derivado",
+          "note": "3,8% da despesa total em agregados com 2 ou mais crianças x 33 795 € (o IDEF indica 0,4% sem crianças, 2,1% com uma, 3,8% com duas ou mais)"
+        },
+        "rent": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Casa própria"
+        },
+        "mortgageInterest": {
+          "value": 1500,
+          "basis": "estimativa",
+          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo). Desde 2012 a dedução só cobre contratos até 31/12/2011, o que o gráfico mostra como queda."
+        },
+        "nursingHome": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Sem encargos com lar"
+        },
+        "retirementSavings": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede."
+        },
+        "familyExpenses": {
+          "value": 21955,
+          "basis": "idef-derivado",
+          "note": "Despesa total (33 795 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite."
+        },
+        "vatRestaurants": {
+          "value": 2885,
+          "basis": "idef-derivado",
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,41"
+        },
+        "vatMechanic": {
+          "value": 634,
+          "basis": "estimativa",
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,41."
+        },
+        "vatHairdressers": {
+          "value": 282,
+          "basis": "estimativa",
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,41."
+        },
+        "vatVet": {
+          "value": 42,
+          "basis": "estimativa",
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,41."
+        },
+        "vatPublicTransport": {
+          "value": 347,
+          "basis": "idef-derivado",
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,41. Só passes e bilhetes contam para a dedução."
+        },
+        "vatFitness": {
+          "value": 141,
+          "basis": "estimativa",
+          "note": "Parcela de ginásios dentro dos 279 € da COICOP 094 (serviços recreativos). Escalado x 1,41. Só dedutível de 2021 a 2023."
+        },
+        "vatPress": {
+          "value": 42,
+          "basis": "estimativa",
+          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,41."
+        }
       }
     },
     {
       "id": "casal-reformado",
       "name": "Casal reformado",
       "description": "2 adultos idosos, casa própria já paga",
-      "household": { "taxpayers": 2, "dependents": 0, "tenure": "proprietario" },
+      "household": {
+        "taxpayers": 2,
+        "dependents": 0,
+        "tenure": "proprietario"
+      },
       "spending": {
-        "health": { "value": 1600, "basis": "estimativa", "note": "Partindo de 919 € x 0,87 (índice de 2 adultos idosos, 20 703 € vs 23 900 €) sairia 800 €, mas o IDEF documenta que a saúde pesa muito mais nos agregados idosos. Valor elevado para o dobro; é o número menos sólido destes perfis." },
-        "education": { "value": 0, "basis": "idef", "note": "Sem despesas de educação" },
-        "rent": { "value": 0, "basis": "idef", "note": "Casa própria" },
-        "mortgageInterest": { "value": 0, "basis": "estimativa", "note": "Crédito já liquidado" },
-        "nursingHome": { "value": 0, "basis": "estimativa", "note": "A viver em casa. Ponha aqui os encargos se houver apoio domiciliário ou lar." },
-        "retirementSavings": { "value": 0, "basis": "estimativa", "note": "Após a reforma as entregas em PPR deixam de ser dedutíveis (art. 21.º n.º 10 do EBF)" },
-        "familyExpenses": { "value": 13430, "basis": "idef-derivado", "note": "Despesa total (20 703 €) menos 27,4% de rendas subjetivas, menos saúde. Satura sempre o limite." }
+        "health": {
+          "value": 1600,
+          "basis": "estimativa",
+          "note": "Partindo de 919 € x 0,87 (índice de 2 adultos idosos, 20 703 € vs 23 900 €) sairia 800 €, mas o IDEF documenta que a saúde pesa muito mais nos agregados idosos. Valor elevado para o dobro; é o número menos sólido destes perfis."
+        },
+        "education": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Sem despesas de educação"
+        },
+        "rent": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Casa própria"
+        },
+        "mortgageInterest": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Crédito já liquidado"
+        },
+        "nursingHome": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "A viver em casa. Ponha aqui os encargos se houver apoio domiciliário ou lar."
+        },
+        "retirementSavings": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Após a reforma as entregas em PPR deixam de ser dedutíveis (art. 21.º n.º 10 do EBF)"
+        },
+        "familyExpenses": {
+          "value": 13430,
+          "basis": "idef-derivado",
+          "note": "Despesa total (20 703 €) menos 27,4% de rendas subjetivas, menos saúde. Satura sempre o limite."
+        },
+        "vatRestaurants": {
+          "value": 1780,
+          "basis": "idef-derivado",
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,87"
+        },
+        "vatMechanic": {
+          "value": 392,
+          "basis": "estimativa",
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,87."
+        },
+        "vatHairdressers": {
+          "value": 174,
+          "basis": "estimativa",
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,87."
+        },
+        "vatVet": {
+          "value": 26,
+          "basis": "estimativa",
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,87."
+        },
+        "vatPublicTransport": {
+          "value": 214,
+          "basis": "idef-derivado",
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,87. Só passes e bilhetes contam para a dedução."
+        },
+        "vatFitness": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Assumido zero para este agregado."
+        },
+        "vatPress": {
+          "value": 26,
+          "basis": "estimativa",
+          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 0,87."
+        }
       }
     },
     {
       "id": "casal-sem-filhos",
       "name": "Casal sem filhos",
       "description": "2 adultos não idosos, casa própria com crédito",
-      "household": { "taxpayers": 2, "dependents": 0, "tenure": "proprietario" },
+      "household": {
+        "taxpayers": 2,
+        "dependents": 0,
+        "tenure": "proprietario"
+      },
       "spending": {
-        "health": { "value": 937, "basis": "idef-derivado", "note": "919 € x 1,02, o índice de despesa total de 2 adultos não idosos (24 349 € vs 23 900 €)" },
-        "education": { "value": 97, "basis": "idef-derivado", "note": "0,4% da despesa total em agregados sem crianças x 24 349 €" },
-        "rent": { "value": 0, "basis": "idef", "note": "Casa própria" },
-        "mortgageInterest": { "value": 1500, "basis": "estimativa", "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo)." },
-        "nursingHome": { "value": 0, "basis": "idef", "note": "Sem encargos com lar" },
-        "retirementSavings": { "value": 1000, "basis": "estimativa", "note": "Entregas anuais em PPR. Com 20% e o limite de 400 €/sujeito passivo, bastam 2 000 € por pessoa para esgotar o benefício." },
-        "familyExpenses": { "value": 16640, "basis": "idef-derivado", "note": "Despesa total (24 349 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite." }
+        "health": {
+          "value": 937,
+          "basis": "idef-derivado",
+          "note": "919 € x 1,02, o índice de despesa total de 2 adultos não idosos (24 349 € vs 23 900 €)"
+        },
+        "education": {
+          "value": 97,
+          "basis": "idef-derivado",
+          "note": "0,4% da despesa total em agregados sem crianças x 24 349 €"
+        },
+        "rent": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Casa própria"
+        },
+        "mortgageInterest": {
+          "value": 1500,
+          "basis": "estimativa",
+          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo)."
+        },
+        "nursingHome": {
+          "value": 0,
+          "basis": "idef",
+          "note": "Sem encargos com lar"
+        },
+        "retirementSavings": {
+          "value": 1000,
+          "basis": "estimativa",
+          "note": "Entregas anuais em PPR. Com 20% e o limite de 400 €/sujeito passivo, bastam 2 000 € por pessoa para esgotar o benefício."
+        },
+        "familyExpenses": {
+          "value": 16640,
+          "basis": "idef-derivado",
+          "note": "Despesa total (24 349 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite."
+        },
+        "vatRestaurants": {
+          "value": 2087,
+          "basis": "idef-derivado",
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,02"
+        },
+        "vatMechanic": {
+          "value": 459,
+          "basis": "estimativa",
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,02."
+        },
+        "vatHairdressers": {
+          "value": 204,
+          "basis": "estimativa",
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,02."
+        },
+        "vatVet": {
+          "value": 31,
+          "basis": "estimativa",
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,02."
+        },
+        "vatPublicTransport": {
+          "value": 251,
+          "basis": "idef-derivado",
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,02. Só passes e bilhetes contam para a dedução."
+        },
+        "vatFitness": {
+          "value": 102,
+          "basis": "estimativa",
+          "note": "Parcela de ginásios dentro dos 279 € da COICOP 094 (serviços recreativos). Escalado x 1,02. Só dedutível de 2021 a 2023."
+        },
+        "vatPress": {
+          "value": 31,
+          "basis": "estimativa",
+          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,02."
+        }
       }
     }
   ]

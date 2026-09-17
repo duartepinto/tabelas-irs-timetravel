@@ -310,6 +310,7 @@ test('every profile simulates cleanly across every year', async () => {
             let total = 0;
             for (const category of profiles.categories) {
                 if (category === 'mortgageInterest' || category === 'rent') continue;
+                if (category.startsWith('vat')) continue; // summed as one capped group
                 const got = calc.deductionFor(entry, category, spending[category], baseYear, taxpayers);
                 const where = `${profile.id}/${entry.label}/${category}`;
 
@@ -328,6 +329,10 @@ test('every profile simulates cleanly across every year', async () => {
             const housing = calc.housingDeduction(entry, spending, baseYear, taxpayers);
             assert.ok(Number.isFinite(housing) && housing >= 0, `${profile.id}/${entry.label}: housing`);
             total += housing;
+
+            const vat = calc.vatDeduction(entry, spending, baseYear);
+            assert.ok(Number.isFinite(vat) && vat >= 0, `${profile.id}/${entry.label}: vat`);
+            total += vat;
             assert.ok(Number.isFinite(total) && total >= 0, `${profile.id}/${entry.label}: total`);
         }
     }
@@ -382,6 +387,64 @@ test('flat years are flat because no cap binds, not because inflation is ignored
             rule.cap,
             `${yearData.label}: expected to be pinned to the cap`
         );
+    }
+});
+
+test('invoice-VAT deductions share one global ceiling', async () => {
+    const { calc } = await ready();
+    const BASE = 2023;
+    const sectors = profiles.categories.filter((c) => c.startsWith('vat'));
+
+    // Enough spending in every sector to blow well past 250 EUR individually.
+    const huge = Object.fromEntries(sectors.map((c) => [c, 200000]));
+    for (const year of [2013, 2016, 2021, 2023, 2025]) {
+        const got = calc.vatDeduction(byYear[year], huge, BASE);
+        assert.equal(got, 250, `${year}: should be capped once at 250, not per sector`);
+    }
+
+    // The deduction applies to the VAT inside the price, not to the price.
+    // 2025 mechanic: 23% VAT, 15% of it deductible.
+    const mechanicOnly = Object.fromEntries(sectors.map((c) => [c, 0]));
+    mechanicOnly.vatMechanic = calc.adjustForInflation(1230, 2025, BASE);
+    const expected = 0.15 * (1230 * 0.23 / 1.23); // 1230 gross -> 230 VAT -> 34.50
+    const got = calc.vatDeduction(byYear[2025], mechanicOnly, BASE);
+    assert.ok(Math.abs(got - expected) < 0.01, `expected ~${expected}, got ${got}`);
+
+    // Nothing before 2013: the regime did not exist.
+    for (const year of [2005, 2010, 2012]) {
+        assert.equal(calc.vatDeduction(byYear[year], huge, BASE), 0, `${year}`);
+    }
+});
+
+test('VAT sectors appear and disappear on the right years', async () => {
+    const { calc } = await ready();
+    const present = (year, category) => calc.deductionRule(byYear[year], category) !== null;
+
+    // Vet and public transport were added by Lei 7-A/2016, so not in 2015.
+    assert.equal(present(2015, 'vatVet'), false);
+    assert.equal(present(2016, 'vatVet'), true);
+    assert.equal(present(2015, 'vatPublicTransport'), false);
+    assert.equal(present(2016, 'vatPublicTransport'), true);
+
+    // Gyms: added by Lei 75-B/2020, revoked by Lei 82/2023.
+    assert.equal(present(2020, 'vatFitness'), false);
+    assert.equal(present(2021, 'vatFitness'), true);
+    assert.equal(present(2023, 'vatFitness'), true);
+    assert.equal(present(2024, 'vatFitness'), false);
+
+    // Press subscriptions: added by Lei 24-D/2022.
+    assert.equal(present(2022, 'vatPress'), false);
+    assert.equal(present(2023, 'vatPress'), true);
+
+    // The three founding sectors run from 2013.
+    for (const category of ['vatRestaurants', 'vatMechanic', 'vatHairdressers']) {
+        assert.equal(present(2012, category), false, `${category} in 2012`);
+        assert.equal(present(2013, category), true, `${category} in 2013`);
+    }
+
+    // There is no general-expenses VAT deduction in law.
+    for (const entry of deductions) {
+        assert.ok(!entry.deductions.vatGeneral, `${entry.label}: vatGeneral should not exist`);
     }
 });
 

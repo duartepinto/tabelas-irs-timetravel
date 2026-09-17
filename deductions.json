@@ -15,9 +15,9 @@
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
-        "limit": 500,
+        "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -123,7 +123,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -229,7 +229,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -335,7 +335,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -435,7 +435,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -535,7 +535,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -629,7 +629,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -723,7 +723,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -817,7 +817,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -911,7 +911,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",
@@ -1005,7 +1005,7 @@
         "name": "Despesas Familiares Gerais",
         "limit": 250,
         "percentage": 0.35,
-        "description": "Despesas com educação, saúde e habitação"
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
       },
       "health": {
         "name": "Saúde",

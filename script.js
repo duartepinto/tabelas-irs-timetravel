@@ -14,13 +14,16 @@ class TaxCalculator {
         try {
             await this.loadTaxData();
             await this.loadDeductionsData();
+            await this.loadProfilesData();
             this.populateBaseYearDropdown();
             this.setupEventListeners();
+            this.setupProfileControls();
 
             // Initial calculations
             this.calculate();
             this.calculateComparison();
             this.calculateDeductionsChart();
+            this.calculateProfileChart();
             this.populateSources();
         } catch (error) {
             console.error('Failed to initialize:', error);
@@ -50,6 +53,147 @@ class TaxCalculator {
             console.error('Failed to load deductions data:', error);
             throw error;
         }
+    }
+
+    async loadProfilesData() {
+        try {
+            const response = await fetch('profiles.json');
+            this.profilesData = await response.json();
+        } catch (error) {
+            console.error('Failed to load profiles data:', error);
+            this.profilesData = null;
+        }
+    }
+
+    setupProfileControls() {
+        if (!this.profilesData) return;
+
+        const select = document.getElementById('profileSelect');
+        const inputs = document.getElementById('profileInputs');
+        if (!select || !inputs) return;
+
+        this.profilesData.profiles.forEach(profile => {
+            const option = document.createElement('option');
+            option.value = profile.id;
+            option.textContent = `${profile.name} — ${profile.description}`;
+            select.appendChild(option);
+        });
+
+        // IDEF figures are in 2023 euros; the inputs show them in today's money.
+        const currentYear = this.referenceYear();
+        const baseYear = this.profilesData.meta.baseYear;
+
+        this.profilesData.categories.forEach(category => {
+            const field = document.createElement('div');
+            field.className = 'input-group profile-field';
+            field.innerHTML = `
+                <label for="spend_${category}">${this.categoryLabel(category)} (€/ano):</label>
+                <input type="number" id="spend_${category}" data-category="${category}" min="0" step="50">
+                <span class="profile-basis" id="basis_${category}" tabindex="0" role="note"></span>
+            `;
+            inputs.appendChild(field);
+        });
+
+        const applyProfile = (profileId) => {
+            const profile = this.profilesData.profiles.find(p => p.id === profileId);
+            if (!profile) return;
+
+            this.currentTaxpayers = profile.household.taxpayers;
+            this.profilesData.categories.forEach(category => {
+                const entry = profile.spending[category];
+                const input = document.getElementById(`spend_${category}`);
+                const basis = document.getElementById(`basis_${category}`);
+                const displayValue = this.adjustForInflation(entry.value, baseYear, currentYear);
+                input.value = Math.round(displayValue);
+                const legend = (this.profilesData.meta.basisLegend || {})[entry.basis] || '';
+                basis.textContent = entry.basis;
+                basis.className = `profile-basis basis-${entry.basis}`;
+                // Rendered by CSS on hover/focus; `title` is left off so the
+                // native tooltip does not double up with it.
+                basis.dataset.note = legend ? `${legend}\n\n${entry.note}` : entry.note;
+                basis.setAttribute('aria-label', `${entry.basis}. ${legend} ${entry.note}`);
+            });
+            this.readSpendingInputs(currentYear, baseYear);
+            this.calculateProfileChart();
+        };
+
+        select.addEventListener('change', () => applyProfile(select.value));
+
+        inputs.addEventListener('input', () => {
+            clearTimeout(this.profileDebounce);
+            this.profileDebounce = setTimeout(() => {
+                this.readSpendingInputs(currentYear, baseYear);
+                this.calculateProfileChart();
+            }, 250);
+        });
+
+        applyProfile(this.profilesData.profiles[0].id);
+    }
+
+    // Read the inputs (today's euros) and store the basket in the survey's base currency.
+    readSpendingInputs(currentYear, baseYear) {
+        this.currentSpending = {};
+        this.profilesData.categories.forEach(category => {
+            const input = document.getElementById(`spend_${category}`);
+            const shown = parseFloat(input && input.value) || 0;
+            this.currentSpending[category] = this.adjustForInflation(shown, currentYear, baseYear);
+        });
+    }
+
+    updateProfileChart(datasets, labels) {
+        const canvas = document.getElementById('profileChart');
+        if (!canvas) return;
+
+        if (this.profileChart) {
+            this.profileChart.destroy();
+        }
+
+        this.profileChart = new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: { labels, datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 400 },
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Ano' },
+                        reverse: true,
+                        stacked: true
+                    },
+                    y: {
+                        title: { display: true, text: `Dedução obtida (€ de ${this.referenceYear()})` },
+                        beginAtZero: true,
+                        stacked: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Dedução realmente obtida com o mesmo cabaz de despesa (a preços de ${this.referenceYear()})`
+                    },
+                    legend: { position: 'top', labels: { boxWidth: 12 } },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const amount = context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
+                                const capped = context.dataset.capped && context.dataset.capped[context.dataIndex];
+                                return context.dataset.label + ': €' + amount +
+                                    (capped ? '  ⛔ no tecto legal' : '');
+                            },
+                            afterBody: (items) => {
+                                const i = items[0].dataIndex;
+                                const capped = items
+                                    .filter(it => it.dataset.capped && it.dataset.capped[i])
+                                    .map(it => it.dataset.label);
+                                return capped.length ? ['', 'No tecto: ' + capped.join(', ')] : [];
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     populateBaseYearDropdown() {
@@ -93,6 +237,7 @@ class TaxCalculator {
         calculateBtn.addEventListener('click', () => this.calculate());
         incomeInput.addEventListener('input', () => {
             this.calculate();
+            this.calculateProfileChart(); // the art. 25.o allowance depends on income
             this.debounceIncomeTracking(incomeInput.value);
         });
         baseYearSelect.addEventListener('change', () => {
@@ -148,6 +293,19 @@ class TaxCalculator {
         }
 
         return adjustedIncome;
+    }
+
+    // Reference year for converting amounts into "today's euros".
+    //
+    // The calendar year looks like the obvious choice, but any year missing from
+    // inflation_pt.json is treated as 0% (see adjustForInflation), which silently
+    // understates every figure and makes the most recent years come out equal.
+    // Anchoring to the last year with data avoids that: adding one line to the
+    // JSON moves the reference forward.
+    referenceYear() {
+        const years = Object.keys(this.inflationData).map(Number).filter(Number.isFinite);
+        if (!years.length) return new Date().getFullYear();
+        return Math.min(Math.max(...years), new Date().getFullYear());
     }
 
     getYearRange(fromYear, toYear) {
@@ -209,7 +367,7 @@ class TaxCalculator {
     calculate() {
         const income = parseFloat(document.getElementById('income').value) || 0;
         const baseYear = parseInt(document.getElementById('baseYear').value);
-        const currentYear = new Date().getFullYear();
+        const currentYear = this.referenceYear();
 
         const results = [];
 
@@ -261,7 +419,7 @@ class TaxCalculator {
     }
 
     calculateDeductionsChart() {
-        const currentYear = new Date().getFullYear();
+        const currentYear = this.referenceYear();
 
         if (!this.deductionsData.length) return;
 
@@ -423,6 +581,191 @@ class TaxCalculator {
             }
         });
     }
+
+    // --- Spending profile ---------------------------------------------------
+    // Compares the deduction actually obtained, not the statutory ceiling. The
+    // basket is held constant in real terms, so the only thing that varies
+    // between years is the tax law itself.
+
+    // Limits the law sets per taxpayer; every other limit is per household.
+    static PER_TAXPAYER = ['familyExpenses', 'retirementSavings'];
+
+    deductionRule(yearData, category) {
+        const rule = yearData.deductions[category];
+        if (!rule) return null; // categoria não existia nesse ano
+
+        // limit: null + unlimited: true => the deduction existed with no ceiling.
+        // limit: null on its own => the deduction did not exist that year.
+        const cap = rule.unlimited ? Infinity : rule.limit;
+        if (cap === null || cap === undefined) return null;
+        return { percentage: rule.percentage, cap };
+    }
+
+    // Deduction obtained for one category, in that year's euros.
+    deductionFor(yearData, category, spendBase, baseYear, taxpayers) {
+        const rule = this.deductionRule(yearData, category);
+        if (!rule || !spendBase) return 0;
+
+        const spend = this.adjustForInflation(spendBase, baseYear, yearData.year);
+        const cap = TaxCalculator.PER_TAXPAYER.includes(category)
+            ? rule.cap * taxpayers
+            : rule.cap;
+
+        return Math.min(rule.percentage * spend, cap);
+    }
+
+    // Interest and rent shared a single ceiling and were not cumulative until
+    // 2012 (art. 85.o n.o 3), so those years count only the larger of the two.
+    housingDeduction(yearData, spending, baseYear, taxpayers) {
+        const juros = this.deductionRule(yearData, 'mortgageInterest');
+        const rendas = this.deductionRule(yearData, 'rent');
+        const dJuros = this.deductionFor(yearData, 'mortgageInterest', spending.mortgageInterest, baseYear, taxpayers);
+        const dRendas = this.deductionFor(yearData, 'rent', spending.rent, baseYear, taxpayers);
+
+        const sharedCap = juros && rendas && juros.cap === rendas.cap;
+        return sharedCap ? Math.max(dJuros, dRendas) : dJuros + dRendas;
+    }
+
+    // Brackets for that year. Where a year has more than one regime (2025 had a
+    // January and a June version) this takes the first, which is the later one.
+    bracketsForYear(year) {
+        const entry = this.taxData.find(d => d.year === year);
+        return entry ? entry.brackets : null;
+    }
+
+    // Tax value of the employment-income allowance (deducao especifica, art. 25.o).
+    //
+    // It is not a deducao a coleta: it reduces INCOME, so a euro of it is worth a
+    // euro times the marginal rate, not a euro of tax. To sit alongside the coleta
+    // deductions it is converted into the extra tax that would be due without it.
+    // The income field is taxable income, as everywhere else in the app, so the
+    // allowance is added back to recover the income before it.
+    specificDeductionValue(yearData, taxableBase) {
+        const rule = yearData.deductions.base;
+        const brackets = this.bracketsForYear(yearData.year);
+        if (!rule || !rule.limit || !brackets || taxableBase <= 0) return 0;
+
+        const withoutIt = this.calculateTax(taxableBase + rule.limit, brackets);
+        const withIt = this.calculateTax(taxableBase, brackets);
+        return Math.max(0, withoutIt - withIt);
+    }
+
+    calculateProfileChart() {
+        if (!this.deductionsData.length || !this.profilesData) return;
+
+        const currentYear = this.referenceYear();
+        const baseYear = this.profilesData.meta.baseYear;
+        const spending = this.currentSpending;
+        const taxpayers = this.currentTaxpayers || 1;
+
+        const housingKeys = ['mortgageInterest', 'rent'];
+        const plainKeys = this.profilesData.categories.filter(c => !housingKeys.includes(c));
+
+        const years = this.deductionsData;
+
+        // A category is "at the ceiling" when the deduction hits its legal limit.
+        const isCapped = (yearData, category, value) => {
+            const rule = this.deductionRule(yearData, category);
+            if (!rule || !Number.isFinite(rule.cap)) return false;
+            const cap = TaxCalculator.PER_TAXPAYER.includes(category)
+                ? rule.cap * taxpayers
+                : rule.cap;
+            return value > 0 && Math.abs(value - cap) < 0.005;
+        };
+
+        const datasets = plainKeys.map((category, i) => {
+            const nominal = years.map(yearData =>
+                this.deductionFor(yearData, category, spending[category], baseYear, taxpayers)
+            );
+            return {
+                label: this.categoryLabel(category),
+                data: nominal.map((value, j) =>
+                    this.adjustForInflation(value, years[j].year, currentYear)
+                ),
+                capped: nominal.map((value, j) => isCapped(years[j], category, value)),
+                backgroundColor: TaxCalculator.PROFILE_COLORS[i % TaxCalculator.PROFILE_COLORS.length]
+            };
+        });
+
+        const housingNominal = years.map(yearData =>
+            this.housingDeduction(yearData, spending, baseYear, taxpayers)
+        );
+        datasets.push({
+            label: 'Habitação',
+            data: housingNominal.map((value, j) =>
+                this.adjustForInflation(value, years[j].year, currentYear)
+            ),
+            capped: housingNominal.map((value, j) =>
+                isCapped(years[j], 'mortgageInterest', value) || isCapped(years[j], 'rent', value)
+            ),
+            backgroundColor: TaxCalculator.PROFILE_COLORS[plainKeys.length % TaxCalculator.PROFILE_COLORS.length]
+        });
+
+        // Employment-income allowance (art. 25.o), expressed in euros of tax.
+        const incomeInput = document.getElementById('income');
+        const income = parseFloat(incomeInput && incomeInput.value) || 0;
+        if (income > 0) {
+            const specificNominal = years.map(yearData =>
+                this.specificDeductionValue(
+                    yearData,
+                    this.adjustForInflation(income, currentYear, yearData.year)
+                )
+            );
+            datasets.push({
+                label: 'Dedução específica (em imposto)',
+                data: specificNominal.map((value, j) =>
+                    this.adjustForInflation(value, years[j].year, currentYear)
+                ),
+                capped: specificNominal.map(() => false),
+                backgroundColor: '#94A3B8'
+            });
+        }
+
+        const totals = years.map((_, i) => datasets.reduce((sum, d) => sum + d.data[i], 0));
+
+        datasets.push({
+            label: 'Total',
+            data: totals,
+            type: 'line',
+            borderColor: '#DC2626',
+            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            tension: 0.1,
+            borderDash: [5, 5]
+        });
+
+        this.updateProfileChart(datasets, years.map(d => d.label || d.year.toString()));
+        this.displayProfileSummary(years, totals);
+    }
+
+    categoryLabel(category) {
+        const first = this.deductionsData.find(d => d.deductions[category]);
+        return first ? first.deductions[category].name : category;
+    }
+
+    displayProfileSummary(years, totals) {
+        const el = document.getElementById('profileSummary');
+        if (!el) return;
+
+        const byYear = years.map((d, i) => ({ year: d.year, label: d.label, total: totals[i] }));
+        const latest = byYear.reduce((a, b) => (a.year > b.year ? a : b));
+        const best = byYear.reduce((a, b) => (a.total > b.total ? a : b));
+        const delta = latest.total - best.total;
+
+        el.innerHTML = `
+            Com este cabaz, a dedução seria de
+            <strong>€${latest.total.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong> em ${latest.label}.
+            O melhor ano foi <strong>${best.label}</strong>, com
+            <strong>€${best.total.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong>
+            — uma diferença de
+            <strong class="${delta < 0 ? 'negative' : 'positive'}">€${Math.abs(delta).toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong>
+            (tudo a preços de ${this.referenceYear()}).
+        `;
+    }
+
+    static PROFILE_COLORS = ['#DC2626', '#059669', '#6366F1', '#D97706', '#0891B2', '#BE185D', '#4338CA'];
 
     displayResults(results) {
         const tbody = document.querySelector('#resultsTable tbody');

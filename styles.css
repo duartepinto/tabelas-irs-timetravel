@@ -144,6 +144,118 @@ tr:hover {
     height: 600px !important;
 }
 
+.chart-container:has(#profileChart) canvas {
+    height: 520px !important;
+}
+
+.chart-note {
+    margin: 0 0 1rem;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.chart-caveats {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.82rem;
+    color: #6b7280;
+}
+
+.profile-controls {
+    margin-bottom: 1rem;
+}
+
+.profile-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.75rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.profile-field {
+    position: relative;
+}
+
+.profile-basis {
+    display: inline-block;
+    margin-top: 0.3rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: help;
+}
+
+.profile-basis:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 1px;
+}
+
+/* Tooltip explaining where the value comes from. Content is data-note, set in
+   script.js as the basis legend plus the note for that particular figure. */
+.profile-basis[data-note]::after {
+    content: attr(data-note);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 0.4rem);
+    z-index: 20;
+    width: max-content;
+    max-width: min(340px, 80vw);
+    padding: 0.6rem 0.75rem;
+    background: #1f2937;
+    color: #f9fafb;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    font-size: 0.75rem;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: pre-line;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.12s ease;
+    pointer-events: none;
+}
+
+.profile-basis[data-note]:hover::after,
+.profile-basis[data-note]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* The last column would push its tooltip off the right edge. */
+.profile-field:last-child .profile-basis[data-note]::after {
+    left: auto;
+    right: 0;
+}
+
+.basis-idef {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.basis-idef-derivado {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.basis-estimativa {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.profile-summary {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1rem;
+    background: #f9fafb;
+    border-left: 3px solid #DC2626;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
 .methodology {
     background: white;
     padding: 2rem;
@@ -290,6 +402,14 @@ tr:hover {
 
     .chart-container:has(#deductionsChart) canvas {
         height: 400px !important;
+    }
+
+    .chart-container:has(#profileChart) canvas {
+        height: 380px !important;
+    }
+
+    .profile-inputs {
+        grid-template-columns: 1fr;
     }
 }
 

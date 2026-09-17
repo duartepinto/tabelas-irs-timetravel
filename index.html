@@ -92,7 +92,45 @@
 
             <div class="chart-container">
                 <h2>Comparação de Deduções IRS</h2>
+                <p class="chart-note">Tectos legais de cada dedução, a preços de hoje. Mostra o que a lei
+                <em>permitia</em> deduzir no máximo — não o que uma família recebia.</p>
                 <canvas id="deductionsChart"></canvas>
+            </div>
+
+            <div class="chart-container chart-container-profile">
+                <h2>Dedução por Perfil de Despesa</h2>
+                <p class="chart-note">Aqui o cabaz de despesa é o mesmo em todos os anos, em termos reais.
+                A única coisa que muda é a lei fiscal, pelo que a variação do gráfico é o efeito puro das
+                alterações ao IRS. Escolha um perfil e ajuste os valores ao seu caso.</p>
+
+                <div class="controls profile-controls">
+                    <div class="input-group">
+                        <label for="profileSelect">Perfil:</label>
+                        <select id="profileSelect"></select>
+                    </div>
+                </div>
+
+                <div id="profileInputs" class="profile-inputs"></div>
+
+                <p id="profileSummary" class="profile-summary"></p>
+
+                <div class="profile-chart-wrapper">
+                    <canvas id="profileChart"></canvas>
+                </div>
+
+                <p class="chart-note chart-caveats">
+                    <strong>Limitações:</strong> os valores por defeito vêm do
+                    <a href="https://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_publicacoes&amp;PUBLICACOESpub_boui=439486878&amp;PUBLICACOESmodo=2&amp;xlang=pt" target="_blank" rel="noopener noreferrer">Inquérito às Despesas das Famílias 2022/2023</a>
+                    do INE; a etiqueta ao lado de cada campo diz se o número é lido diretamente do inquérito,
+                    derivado dele, ou uma estimativa (passe o rato para ver a origem).
+                    A <strong>dedução específica</strong> (art. 25.º) abate ao rendimento e não à coleta,
+                    por isso aparece convertida no imposto que se pagaria a mais sem ela — é a única forma
+                    de a somar às restantes sem misturar euros de rendimento com euros de imposto. Depende
+                    do rendimento indicado no topo da página.
+                    Ainda não estão modelados o limite global à soma das deduções (art. 78.º n.º 7),
+                    as deduções de IVA em fatura, nem as deduções por dependente e ascendente
+                    (art. 78.º-A), e a dedução nunca pode exceder a coleta.
+                </p>
             </div>
         </section>
 

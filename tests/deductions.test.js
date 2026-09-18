@@ -403,6 +403,59 @@ test('a constant nominal spend gives a constant nominal deduction', async () => 
     }
 });
 
+test('no category deflates its spend, not just PPR', async () => {
+    const { calc } = await ready();
+    const SPEND = 3000;
+    const byAscending = deductions.slice().sort((a, b) => a.year - b.year);
+
+    // Wherever two consecutive years carry an identical rule, the same spend must
+    // produce an identical NOMINAL deduction. Any surviving inflation adjustment
+    // on the spend side would make them differ.
+    let compared = 0;
+    for (let i = 1; i < byAscending.length; i++) {
+        const prev = byAscending[i - 1];
+        const curr = byAscending[i];
+        for (const category of Object.keys(curr.deductions)) {
+            const a = prev.deductions[category];
+            const b = curr.deductions[category];
+            if (!a || !b) continue;
+            if (a.limit !== b.limit || a.percentage !== b.percentage) continue;
+            if (a.limit === null) continue;
+
+            const before = calc.deductionFor(prev, category, SPEND, 2);
+            const after = calc.deductionFor(curr, category, SPEND, 2);
+            assert.ok(
+                Math.abs(before - after) < 1e-9,
+                `${category}: ${prev.label} gave ${before} but ${curr.label} gave ${after} ` +
+                'for the same spend under an identical rule'
+            );
+            compared++;
+        }
+    }
+    assert.ok(compared > 100, `expected many comparisons, made ${compared}`);
+
+    // Same for the grouped paths.
+    const housing = { mortgageInterest: SPEND, rent: 0 };
+    assert.equal(
+        calc.housingDeduction(byYear[2016], housing, 2),
+        calc.housingDeduction(byYear[2017], housing, 2)
+    );
+    const vat = Object.fromEntries(
+        profiles.categories.filter((c) => c.startsWith('vat')).map((c) => [c, 100])
+    );
+    assert.equal(calc.vatDeduction(byYear[2018], vat), calc.vatDeduction(byYear[2019], vat));
+
+    // And the art. 25.o allowance. The 2016 and 2017 brackets differ in shape but
+    // give the same relief at this income, so compare with a tolerance rather
+    // than exactly: the two sums land ~1e-12 apart in floating point.
+    assert.ok(
+        Math.abs(
+            calc.specificDeductionValue(byYear[2016], 30000) -
+            calc.specificDeductionValue(byYear[2017], 30000)
+        ) < 1e-6
+    );
+});
+
 test('invoice-VAT deductions share one global ceiling', async () => {
     const { calc } = await ready();
     const BASE = 2023;

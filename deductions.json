@@ -1,5 +1,117 @@
 [
   {
+    "year": 2026,
+    "label": "2026",
+    "source": {
+      "url": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/lei-73-a-2025.pdf",
+      "backup": "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/codigo-do-irs-indice.aspx"
+    },
+    "deductions": {
+      "base": {
+        "name": "Base de Deduções",
+        "limit": 4587.09,
+        "percentage": 1.0,
+        "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 8,54 vezes o valor do IAS. IAS de 2026 = 537.13 € (Portaria n.º 480-A/2025/1, de 30 de dezembro), logo 8,54 x 537.13 = 4587.09 €."
+      },
+      "familyExpenses": {
+        "name": "Despesas Familiares Gerais",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "CIRS art. 78.º-B: 35% do valor suportado por qualquer membro do agregado, com o limite global de 250 € POR CADA SUJEITO PASSIVO (500 € num casal). Abrange faturas de qualquer setor EXCETO os que têm dedução própria nos arts. 78.º-C a 78.º-E (saúde, educação, imóveis)."
+      },
+      "domesticWork": {
+        "name": "Trabalho Doméstico",
+        "limit": 200,
+        "percentage": 0.05,
+        "description": "CIRS art. 78.º-H: 5% do valor suportado a título de retribuição pela prestação de trabalho doméstico, com o limite global de 200 €."
+      },
+      "health": {
+        "name": "Saúde",
+        "limit": 1000,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-C: 15% do valor suportado com despesas de saúde por qualquer membro do agregado, com o limite global de 1 000 €."
+      },
+      "education": {
+        "name": "Educação",
+        "limit": 800,
+        "percentage": 0.3,
+        "description": "CIRS art. 78.º-D: 30% do valor suportado com despesas de formação e educação, com o limite global de 800 €, elevado em 300 € quando a diferença respeite a rendas de estudante deslocado."
+      },
+      "mortgageInterest": {
+        "name": "Habitação - Juros",
+        "limit": 296,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-E n.º 1 b) a d): 15% dos juros, só para contratos celebrados até 31/12/2011, com o limite de 296 € (elevado até 450 € nos escalões mais baixos, n.º 5)."
+      },
+      "rent": {
+        "name": "Habitação - Rendas",
+        "limit": 900,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-E n.º 1 a): 15% das rendas de habitação própria e permanente. O Decreto-Lei n.º 97/2026, de 20 de maio, aditou o n.º 10 elevando o limite para 1 000 €, mas a norma transitória do seu art. 15.º fixa 900 € para 2026 e só aplica os 1 000 € a partir de 2027. Estes 900 € substituem os 750 € que resultariam do faseamento da Lei n.º 36/2024 (75% em 2026)."
+      },
+      "nursingHome": {
+        "name": "Lares",
+        "limit": 403.75,
+        "percentage": 0.25,
+        "description": "CIRS art. 84.º: 25% do valor suportado com encargos com lares, com o limite global de 403,75 € (valor nominal fixo desde 2015)."
+      },
+      "retirementSavings": {
+        "name": "PPR/Pensões",
+        "limit": 400,
+        "percentage": 0.2,
+        "description": "EBF art. 21.º n.º 2: 20% dos valores aplicados, com o limite de dedução de 400 € (idade < 35), 350 € (35-50) e 300 € (> 50), por sujeito passivo."
+      },
+      "vatRestaurants": {
+        "name": "IVA - Restauração",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção I - alojamento, restauração e similares."
+      },
+      "vatMechanic": {
+        "name": "IVA - Reparação Automóveis",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção G, classes 4520 (veículos automóveis) e 45402 (motociclos)."
+      },
+      "vatHairdressers": {
+        "name": "IVA - Cabeleireiros",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Secção S, classe 9602 - cabeleireiros e institutos de beleza."
+      },
+      "vatVet": {
+        "name": "IVA - Veterinários",
+        "limit": 250,
+        "percentage": 0.35,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%."
+      },
+      "vatPublicTransport": {
+        "name": "IVA - Passes Mensais",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de passes mensais e bilhetes de transportes públicos (n.º 3)."
+      },
+      "vatFitness": {
+        "name": "IVA - Ginásios",
+        "limit": 250,
+        "percentage": 0.3,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 30% do IVA suportado (n.º 8). Secção P, classe 85510 e Secção R, classes 93120 e 93130 (ginásios - fitness)."
+      },
+      "vatPress": {
+        "name": "IVA - Jornais e Revistas",
+        "limit": 250,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 100% do IVA de assinaturas de jornais e revistas, incluindo digitais (n.º 7)."
+      },
+      "vatCulture": {
+        "name": "IVA - Cultura",
+        "limit": 250,
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado. Alíneas g) a l) do n.º 1, aditadas pela Lei n.º 73-A/2025 (OE2026) e aplicáveis a partir de 2026: comércio a retalho de livros (classe 47610), teatro, música e dança (secção R, classe 90), salas de espetáculos (9004), bibliotecas e arquivos (9101), museus (9102) e monumentos históricos (9103)."
+      }
+    }
+  },
+  {
     "year": 2025,
     "label": "2025",
     "source": {

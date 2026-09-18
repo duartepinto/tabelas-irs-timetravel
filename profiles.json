@@ -54,6 +54,10 @@
       "vatPress": {
         "rate": 0.06,
         "note": "Assinaturas de jornais e revistas, taxa reduzida."
+      },
+      "vatCulture": {
+        "rate": 0.06,
+        "note": "Livros, espetáculos, museus e bibliotecas estão na taxa reduzida."
       }
     }
   },
@@ -72,7 +76,8 @@
     "vatVet",
     "vatPublicTransport",
     "vatFitness",
-    "vatPress"
+    "vatPress",
+    "vatCulture"
   ],
   "profiles": [
     {
@@ -159,6 +164,11 @@
           "value": 0,
           "basis": "estimativa",
           "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+        },
+        "vatCulture": {
+          "value": 86,
+          "basis": "estimativa",
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,72. Só dedutível a partir de 2026."
         }
       }
     },
@@ -246,6 +256,11 @@
           "value": 0,
           "basis": "estimativa",
           "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+        },
+        "vatCulture": {
+          "value": 169,
+          "basis": "estimativa",
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,41. Só dedutível a partir de 2026."
         }
       }
     },
@@ -333,6 +348,11 @@
           "value": 0,
           "basis": "estimativa",
           "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+        },
+        "vatCulture": {
+          "value": 104,
+          "basis": "estimativa",
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,87. Só dedutível a partir de 2026."
         }
       }
     },
@@ -420,6 +440,11 @@
           "value": 0,
           "basis": "estimativa",
           "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+        },
+        "vatCulture": {
+          "value": 122,
+          "basis": "estimativa",
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,02. Só dedutível a partir de 2026."
         }
       }
     }

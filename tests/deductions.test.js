@@ -174,13 +174,14 @@ const STATUTE = [
 
 // --- tests -----------------------------------------------------------------
 
-test('deductions.json covers 2005-2025 with no gaps', () => {
+test('deductions.json runs from 2005 to the latest year with no gaps', () => {
     const years = deductions.map((d) => d.year).sort((a, b) => a - b);
     assert.equal(years[0], 2005);
-    assert.equal(years.at(-1), 2025);
-    for (let y = 2005; y <= 2025; y++) {
+    // The end moves as new years are added, so assert contiguity, not a literal.
+    for (let y = years[0]; y <= years.at(-1); y++) {
         assert.ok(years.includes(y), `missing year ${y}`);
     }
+    assert.ok(years.at(-1) >= 2025, `series ends at ${years.at(-1)}`);
 });
 
 test('deductions.json is internally well-formed', () => {

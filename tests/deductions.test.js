@@ -466,6 +466,35 @@ test('VAT sectors appear and disappear on the right years', async () => {
     }
 });
 
+test('chart legends use the human name, never the raw key', async () => {
+    const { calc, charts } = await ready();
+
+    // Every key used anywhere in the data. A label equal to one of these means
+    // the name lookup missed and fell back to the property name.
+    const keys = new Set();
+    for (const entry of deductions) {
+        for (const key of Object.keys(entry.deductions)) keys.add(key);
+    }
+
+    // categoryLabel must resolve even for a category the newest year no longer
+    // has - gyms were revoked in 2024, so they are absent from 2025.
+    assert.equal(calc.categoryLabel('vatFitness'), 'IVA - Ginásios');
+    assert.ok(!calc.deductionsData[0].deductions.vatFitness,
+        'precondition: vatFitness should be absent from the newest year');
+
+    for (const key of keys) {
+        const label = calc.categoryLabel(key);
+        assert.ok(label && label !== key, `${key}: label fell back to the raw key`);
+    }
+
+    for (const config of charts) {
+        for (const dataset of config.data.datasets) {
+            assert.ok(!keys.has(dataset.label),
+                `chart series labelled with the raw key "${dataset.label}"`);
+        }
+    }
+});
+
 test('profile chart renders one series per category plus a total', async () => {
     const { calc, charts } = await ready();
     const chart = charts.filter((c) => /cabaz/.test(c.options?.plugins?.title?.text || '')).pop();

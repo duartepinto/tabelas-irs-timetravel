@@ -461,7 +461,10 @@ class TaxCalculator {
 
             // Only add dataset if it has at least one non-null value
             if (data.some(value => value !== null)) {
-                const deductionName = this.deductionsData[0].deductions[deductionType]?.name || deductionType;
+                // Not deductionsData[0]: a category that has since been revoked
+                // (gyms, dropped in 2024) is absent from the newest year, and
+                // looking it up only there falls back to the raw key.
+                const deductionName = this.categoryLabel(deductionType);
 
                 datasets.push({
                     label: deductionName,

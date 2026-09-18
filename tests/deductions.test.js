@@ -148,10 +148,19 @@ const STATUTE = [
     [2016, 'vatVet', 0.35, 250],
     [2015, 'vatPublicTransport', 1.0, null],
     [2016, 'vatPublicTransport', 1.0, 250],
+    // Gyms: 15% under n.o 1 f) from 2021; Lei 82/2023 revoked that alinea and in
+    // the same law added n.o 8 with the same CAE at 30%, so 2024 is a doubling,
+    // not a removal.
     [2020, 'vatFitness', 0.15, null],
     [2021, 'vatFitness', 0.15, 250],
     [2023, 'vatFitness', 0.15, 250],
-    [2024, 'vatFitness', 0.15, null],
+    [2024, 'vatFitness', 0.30, 250],
+    [2025, 'vatFitness', 0.30, 250],
+
+    // art. 78.o-H - trabalho domestico, added by Lei 82/2023, from 2024
+    [2023, 'domesticWork', 0.05, null],
+    [2024, 'domesticWork', 0.05, 200],
+    [2025, 'domesticWork', 0.05, 200],
     [2022, 'vatPress', 1.0, null],
     [2023, 'vatPress', 1.0, 250],
 
@@ -444,11 +453,14 @@ test('VAT sectors appear and disappear on the right years', async () => {
     assert.equal(present(2015, 'vatPublicTransport'), false);
     assert.equal(present(2016, 'vatPublicTransport'), true);
 
-    // Gyms: added by Lei 75-B/2020, revoked by Lei 82/2023.
+    // Gyms: added by Lei 75-B/2020. Lei 82/2023 moved them from n.o 1 f) to
+    // n.o 8 and doubled the rate, so they continue past 2023.
     assert.equal(present(2020, 'vatFitness'), false);
     assert.equal(present(2021, 'vatFitness'), true);
     assert.equal(present(2023, 'vatFitness'), true);
-    assert.equal(present(2024, 'vatFitness'), false);
+    assert.equal(present(2024, 'vatFitness'), true);
+    assert.equal(calc.deductionRule(byYear[2023], 'vatFitness').percentage, 0.15);
+    assert.equal(calc.deductionRule(byYear[2024], 'vatFitness').percentage, 0.30);
 
     // Press subscriptions: added by Lei 24-D/2022.
     assert.equal(present(2022, 'vatPress'), false);
@@ -469,29 +481,44 @@ test('VAT sectors appear and disappear on the right years', async () => {
 test('chart legends use the human name, never the raw key', async () => {
     const { calc, charts } = await ready();
 
-    // Every key used anywhere in the data. A label equal to one of these means
-    // the name lookup missed and fell back to the property name.
     const keys = new Set();
     for (const entry of deductions) {
         for (const key of Object.keys(entry.deductions)) keys.add(key);
     }
 
-    // categoryLabel must resolve even for a category the newest year no longer
-    // has - gyms were revoked in 2024, so they are absent from 2025.
-    assert.equal(calc.categoryLabel('vatFitness'), 'IVA - Ginásios');
-    assert.ok(!calc.deductionsData[0].deductions.vatFitness,
-        'precondition: vatFitness should be absent from the newest year');
-
     for (const key of keys) {
-        const label = calc.categoryLabel(key);
-        assert.ok(label && label !== key, `${key}: label fell back to the raw key`);
+        assert.ok(calc.categoryLabel(key) !== key, `${key}: label fell back to the raw key`);
     }
-
     for (const config of charts) {
         for (const dataset of config.data.datasets) {
             assert.ok(!keys.has(dataset.label),
                 `chart series labelled with the raw key "${dataset.label}"`);
         }
+    }
+
+    // The real hazard is a category the NEWEST year no longer carries, because a
+    // lookup against deductionsData[0] alone then falls through to the property
+    // name. Gyms were that case until Lei 82/2023 turned out to have re-added
+    // them, so construct the situation rather than rely on the data having it.
+    const newest = calc.deductionsData[0];
+    const victim = 'nursingHome';
+    const saved = newest.deductions[victim];
+    assert.ok(saved, `precondition: ${victim} should exist in ${newest.label}`);
+    delete newest.deductions[victim];
+    try {
+        assert.equal(calc.categoryLabel(victim), saved.name,
+            `${victim}: label must resolve from an earlier year`);
+
+        const before = charts.length;
+        calc.calculateDeductionsChart();
+        const rebuilt = charts[charts.length - 1];
+        assert.ok(charts.length > before, 'chart was not rebuilt');
+        for (const dataset of rebuilt.data.datasets) {
+            assert.ok(dataset.label !== victim,
+                `legend fell back to the raw key for ${victim}`);
+        }
+    } finally {
+        newest.deductions[victim] = saved;
     }
 });
 

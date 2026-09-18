@@ -65,6 +65,7 @@
     "nursingHome",
     "retirementSavings",
     "familyExpenses",
+    "domesticWork",
     "vatRestaurants",
     "vatMechanic",
     "vatHairdressers",
@@ -153,6 +154,11 @@
           "value": 0,
           "basis": "estimativa",
           "note": "Assumido zero: sem assinaturas de jornais ou revistas."
+        },
+        "domesticWork": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
         }
       }
     },
@@ -235,6 +241,11 @@
           "value": 42,
           "basis": "estimativa",
           "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,41."
+        },
+        "domesticWork": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
         }
       }
     },
@@ -317,6 +328,11 @@
           "value": 26,
           "basis": "estimativa",
           "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 0,87."
+        },
+        "domesticWork": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
         }
       }
     },
@@ -399,6 +415,11 @@
           "value": 31,
           "basis": "estimativa",
           "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,02."
+        },
+        "domesticWork": {
+          "value": 0,
+          "basis": "estimativa",
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
         }
       }
     }

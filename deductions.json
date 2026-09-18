@@ -37,12 +37,6 @@
         "percentage": 0.3,
         "description": "CIRS art. 78.º-D: 30% do valor suportado com despesas de formação e educação, com o limite global de 800 €, elevado em 300 € quando a diferença respeite a rendas de estudante deslocado."
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "CIRS art. 78.º-E n.º 1 b) a d): 15% dos juros, só para contratos celebrados até 31/12/2011, com o limite de 296 € (elevado até 450 € nos escalões mais baixos, n.º 5)."
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 900,
@@ -142,12 +136,6 @@
         "limit": 800,
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
-      },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente (não especificado limite para 2025)"
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -249,12 +237,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 600,
@@ -355,12 +337,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -455,12 +431,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -548,12 +518,6 @@
         "limit": 800,
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
-      },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -643,12 +607,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -730,12 +688,6 @@
         "limit": 800,
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
-      },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -819,12 +771,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -906,12 +852,6 @@
         "limit": 800,
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
-      },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -995,12 +935,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -1083,12 +1017,6 @@
         "percentage": 0.3,
         "description": "Despesas de educação e formação"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "Juros de empréstimos para habitação própria permanente"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -1158,12 +1086,6 @@
         "limit": 760.0,
         "percentage": 0.3,
         "description": "CIRS art. 83.º: 30% das despesas de educação e formação, com o limite de 160% do IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
-      },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 15% dos juros de dívidas para habitação própria e permanente. A partir de 2012 só para contratos celebrados até 31/12/2011"
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1235,12 +1157,6 @@
         "percentage": 0.3,
         "description": "CIRS art. 83.º: 30% das despesas de educação e formação, com o limite de 160% do IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 296,
-        "percentage": 0.15,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 15% dos juros de dívidas para habitação própria e permanente. A partir de 2012 só para contratos celebrados até 31/12/2011"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 502,
@@ -1311,12 +1227,6 @@
         "percentage": 0.3,
         "description": "CIRS art. 83.º: 30% das despesas de educação e formação, com o limite de 160% do IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
-      "mortgageInterest": {
-        "name": "Habitação - Juros",
-        "limit": 591,
-        "percentage": 0.15,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 15% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
-      },
       "rent": {
         "name": "Habitação - Rendas",
         "limit": 591,
@@ -1374,7 +1284,7 @@
         "name": "Habitação - Juros",
         "limit": 591,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1433,7 +1343,7 @@
         "name": "Habitação - Juros",
         "limit": 591,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1492,7 +1402,7 @@
         "name": "Habitação - Juros",
         "limit": 586,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1551,7 +1461,7 @@
         "name": "Habitação - Juros",
         "limit": 586,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1610,7 +1520,7 @@
         "name": "Habitação - Juros",
         "limit": 574,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1669,7 +1579,7 @@
         "name": "Habitação - Juros",
         "limit": 562,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",
@@ -1728,7 +1638,7 @@
         "name": "Habitação - Juros",
         "limit": 549,
         "percentage": 0.3,
-        "description": "CIRS art. 85.º n.º 1 a)-c): 30% dos juros de dívidas para habitação própria e permanente. O limite é partilhado com as rendas e as deduções não são cumuláveis (art. 85.º n.º 3)"
+        "description": "CIRS art. 85.º n.º 1 a)-c): dedução dos juros de dívidas para habitação própria e permanente. A Lei n.º 64-B/2011 (OE2012) fechou-a a novos contratos a partir de 2012, passando a cobrir só contratos celebrados até 31/12/2011. Continua a existir na lei (art. 78.º-E n.º 1 b), 296 €), mas esta série termina em 2011 de propósito: ninguém lhe pode aceder desde então, pelo que mostrá-la nos anos seguintes sugeriria uma dedução disponível que já não está aberta."
       },
       "rent": {
         "name": "Habitação - Rendas",

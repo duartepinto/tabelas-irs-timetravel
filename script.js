@@ -106,9 +106,6 @@ class TaxCalculator {
             select.appendChild(option);
         });
 
-        // IDEF figures are in 2023 euros; the inputs show them in today's money.
-        const currentYear = this.referenceYear();
-        const baseYear = this.profilesData.meta.baseYear;
 
         this.profilesData.categories.forEach(category => {
             const field = document.createElement('div');
@@ -131,8 +128,11 @@ class TaxCalculator {
                 const entry = profile.spending[category];
                 const input = document.getElementById(`spend_${category}`);
                 const basis = document.getElementById(`basis_${category}`);
-                const displayValue = this.adjustForInflation(entry.value, baseYear, currentYear);
-                input.value = Math.round(displayValue);
+                // Shown exactly as stored. The figure is the spend applied to
+                // every year, so converting it between years on the way in would
+                // only distort it - including deliberate round numbers such as
+                // 2 000 EUR per taxpayer, which is what exhausts the PPR cap.
+                input.value = entry.value;
                 const legend = (this.profilesData.meta.basisLegend || {})[entry.basis] || '';
                 basis.textContent = entry.basis;
                 basis.className = `profile-basis basis-${entry.basis}`;
@@ -473,8 +473,15 @@ class TaxCalculator {
         const datasets = [];
         let colorIndex = 0;
 
-        // Create dataset for each deduction type
-        allDeductionTypes.forEach(deductionType => {
+        // Create dataset for each deduction type, in a fixed order
+        const orderedTypes = [...allDeductionTypes].sort((a, b) => {
+            const ia = TaxCalculator.CATEGORY_ORDER.indexOf(a);
+            const ib = TaxCalculator.CATEGORY_ORDER.indexOf(b);
+            return (ia === -1 ? Number.MAX_SAFE_INTEGER : ia) -
+                   (ib === -1 ? Number.MAX_SAFE_INTEGER : ib);
+        });
+
+        orderedTypes.forEach(deductionType => {
             const data = [];
 
             this.deductionsData.forEach(yearData => {
@@ -857,6 +864,19 @@ class TaxCalculator {
             (tudo a preços de ${this.referenceYear()}).
         `;
     }
+
+    // Legend order for the ceilings chart. Without this the order falls out of
+    // which year first mentions a category while walking newest-first, so
+    // dropping one from the latest year (juros, closed to new contracts after
+    // 2011) shunts it to the end, next to the VAT rows.
+    static CATEGORY_ORDER = [
+        'base', 'familyExpenses', 'domesticWork',
+        'health', 'education',
+        'mortgageInterest', 'rent', 'nursingHome',
+        'retirementSavings',
+        'vatRestaurants', 'vatMechanic', 'vatHairdressers', 'vatVet',
+        'vatPublicTransport', 'vatFitness', 'vatPress', 'vatCulture'
+    ];
 
     static PROFILE_COLORS = ['#DC2626', '#059669', '#6366F1', '#D97706', '#0891B2', '#BE185D', '#4338CA'];
 

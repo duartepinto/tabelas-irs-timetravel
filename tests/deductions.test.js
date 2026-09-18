@@ -127,10 +127,19 @@ const STATUTE = [
     [2006, 'rent', 0.30, 562], [2007, 'rent', 0.30, 574],
     [2008, 'rent', 0.30, 586], [2009, 'rent', 0.30, 586],
     [2010, 'rent', 0.30, 591], [2011, 'rent', 0.30, 591],
-    [2012, 'rent', 0.15, 591], [2012, 'mortgageInterest', 0.15, 591],
-    [2013, 'rent', 0.15, 502], [2013, 'mortgageInterest', 0.15, 296],
+    [2012, 'rent', 0.15, 591],
+    [2013, 'rent', 0.15, 502],
     [2024, 'rent', 0.15, 600],
-    [2025, 'rent', 0.15, 700], [2025, 'mortgageInterest', 0.15, 296],
+    [2025, 'rent', 0.15, 700],
+
+    // Deliberate departure from the law. Lei 64-B/2011 closed the interest
+    // deduction to new contracts from 2012; art. 78.o-E n.o 1 b) still grants
+    // 296 EUR to anyone holding a pre-2012 contract, and always has. The series
+    // is cut at 2011 anyway, because nobody has been able to enter it since and
+    // carrying it forward would suggest a deduction that is still open.
+    [2012, 'mortgageInterest', 0.15, null],
+    [2013, 'mortgageInterest', 0.15, null],
+    [2025, 'mortgageInterest', 0.15, null],
 
     // EBF art. 21.o - PPR: revoked for 2005, then 20% capped at 400 EUR/taxpayer
     [2005, 'retirementSavings', 0.20, null],
@@ -274,11 +283,27 @@ test('juros and rendas are not cumulative while they share a cap', async () => {
 
     // 2010: one shared 591 EUR ceiling, art. 85.o n.o 3 -> count the larger only.
     assert.equal(calc.housingDeduction(byYear[2010], spend, 1), 591);
-    // 2012: still a shared ceiling.
+    assert.equal(calc.housingDeduction(byYear[2011], spend, 1), 591);
+
+    // From 2012 the dataset carries rendas only, so housing is just that, and
+    // interest entered by the user is ignored rather than added.
     assert.equal(calc.housingDeduction(byYear[2012], spend, 1), 591);
-    // 2013 onwards: separate ceilings (296 juros, 502 rendas) -> they add.
-    assert.equal(calc.housingDeduction(byYear[2013], spend, 1), 296 + 502);
-    assert.equal(calc.housingDeduction(byYear[2025], spend, 1), 296 + 700);
+    assert.equal(calc.housingDeduction(byYear[2013], spend, 1), 502);
+    assert.equal(calc.housingDeduction(byYear[2025], spend, 1), 700);
+});
+
+test('the interest deduction series stops at 2011 on purpose', () => {
+    for (const entry of deductions) {
+        const present = Boolean(entry.deductions.mortgageInterest);
+        assert.equal(
+            present, entry.year <= 2011,
+            `${entry.label}: mortgageInterest should be ${entry.year <= 2011 ? 'present' : 'absent'}`
+        );
+    }
+    // Rendas is unaffected and runs the whole way.
+    for (const entry of deductions) {
+        assert.ok(entry.deductions.rent, `${entry.label}: rent should be present`);
+    }
 });
 
 test('inflation series means "year Y vs Y-1"', async () => {
@@ -517,6 +542,29 @@ test('VAT sectors appear and disappear on the right years', async () => {
     }
 });
 
+test('legend order does not depend on which years carry a category', async () => {
+    const { calc, charts } = await ready();
+    const chart = charts.filter(
+        (c) => /Limites de Deduções/.test(c.options?.plugins?.title?.text || '')
+    ).pop();
+    assert.ok(chart, 'ceilings chart was never built');
+
+    const labels = chart.data.datasets.map((d) => d.label).filter((l) => l !== 'Total');
+    const at = (name) => labels.indexOf(name);
+
+    // Juros is absent from the most recent years, which is exactly the case that
+    // used to push it to the end of the legend beside the VAT rows.
+    assert.ok(at('Habitação - Juros') > -1, 'juros missing from the legend');
+    assert.ok(at('Habitação - Juros') < at('Habitação - Rendas'), 'juros should precede rendas');
+    assert.ok(at('Habitação - Rendas') < at('Lares'));
+    assert.ok(at('Saúde') < at('Educação'));
+
+    // Every VAT row sits after every non-VAT row.
+    const lastPlain = Math.max(...labels.filter((l) => !l.startsWith('IVA')).map(at));
+    const firstVat = Math.min(...labels.filter((l) => l.startsWith('IVA')).map(at));
+    assert.ok(lastPlain < firstVat, 'VAT rows should come last');
+});
+
 test('chart legends use the human name, never the raw key', async () => {
     const { calc, charts } = await ready();
 
@@ -582,21 +630,32 @@ test('profile chart renders one series per category plus a total', async () => {
     }
 });
 
-test('profile spending inputs round-trip through the display currency', async () => {
-    const { calc, elements } = await ready();
-    const currentYear = new Date().getFullYear();
-    const baseYear = profiles.meta.baseYear;
+test('profile spending inputs show the stored figure unchanged', async () => {
+    const { elements } = await ready();
+    const first = profiles.profiles[0];
 
+    // The figure is the spend applied to every year, so nothing converts it on
+    // the way into the box. Converting would distort deliberate round numbers,
+    // such as the 2 000 EUR per taxpayer that exactly exhausts the PPR cap.
     for (const category of profiles.categories) {
         const shown = parseFloat(elements[`spend_${category}`].value);
         assert.ok(Number.isFinite(shown), `${category}: input not populated`);
-        assert.ok(shown >= 0, `${category}: negative input`);
+        assert.equal(shown, first.spending[category].value, `${category}: shown value was altered`);
+    }
+});
 
-        const first = profiles.profiles[0].spending[category].value;
-        const expected = calc.adjustForInflation(first, baseYear, currentYear);
-        assert.ok(
-            Math.abs(shown - expected) <= 0.5,
-            `${category}: shown ${shown} vs expected ${expected}`
+test('the default PPR entry lands exactly on the cap', async () => {
+    const { calc } = await ready();
+    for (const profile of profiles.profiles) {
+        const taxpayers = profile.household.taxpayers;
+        const spend = profile.spending.retirementSavings.value;
+        if (!spend) continue; // the retired couple cannot deduct at all
+
+        assert.equal(spend, 2000 * taxpayers, `${profile.id}: should be 2000 per taxpayer`);
+        assert.equal(
+            calc.deductionFor(byYear[2026], 'retirementSavings', spend, taxpayers),
+            400 * taxpayers,
+            `${profile.id}: should reach exactly the 400 EUR per-taxpayer cap`
         );
     }
 });

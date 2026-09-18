@@ -137,6 +137,24 @@ const STATUTE = [
     [2006, 'retirementSavings', 0.20, 400],
     [2025, 'retirementSavings', 0.20, 400],
 
+    // art. 78.o-F - IVA em fatura. One shared 250 EUR ceiling per household.
+    // n.o 1 sectors deduct 15%; n.o 3 (transport passes) and n.o 7 (press
+    // subscriptions) deduct 100%; n.o 6 (veterinary medicines) deducts 35%.
+    [2013, 'vatRestaurants', 0.15, 250],
+    [2025, 'vatRestaurants', 0.15, 250],
+    [2013, 'vatMechanic', 0.15, 250],
+    [2013, 'vatHairdressers', 0.15, 250],
+    [2015, 'vatVet', 0.35, null],
+    [2016, 'vatVet', 0.35, 250],
+    [2015, 'vatPublicTransport', 1.0, null],
+    [2016, 'vatPublicTransport', 1.0, 250],
+    [2020, 'vatFitness', 0.15, null],
+    [2021, 'vatFitness', 0.15, 250],
+    [2023, 'vatFitness', 0.15, 250],
+    [2024, 'vatFitness', 0.15, null],
+    [2022, 'vatPress', 1.0, null],
+    [2023, 'vatPress', 1.0, 250],
+
     // art. 78.o-B - despesas gerais familiares: only from 2015, 250 EUR/taxpayer
     [2005, 'familyExpenses', 0.35, null],
     [2012, 'familyExpenses', 0.35, null],

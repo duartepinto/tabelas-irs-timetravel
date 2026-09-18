@@ -276,8 +276,8 @@
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
-        "percentage": 1.0,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado (alínea f) do n.º 1). Secção P, classe 85510 (ensinos desportivo e recreativo) e Secção R, classes 93120 (clubes desportivos) e 93130 (ginásios - fitness). Aditada pela Lei n.º 75-B/2020 (OE2021) e REVOGADA pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       },
       "vatPress": {
         "name": "IVA - Jornais e Revistas",
@@ -376,8 +376,8 @@
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
-        "percentage": 1.0,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado (alínea f) do n.º 1). Secção P, classe 85510 (ensinos desportivo e recreativo) e Secção R, classes 93120 (clubes desportivos) e 93130 (ginásios - fitness). Aditada pela Lei n.º 75-B/2020 (OE2021) e REVOGADA pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       }
     }
   },
@@ -470,8 +470,8 @@
       "vatFitness": {
         "name": "IVA - Ginásios",
         "limit": 250,
-        "percentage": 1.0,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de ginásios e atividades de fitness. Aditado pela Lei n.º 75-B/2020 (OE2021) e REVOGADO pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA suportado (alínea f) do n.º 1). Secção P, classe 85510 (ensinos desportivo e recreativo) e Secção R, classes 93120 (clubes desportivos) e 93130 (ginásios - fitness). Aditada pela Lei n.º 75-B/2020 (OE2021) e REVOGADA pela Lei n.º 82/2023 (OE2024), pelo que só vigorou de 2021 a 2023."
       }
     }
   },

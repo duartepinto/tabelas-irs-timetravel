@@ -116,9 +116,9 @@
           "note": "Sem encargos com lar"
         },
         "retirementSavings": {
-          "value": 0,
+          "value": 2000,
           "basis": "estimativa",
-          "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede. Ajuste conforme o seu caso."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 2000 € para 1 sujeito passivo. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
         },
         "familyExpenses": {
           "value": 11262,
@@ -208,9 +208,9 @@
           "note": "Sem encargos com lar"
         },
         "retirementSavings": {
-          "value": 0,
+          "value": 4000,
           "basis": "estimativa",
-          "note": "Entregas em PPR são poupança, não consumo: o IDEF não as mede."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
         },
         "familyExpenses": {
           "value": 21955,
@@ -302,7 +302,7 @@
         "retirementSavings": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Após a reforma as entregas em PPR deixam de ser dedutíveis (art. 21.º n.º 10 do EBF)"
+          "note": "Zero: após a passagem à reforma as entregas em PPR deixam de ser dedutíveis (EBF art. 21.º n.º 10)."
         },
         "familyExpenses": {
           "value": 13430,
@@ -392,9 +392,9 @@
           "note": "Sem encargos com lar"
         },
         "retirementSavings": {
-          "value": 1000,
+          "value": 4000,
           "basis": "estimativa",
-          "note": "Entregas anuais em PPR. Com 20% e o limite de 400 €/sujeito passivo, bastam 2 000 € por pessoa para esgotar o benefício."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
         },
         "familyExpenses": {
           "value": 16640,

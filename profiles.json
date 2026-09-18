@@ -248,9 +248,9 @@
           "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica."
         },
         "vatPress": {
-          "value": 42,
+          "value": 0,
           "basis": "estimativa",
-          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,41."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
         },
         "domesticWork": {
           "value": 0,
@@ -340,9 +340,9 @@
           "note": "Assumido zero para este agregado."
         },
         "vatPress": {
-          "value": 26,
+          "value": 0,
           "basis": "estimativa",
-          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 0,87."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
         },
         "domesticWork": {
           "value": 0,
@@ -432,9 +432,9 @@
           "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica."
         },
         "vatPress": {
-          "value": 31,
+          "value": 0,
           "basis": "estimativa",
-          "note": "Parcela de assinaturas de jornais e revistas dentro dos 89 € da COICOP 097 (jornais, livros e papelaria). Só assinaturas contam. Escalado x 1,02."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
         },
         "domesticWork": {
           "value": 0,

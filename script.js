@@ -428,15 +428,12 @@ class TaxCalculator {
 
         if (!this.deductionsData.length) return;
 
-        // Get all unique deduction types across all years. The invoice-VAT
-        // sectors are left out here and added below as a single series: they
-        // share one 250 EUR ceiling, so drawing each with its own 250 EUR bar
-        // would show the ceiling once per sector and inflate the total.
+        // Get all unique deduction types across all years
         const allDeductionTypes = new Set();
         this.deductionsData.forEach(yearData => {
             Object.keys(yearData.deductions).forEach(type => {
                 // Only include deductions with limits to avoid cluttering the chart
-                if (yearData.deductions[type].limit && !this.isVatCategory(type)) {
+                if (yearData.deductions[type].limit) {
                     allDeductionTypes.add(type);
                 }
             });
@@ -488,46 +485,16 @@ class TaxCalculator {
             }
         });
 
-        // The shared invoice-VAT ceiling, as one series (art. 78.o-F n.o 1).
-        const vatSectors = this.deductionsData.map(yearData =>
-            Object.keys(yearData.deductions)
-                .filter(type => this.isVatCategory(type) && yearData.deductions[type].limit)
-                .map(type => this.categoryLabel(type).replace(/^IVA - /, ''))
-        );
-        const vatCeiling = this.deductionsData.map((yearData, i) => {
-            if (!vatSectors[i].length) return null;
-            const any = Object.keys(yearData.deductions).find(
-                type => this.isVatCategory(type) && yearData.deductions[type].limit
-            );
-            return this.adjustForInflation(yearData.deductions[any].limit, yearData.year, currentYear);
-        });
-        if (vatCeiling.some(value => value !== null)) {
-            datasets.push({
-                label: 'IVA - Exigência de Fatura',
-                data: vatCeiling,
-                sectors: vatSectors,
-                borderColor: colors[colorIndex % colors.length],
-                backgroundColor: colors[colorIndex % colors.length] + 'CC',
-                tension: 0.1,
-                pointRadius: 2,
-                pointHoverRadius: 4,
-                borderWidth: 2,
-                spanGaps: false
-            });
-            colorIndex++;
-        }
-
-        // Add total deductions as a line. The VAT sectors count once between
-        // them, for the same reason they are drawn as one series.
-        const totalDeductionsData = this.deductionsData.map((yearData, i) => {
+        // Add total deductions as a line
+        const totalDeductionsData = this.deductionsData.map(yearData => {
+            // Calculate total of all deduction limits for this year
             let totalDeductions = 0;
-            Object.entries(yearData.deductions).forEach(([type, deduction]) => {
-                if (deduction.limit && !this.isVatCategory(type)) {
+            Object.values(yearData.deductions).forEach(deduction => {
+                if (deduction.limit) {
                     totalDeductions += deduction.limit;
                 }
             });
-            const total = this.adjustForInflation(totalDeductions, yearData.year, currentYear);
-            return total + (vatCeiling[i] || 0);
+            return this.adjustForInflation(totalDeductions, yearData.year, currentYear);
         });
 
 
@@ -620,15 +587,6 @@ class TaxCalculator {
                                     return context.dataset.label + ': Não disponível';
                                 }
                                 return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
-                            },
-                            // The VAT sectors share one ceiling and are drawn as a
-                            // single bar, so name them here rather than lose them.
-                            afterLabel: function(context) {
-                                const sectors = context.dataset.sectors &&
-                                    context.dataset.sectors[context.dataIndex];
-                                if (!sectors || !sectors.length) return undefined;
-                                return `${sectors.length} setores, limite partilhado:\n` +
-                                    sectors.map(s => '  · ' + s).join('\n');
                             }
                         }
                     }

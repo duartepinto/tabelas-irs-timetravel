@@ -391,9 +391,9 @@
           "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,02. Só passes e bilhetes contam para a dedução."
         },
         "vatFitness": {
-          "value": 102,
+          "value": 500,
           "basis": "estimativa",
-          "note": "Parcela de ginásios dentro dos 279 € da COICOP 094 (serviços recreativos). Escalado x 1,02. Só dedutível de 2021 a 2023."
+          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica. Só dedutível de 2021 a 2023."
         },
         "vatPress": {
           "value": 31,

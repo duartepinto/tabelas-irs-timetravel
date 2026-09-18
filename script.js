@@ -114,7 +114,7 @@ class TaxCalculator {
                 basis.dataset.note = legend ? `${legend}\n\n${entry.note}` : entry.note;
                 basis.setAttribute('aria-label', `${entry.basis}. ${legend} ${entry.note}`);
             });
-            this.readSpendingInputs(currentYear, baseYear);
+            this.readSpendingInputs();
             this.calculateProfileChart();
         };
 
@@ -123,7 +123,7 @@ class TaxCalculator {
         inputs.addEventListener('input', () => {
             clearTimeout(this.profileDebounce);
             this.profileDebounce = setTimeout(() => {
-                this.readSpendingInputs(currentYear, baseYear);
+                this.readSpendingInputs();
                 this.calculateProfileChart();
             }, 250);
         });
@@ -131,13 +131,14 @@ class TaxCalculator {
         applyProfile(this.profilesData.profiles[0].id);
     }
 
-    // Read the inputs (today's euros) and store the basket in the survey's base currency.
-    readSpendingInputs(currentYear, baseYear) {
+    // Read the inputs. The figure typed is the spend applied to EVERY year,
+    // unconverted: the model is a constant nominal outlay, and only the
+    // resulting deduction is expressed in reference-year euros.
+    readSpendingInputs() {
         this.currentSpending = {};
         this.profilesData.categories.forEach(category => {
             const input = document.getElementById(`spend_${category}`);
-            const shown = parseFloat(input && input.value) || 0;
-            this.currentSpending[category] = this.adjustForInflation(shown, currentYear, baseYear);
+            this.currentSpending[category] = parseFloat(input && input.value) || 0;
         });
     }
 
@@ -605,12 +606,12 @@ class TaxCalculator {
         return { percentage: rule.percentage, cap };
     }
 
-    // Deduction obtained for one category, in that year's euros.
-    deductionFor(yearData, category, spendBase, baseYear, taxpayers) {
+    // Deduction obtained for one category, in that year's euros. The spend is
+    // the same nominal figure in every year; it is not deflated.
+    deductionFor(yearData, category, spend, taxpayers) {
         const rule = this.deductionRule(yearData, category);
-        if (!rule || !spendBase) return 0;
+        if (!rule || !spend) return 0;
 
-        const spend = this.adjustForInflation(spendBase, baseYear, yearData.year);
         const cap = TaxCalculator.PER_TAXPAYER.includes(category)
             ? rule.cap * taxpayers
             : rule.cap;
@@ -620,11 +621,11 @@ class TaxCalculator {
 
     // Interest and rent shared a single ceiling and were not cumulative until
     // 2012 (art. 85.o n.o 3), so those years count only the larger of the two.
-    housingDeduction(yearData, spending, baseYear, taxpayers) {
+    housingDeduction(yearData, spending, taxpayers) {
         const juros = this.deductionRule(yearData, 'mortgageInterest');
         const rendas = this.deductionRule(yearData, 'rent');
-        const dJuros = this.deductionFor(yearData, 'mortgageInterest', spending.mortgageInterest, baseYear, taxpayers);
-        const dRendas = this.deductionFor(yearData, 'rent', spending.rent, baseYear, taxpayers);
+        const dJuros = this.deductionFor(yearData, 'mortgageInterest', spending.mortgageInterest, taxpayers);
+        const dRendas = this.deductionFor(yearData, 'rent', spending.rent, taxpayers);
 
         const sharedCap = juros && rendas && juros.cap === rendas.cap;
         return sharedCap ? Math.max(dJuros, dRendas) : dJuros + dRendas;
@@ -671,7 +672,7 @@ class TaxCalculator {
     // household (art. 78.o-F n.o 1, and n.os 3, 6 and 7 explicitly count towards
     // it), so the sectors are summed first and capped once. Showing them as
     // separate capped rows would multiply the ceiling by the number of sectors.
-    vatDeduction(yearData, spending, baseYear) {
+    vatDeduction(yearData, spending) {
         let total = 0;
         let cap = null;
 
@@ -686,8 +687,7 @@ class TaxCalculator {
             const spend = spending[category];
             if (rate == null || !spend) continue;
 
-            const gross = this.adjustForInflation(spend, baseYear, yearData.year);
-            const vatBorne = gross * rate / (1 + rate);
+            const vatBorne = spend * rate / (1 + rate);
             total += rule.percentage * vatBorne;
         }
 
@@ -699,7 +699,7 @@ class TaxCalculator {
         if (!this.deductionsData.length || !this.profilesData) return;
 
         const currentYear = this.referenceYear();
-        const baseYear = this.profilesData.meta.baseYear;
+        // IDEF defaults are shown in reference-year euros; the spend itself is nominal.
         const spending = this.currentSpending;
         const taxpayers = this.currentTaxpayers || 1;
 
@@ -722,7 +722,7 @@ class TaxCalculator {
 
         const datasets = plainKeys.map((category, i) => {
             const nominal = years.map(yearData =>
-                this.deductionFor(yearData, category, spending[category], baseYear, taxpayers)
+                this.deductionFor(yearData, category, spending[category], taxpayers)
             );
             return {
                 label: this.categoryLabel(category),
@@ -735,7 +735,7 @@ class TaxCalculator {
         });
 
         const housingNominal = years.map(yearData =>
-            this.housingDeduction(yearData, spending, baseYear, taxpayers)
+            this.housingDeduction(yearData, spending, taxpayers)
         );
         datasets.push({
             label: 'Habitação',
@@ -749,7 +749,7 @@ class TaxCalculator {
         });
 
         const vatNominal = years.map(yearData =>
-            this.vatDeduction(yearData, spending, baseYear)
+            this.vatDeduction(yearData, spending)
         );
         if (vatNominal.some(value => value > 0)) {
             datasets.push({
@@ -772,7 +772,7 @@ class TaxCalculator {
             const specificNominal = years.map(yearData =>
                 this.specificDeductionValue(
                     yearData,
-                    this.adjustForInflation(income, currentYear, yearData.year)
+                    income
                 )
             );
             datasets.push({

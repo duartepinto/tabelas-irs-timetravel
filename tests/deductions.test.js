@@ -231,7 +231,7 @@ test('deduction is rate x spend, capped', async () => {
     // baseYear === the year under test, so inflation is the identity here and
     // the arithmetic is exactly what the statute says.
     const at = (y, cat, spend, taxpayers = 1) =>
-        calc.deductionFor(byYear[y], cat, spend, y, taxpayers);
+        calc.deductionFor(byYear[y], cat, spend, taxpayers);
 
     assert.equal(at(2008, 'health', 1000), 300);            // 30%, no ceiling
     assert.equal(at(2008, 'health', 100000), 30000);        // still no ceiling
@@ -247,7 +247,7 @@ test('deduction is rate x spend, capped', async () => {
 
 test('per-taxpayer caps scale with the number of taxpayers', async () => {
     const { calc } = await ready();
-    const at = (y, cat, spend, tp) => calc.deductionFor(byYear[y], cat, spend, y, tp);
+    const at = (y, cat, spend, tp) => calc.deductionFor(byYear[y], cat, spend, tp);
 
     // art. 78.o-B: 250 EUR "para cada sujeito passivo"
     assert.equal(at(2025, 'familyExpenses', 100000, 1), 250);
@@ -263,9 +263,9 @@ test('per-taxpayer caps scale with the number of taxpayers', async () => {
 test('categories that did not exist yield zero, not a stray value', async () => {
     const { calc } = await ready();
     for (const y of [2005, 2010, 2014]) {
-        assert.equal(calc.deductionFor(byYear[y], 'familyExpenses', 99999, y, 2), 0, `${y}`);
+        assert.equal(calc.deductionFor(byYear[y], 'familyExpenses', 99999, 2), 0, `${y}`);
     }
-    assert.equal(calc.deductionFor(byYear[2005], 'retirementSavings', 99999, 2005, 1), 0);
+    assert.equal(calc.deductionFor(byYear[2005], 'retirementSavings', 99999, 1), 0);
 });
 
 test('juros and rendas are not cumulative while they share a cap', async () => {
@@ -273,12 +273,12 @@ test('juros and rendas are not cumulative while they share a cap', async () => {
     const spend = { mortgageInterest: 5000, rent: 5000 };
 
     // 2010: one shared 591 EUR ceiling, art. 85.o n.o 3 -> count the larger only.
-    assert.equal(calc.housingDeduction(byYear[2010], spend, 2010, 1), 591);
+    assert.equal(calc.housingDeduction(byYear[2010], spend, 1), 591);
     // 2012: still a shared ceiling.
-    assert.equal(calc.housingDeduction(byYear[2012], spend, 2012, 1), 591);
+    assert.equal(calc.housingDeduction(byYear[2012], spend, 1), 591);
     // 2013 onwards: separate ceilings (296 juros, 502 rendas) -> they add.
-    assert.equal(calc.housingDeduction(byYear[2013], spend, 2013, 1), 296 + 502);
-    assert.equal(calc.housingDeduction(byYear[2025], spend, 2025, 1), 296 + 700);
+    assert.equal(calc.housingDeduction(byYear[2013], spend, 1), 296 + 502);
+    assert.equal(calc.housingDeduction(byYear[2025], spend, 1), 296 + 700);
 });
 
 test('inflation series means "year Y vs Y-1"', async () => {
@@ -339,7 +339,7 @@ test('every profile simulates cleanly across every year', async () => {
             for (const category of profiles.categories) {
                 if (category === 'mortgageInterest' || category === 'rent') continue;
                 if (category.startsWith('vat')) continue; // summed as one capped group
-                const got = calc.deductionFor(entry, category, spending[category], baseYear, taxpayers);
+                const got = calc.deductionFor(entry, category, spending[category], taxpayers);
                 const where = `${profile.id}/${entry.label}/${category}`;
 
                 assert.ok(Number.isFinite(got), `${where}: not finite (${got})`);
@@ -354,11 +354,11 @@ test('every profile simulates cleanly across every year', async () => {
                 }
                 total += got;
             }
-            const housing = calc.housingDeduction(entry, spending, baseYear, taxpayers);
+            const housing = calc.housingDeduction(entry, spending, taxpayers);
             assert.ok(Number.isFinite(housing) && housing >= 0, `${profile.id}/${entry.label}: housing`);
             total += housing;
 
-            const vat = calc.vatDeduction(entry, spending, baseYear);
+            const vat = calc.vatDeduction(entry, spending);
             assert.ok(Number.isFinite(vat) && vat >= 0, `${profile.id}/${entry.label}: vat`);
             total += vat;
             assert.ok(Number.isFinite(total) && total >= 0, `${profile.id}/${entry.label}: total`);
@@ -366,55 +366,40 @@ test('every profile simulates cleanly across every year', async () => {
     }
 });
 
-test('flat years are flat because no cap binds, not because inflation is ignored', async () => {
+test('a constant nominal spend gives a constant nominal deduction', async () => {
     const { calc } = await ready();
-    const BASE = 2023;
-    // deductions.json is newest-first; these assertions read chronologically.
     const window = deductions
         .filter((d) => d.year >= 2005 && d.year <= 2011)
         .sort((a, b) => a.year - b.year);
 
-    // The shipped "Familia com filhos" basket: modest enough that no ceiling
-    // bites, and the rates were unchanged across 2005-2011, so the real value
-    // is constant by construction.
-    const modest = { education: 1284, mortgageInterest: 1500 };
-    const realModest = window.map((yearData) => {
-        const value = calc.deductionFor(yearData, 'education', modest.education, BASE, 2) +
-            calc.housingDeduction(yearData, { ...modest, rent: 0 }, BASE, 2);
-        return calc.adjustForInflation(value, yearData.year, calc.referenceYear());
-    });
-    for (const value of realModest) {
-        assert.ok(Math.abs(value - realModest[0]) < 0.01, 'expected a flat real series');
-    }
-
-    // ...but the NOMINAL amounts must still grow with prices. If they did not,
-    // inflation genuinely would not be applied.
+    // Education was 30% throughout 2005-2011 and 1284 EUR of spending never
+    // reaches the ceiling, so the nominal deduction is the same every year...
     const nominal = window.map((yearData) =>
-        calc.deductionFor(yearData, 'education', modest.education, BASE, 2)
+        calc.deductionFor(yearData, 'education', 1284, 2)
     );
-    for (let i = 1; i < nominal.length; i++) {
-        assert.ok(nominal[i] > nominal[i - 1], `nominal should rise: ${nominal}`);
+    for (const value of nominal) {
+        assert.ok(Math.abs(value - nominal[0]) < 1e-9, `expected a flat nominal series: ${nominal}`);
     }
 
-    // A basket large enough to hit the ceilings must NOT be flat, because the
-    // ceilings themselves moved (educacao 599.52 in 2005 -> 760 in 2010).
-    const large = { education: 5000, mortgageInterest: 6000 };
-    const realLarge = window.map((yearData) => {
-        const value = calc.deductionFor(yearData, 'education', large.education, BASE, 2) +
-            calc.housingDeduction(yearData, { ...large, rent: 0 }, BASE, 2);
-        return calc.adjustForInflation(value, yearData.year, calc.referenceYear());
-    });
-    const spread = Math.max(...realLarge) - Math.min(...realLarge);
-    assert.ok(spread > 50, `capped series should vary across years, spread was ${spread}`);
+    // ...and its value in reference-year euros therefore FALLS every year, purely
+    // because the same euros buy less later. That is the known cost of holding
+    // the spend nominal rather than real: it shows erosion even where the rule
+    // never changed.
+    const real = window.map((yearData, i) =>
+        calc.adjustForInflation(nominal[i], yearData.year, calc.referenceYear())
+    );
+    for (let i = 1; i < real.length; i++) {
+        assert.ok(real[i] < real[i - 1], `real value should fall: ${real}`);
+    }
 
-    // And at that size the education deduction must sit exactly on the cap.
-    for (const yearData of window) {
-        const rule = calc.deductionRule(yearData, 'education');
-        assert.equal(
-            calc.deductionFor(yearData, 'education', large.education, BASE, 2),
-            rule.cap,
-            `${yearData.label}: expected to be pinned to the cap`
-        );
+    // A frozen cap erodes on top of that. 6000 EUR of PPR is above the 800 EUR
+    // couple ceiling in every year, so the deduction is pinned to the cap and
+    // only inflation moves it.
+    const capped = window.map((yearData) =>
+        calc.deductionFor(yearData, 'retirementSavings', 6000, 2)
+    );
+    for (const value of capped.slice(1)) {
+        assert.equal(value, 800, 'should sit exactly on the 400 EUR/taxpayer cap');
     }
 });
 
@@ -426,21 +411,21 @@ test('invoice-VAT deductions share one global ceiling', async () => {
     // Enough spending in every sector to blow well past 250 EUR individually.
     const huge = Object.fromEntries(sectors.map((c) => [c, 200000]));
     for (const year of [2013, 2016, 2021, 2023, 2025]) {
-        const got = calc.vatDeduction(byYear[year], huge, BASE);
+        const got = calc.vatDeduction(byYear[year], huge);
         assert.equal(got, 250, `${year}: should be capped once at 250, not per sector`);
     }
 
     // The deduction applies to the VAT inside the price, not to the price.
     // 2025 mechanic: 23% VAT, 15% of it deductible.
     const mechanicOnly = Object.fromEntries(sectors.map((c) => [c, 0]));
-    mechanicOnly.vatMechanic = calc.adjustForInflation(1230, 2025, BASE);
+    mechanicOnly.vatMechanic = 1230;
     const expected = 0.15 * (1230 * 0.23 / 1.23); // 1230 gross -> 230 VAT -> 34.50
-    const got = calc.vatDeduction(byYear[2025], mechanicOnly, BASE);
+    const got = calc.vatDeduction(byYear[2025], mechanicOnly);
     assert.ok(Math.abs(got - expected) < 0.01, `expected ~${expected}, got ${got}`);
 
     // Nothing before 2013: the regime did not exist.
     for (const year of [2005, 2010, 2012]) {
-        assert.equal(calc.vatDeduction(byYear[year], huge, BASE), 0, `${year}`);
+        assert.equal(calc.vatDeduction(byYear[year], huge), 0, `${year}`);
     }
 });
 

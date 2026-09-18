@@ -6,7 +6,7 @@
       "url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=439486878&PUBLICACOESmodo=2&xlang=pt",
       "backup": "https://www.ine.pt/ngt_server/attachfileu.jsp?look_parentBoui=673105441&att_display=n&att_download=y"
     },
-    "method": "Os valores estão em euros de 2023 (moeda do inquérito) e são convertidos para cada ano pela mesma série de inflação usada no resto da aplicação. O cabaz mantém-se constante em termos reais, para que a única coisa que varia entre anos seja a lei fiscal.",
+    "method": "Os valores de partida vêm do IDEF em euros de 2023 e são mostrados nas caixas em euros do ano de referência. A despesa indicada é depois aplicada TAL COMO ESTÁ a todos os anos: assume-se o mesmo montante nominal em cada ano, e só a dedução obtida é convertida para euros do ano de referência. Assim vê-se quanto valeria hoje o que esse gasto dava de volta em cada ano. Note-se que, com despesa nominal fixa, mesmo uma dedução cuja regra nunca mudou aparece a descer, porque os mesmos euros valiam mais no passado.",
     "basisLegend": {
       "idef": "Lido diretamente do IDEF 2022/2023.",
       "idef-derivado": "Calculado a partir de valores do IDEF (a derivação está na nota).",

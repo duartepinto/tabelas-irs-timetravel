@@ -167,20 +167,65 @@ tr:hover {
     margin-bottom: 1rem;
 }
 
+.profile-inputs-hint {
+    margin: 0 0 0.85rem;
+    color: #6b7280;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
 .profile-inputs {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 0.75rem 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.1rem 1.25rem;
     margin-bottom: 1.25rem;
+    align-items: start;
 }
 
 .profile-field {
     position: relative;
+    gap: 0.35rem;
+}
+
+.profile-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4b5563;
+    line-height: 1.3;
+    /* Fallback for browsers without subgrid: reserve two lines so a label that
+       wraps does not push its own input below its neighbours'. */
+    min-height: 2.2em;
+    display: flex;
+    align-items: flex-end;
+}
+
+.profile-field input {
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+/* Where subgrid exists, the label / input / badge rows line up across the whole
+   row on their own, whatever the label length. */
+@supports (grid-template-rows: subgrid) {
+    .profile-field {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3;
+    }
+
+    .profile-field label {
+        min-height: 0;
+        align-items: flex-end;
+    }
 }
 
 .profile-basis {
     display: inline-block;
-    margin-top: 0.3rem;
+    justify-self: start;
+    align-self: start;
+    margin-top: 0;
     padding: 0.1rem 0.45rem;
     border-radius: 999px;
     font-size: 0.68rem;
@@ -203,7 +248,7 @@ tr:hover {
     top: calc(100% + 0.4rem);
     z-index: 20;
     width: max-content;
-    max-width: min(340px, 80vw);
+    max-width: min(280px, 70vw);
     padding: 0.6rem 0.75rem;
     background: #1f2937;
     color: #f9fafb;
@@ -409,7 +454,12 @@ tr:hover {
     }
 
     .profile-inputs {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.9rem 0.75rem;
+    }
+
+    .profile-field label {
+        font-size: 0.78rem;
     }
 }
 

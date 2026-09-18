@@ -87,8 +87,9 @@ class TaxCalculator {
             const field = document.createElement('div');
             field.className = 'input-group profile-field';
             field.innerHTML = `
-                <label for="spend_${category}">${this.categoryLabel(category)} (€/ano):</label>
-                <input type="number" id="spend_${category}" data-category="${category}" min="0" step="50">
+                <label for="spend_${category}">${this.categoryLabel(category)}</label>
+                <input type="number" id="spend_${category}" data-category="${category}"
+                       min="0" step="50" inputmode="numeric">
                 <span class="profile-basis" id="basis_${category}" tabindex="0" role="note"></span>
             `;
             inputs.appendChild(field);

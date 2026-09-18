@@ -1,3 +1,30 @@
+// Chart.js measures a legend item's clickable box from the swatch and the font,
+// so the usual way to make a series easier to toggle is to make the legend
+// bigger. This grows the hit boxes after layout instead: drawing takes its own
+// measurements, so the legend looks the same while each target expands into the
+// padding that separates the items. It matters most on the crowded chart, where
+// eighteen series wrap over several rows and the gaps between rows are dead.
+const roomyLegendHitboxes = {
+    id: 'roomyLegendHitboxes',
+    afterUpdate(chart) {
+        const legend = chart.legend;
+        if (!legend || !legend.legendHitBoxes) return;
+
+        const padding = (legend.options && legend.options.labels &&
+            legend.options.labels.padding) || 10;
+        const grow = Math.floor(padding / 2);
+
+        legend.legendHitBoxes.forEach(box => {
+            if (box.roomy) return; // fit() rebuilds these; never compound
+            box.roomy = true;
+            box.left -= grow;
+            box.top -= grow;
+            box.width += grow * 2;
+            box.height += grow * 2;
+        });
+    }
+};
+
 class TaxCalculator {
     constructor() {
         this.taxData = [];
@@ -152,6 +179,7 @@ class TaxCalculator {
 
         this.profileChart = new Chart(canvas.getContext('2d'), {
             type: 'bar',
+            plugins: [roomyLegendHitboxes],
             data: { labels, datasets },
             options: {
                 responsive: true,
@@ -175,10 +203,7 @@ class TaxCalculator {
                         display: true,
                         text: `Dedução realmente obtida com o mesmo cabaz de despesa (a preços de ${this.referenceYear()})`
                     },
-                    legend: {
-                        position: 'top',
-                        labels: { boxWidth: 20, boxHeight: 20, padding: 16, font: { size: 13 } }
-                    },
+                    legend: { position: 'top', labels: { boxWidth: 12 } },
                     tooltip: {
                         callbacks: {
                             label: (context) => {
@@ -523,6 +548,7 @@ class TaxCalculator {
 
         this.deductionsChart = new Chart(ctx, {
             type: 'bar',
+            plugins: [roomyLegendHitboxes],
             data: {
                 labels: labels,
                 datasets: datasets
@@ -572,12 +598,7 @@ class TaxCalculator {
                         position: 'top',
                         labels: {
                             usePointStyle: false,
-                            // Chart.js sizes the clickable box from these, and the
-                            // defaults are fiddly to hit when toggling a series.
-                            boxWidth: 20,
-                            boxHeight: 20,
-                            padding: 16,
-                            font: { size: 13 }
+                            boxWidth: 12
                         }
                     },
                     tooltip: {

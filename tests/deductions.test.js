@@ -223,6 +223,89 @@ test('rules match the statute', async () => {
     }
 });
 
+// Every category, every year, transcribed from the legislation rather than read
+// back from the data. [from, to, percentage, cap]; cap null means the deduction
+// did not exist in that span, Infinity means it existed with no ceiling.
+const REGIMES = {
+    // art. 25.o - deducao especifica: 72% x 12 x RMMG, then fixed, then 8,54 x IAS
+    base: [
+        [2005, 2005, 1, 3237.41], [2006, 2006, 1, 3334.18], [2007, 2007, 1, 3481.92],
+        [2008, 2008, 1, 3680.64], [2009, 2009, 1, 3888], [2010, 2023, 1, 4104],
+        [2024, 2024, 1, 4350.24], [2025, 2025, 1, 4462.15], [2026, 2026, 1, 4587.09]
+    ],
+    // art. 82.o then 78.o-C
+    health: [[2005, 2011, 0.30, Infinity], [2012, 2014, 0.10, 838.44], [2015, 2026, 0.15, 1000]],
+    // art. 83.o then 78.o-D: 160% of RMMG, frozen at RMMG(2010) from 2011
+    education: [
+        [2005, 2005, 0.30, 599.52], [2006, 2006, 0.30, 617.44], [2007, 2007, 0.30, 644.80],
+        [2008, 2008, 0.30, 681.60], [2009, 2009, 0.30, 720], [2010, 2014, 0.30, 760],
+        [2015, 2026, 0.30, 800]
+    ],
+    // art. 84.o: fixed to 2006, then 85% of RMMG, frozen from 2010
+    nursingHome: [
+        [2005, 2005, 0.25, 316], [2006, 2006, 0.25, 323], [2007, 2007, 0.25, 342.55],
+        [2008, 2008, 0.25, 362.10], [2009, 2009, 0.25, 382.50], [2010, 2026, 0.25, 403.75]
+    ],
+    // art. 85.o then 78.o-E
+    rent: [
+        [2005, 2005, 0.30, 549], [2006, 2006, 0.30, 562], [2007, 2007, 0.30, 574],
+        [2008, 2009, 0.30, 586], [2010, 2011, 0.30, 591], [2012, 2012, 0.15, 591],
+        [2013, 2023, 0.15, 502], [2024, 2024, 0.15, 600], [2025, 2025, 0.15, 700],
+        [2026, 2026, 0.15, 900]
+    ],
+    // closed to new contracts from 2012; the series is cut there on purpose
+    mortgageInterest: [
+        [2005, 2005, 0.30, 549], [2006, 2006, 0.30, 562], [2007, 2007, 0.30, 574],
+        [2008, 2009, 0.30, 586], [2010, 2011, 0.30, 591], [2012, 2026, 0.15, null]
+    ],
+    // EBF art. 21.o: revoked for 2005, restored at 400/350/300 from 2006
+    retirementSavings: [[2005, 2005, 0.20, null], [2006, 2026, 0.20, 400]],
+    // art. 78.o-B
+    familyExpenses: [[2005, 2014, 0.35, null], [2015, 2026, 0.35, 250]],
+    // art. 78.o-H
+    domesticWork: [[2005, 2023, 0.05, null], [2024, 2026, 0.05, 200]],
+    // art. 78.o-F, all sharing one 250 EUR household ceiling
+    vatRestaurants: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
+    vatMechanic: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
+    vatHairdressers: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
+    vatVet: [[2005, 2015, 0.35, null], [2016, 2026, 0.35, 250]],
+    vatPublicTransport: [[2005, 2015, 1, null], [2016, 2026, 1, 250]],
+    vatFitness: [[2005, 2020, 0.15, null], [2021, 2023, 0.15, 250], [2024, 2026, 0.30, 250]],
+    vatPress: [[2005, 2022, 1, null], [2023, 2026, 1, 250]],
+    vatCulture: [[2005, 2025, 0.15, null], [2026, 2026, 0.15, 250]]
+};
+
+test('every category matches the statute in every single year', async () => {
+    const { calc } = await ready();
+    let checked = 0;
+
+    for (const [category, spans] of Object.entries(REGIMES)) {
+        for (const [from, to, percentage, cap] of spans) {
+            for (let year = from; year <= to; year++) {
+                if (!byYear[year]) continue;
+                const rule = calc.deductionRule(byYear[year], category);
+                const where = `${year}/${category}`;
+
+                if (cap === null) {
+                    assert.equal(rule, null, `${where}: should not exist`);
+                } else {
+                    assert.ok(rule, `${where}: should exist`);
+                    assert.equal(rule.percentage, percentage, `${where}: percentage`);
+                    assert.equal(rule.cap, cap, `${where}: cap`);
+                }
+                checked++;
+            }
+        }
+    }
+    // Nothing in the data may escape the table above.
+    for (const entry of deductions) {
+        for (const category of Object.keys(entry.deductions)) {
+            assert.ok(REGIMES[category], `${entry.label}: ${category} is not covered by REGIMES`);
+        }
+    }
+    assert.ok(checked > 300, `expected full coverage, only checked ${checked}`);
+});
+
 test('despesas gerais familiares exist only from 2015', () => {
     for (const entry of deductions) {
         const rule = entry.deductions.familyExpenses;

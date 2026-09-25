@@ -625,15 +625,18 @@ class TaxCalculator {
 
     // --- Spending profile ---------------------------------------------------
     // Compares the deduction actually obtained, not the statutory ceiling. The
-    // basket is held constant in real terms, so the only thing that varies
-    // between years is the tax law itself.
+    // spend is the same nominal figure in every year and only the resulting
+    // deduction is converted to reference-year euros, so a frozen ceiling shows
+    // up as a falling line. Note the flip side: with the spend fixed in euros a
+    // deduction whose rule never changed also slopes down, because the same
+    // euros bought more in the past.
 
     // Limits the law sets per taxpayer; every other limit is per household.
     static PER_TAXPAYER = ['familyExpenses', 'retirementSavings'];
 
     deductionRule(yearData, category) {
         const rule = yearData.deductions[category];
-        if (!rule) return null; // categoria não existia nesse ano
+        if (!rule) return null; // the category did not exist that year
 
         // limit: null + unlimited: true => the deduction existed with no ceiling.
         // limit: null on its own => the deduction did not exist that year.
@@ -667,8 +670,9 @@ class TaxCalculator {
         return sharedCap ? Math.max(dJuros, dRendas) : dJuros + dRendas;
     }
 
-    // Brackets for that year. Where a year has more than one regime (2025 had a
-    // January and a June version) this takes the first, which is the later one.
+    // Brackets for that year. Where a year has more than one regime (2025 and
+    // 2026 each have two) this takes the first listed, which is the later one,
+    // since the data is ordered newest first.
     bracketsForYear(year) {
         const entry = this.taxData.find(d => d.year === year);
         return entry ? entry.brackets : null;
@@ -735,7 +739,6 @@ class TaxCalculator {
         if (!this.deductionsData.length || !this.profilesData) return;
 
         const currentYear = this.referenceYear();
-        // IDEF defaults are shown in reference-year euros; the spend itself is nominal.
         const spending = this.currentSpending;
         const taxpayers = this.currentTaxpayers || 1;
 

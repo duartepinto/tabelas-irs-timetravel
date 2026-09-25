@@ -453,12 +453,15 @@ class TaxCalculator {
 
         if (!this.deductionsData.length) return;
 
-        // Get all unique deduction types across all years
+        // Get all unique deduction types across all years. The invoice-VAT
+        // sectors are left out and drawn below as a single bar, because they
+        // share one ceiling: a bar per sector would stack that ceiling once per
+        // sector and leave the Total line short of the top of the stack.
         const allDeductionTypes = new Set();
         this.deductionsData.forEach(yearData => {
             Object.keys(yearData.deductions).forEach(type => {
                 // Only include deductions with limits to avoid cluttering the chart
-                if (yearData.deductions[type].limit) {
+                if (yearData.deductions[type].limit && !this.isVatCategory(type)) {
                     allDeductionTypes.add(type);
                 }
             });
@@ -517,19 +520,38 @@ class TaxCalculator {
             }
         });
 
-        // The invoice-VAT sectors keep a bar each, because which ones were in
-        // force in which year is worth seeing, but they share a single 250 EUR
-        // household ceiling (art. 78.o-F n.o 1, with n.os 3, 6, 7 and 8 all
-        // counting towards it). Drawn as one line so the shared ceiling is
-        // stated once instead of once per sector.
-        const vatCeiling = this.deductionsData.map(yearData => {
-            const sector = Object.keys(yearData.deductions).find(
-                type => this.isVatCategory(type) && yearData.deductions[type].limit
-            );
-            return sector
-                ? this.adjustForInflation(yearData.deductions[sector].limit, yearData.year, currentYear)
-                : null;
+        // One bar for the shared invoice-VAT ceiling (art. 78.o-F n.o 1, with
+        // n.os 3, 6, 7 and 8 all counting towards it). Which sectors were in force
+        // each year goes in the tooltip, so collapsing them loses nothing.
+        const vatSectors = this.deductionsData.map(yearData =>
+            Object.keys(yearData.deductions)
+                .filter(type => this.isVatCategory(type) && yearData.deductions[type].limit)
+                .sort((a, b) => TaxCalculator.CATEGORY_ORDER.indexOf(a) -
+                                TaxCalculator.CATEGORY_ORDER.indexOf(b))
+        );
+        const vatCeiling = this.deductionsData.map((yearData, i) => {
+            if (!vatSectors[i].length) return null;
+            const limit = yearData.deductions[vatSectors[i][0]].limit;
+            return this.adjustForInflation(limit, yearData.year, currentYear);
         });
+
+        if (vatCeiling.some(value => value !== null)) {
+            datasets.push({
+                label: 'IVA - Exigência de Fatura',
+                data: vatCeiling,
+                sectors: vatSectors.map(list =>
+                    list.map(type => this.categoryLabel(type).replace(/^IVA - /, ''))
+                ),
+                borderColor: colors[colorIndex % colors.length],
+                backgroundColor: colors[colorIndex % colors.length] + 'CC',
+                tension: 0.1,
+                pointRadius: 2,
+                pointHoverRadius: 4,
+                borderWidth: 2,
+                spanGaps: false
+            });
+            colorIndex++;
+        }
 
         // Add total deductions as a line. The VAT sectors contribute their one
         // shared ceiling between them, not one ceiling each, so summing the bars
@@ -544,25 +566,6 @@ class TaxCalculator {
             const total = this.adjustForInflation(totalDeductions, yearData.year, currentYear);
             return total + (vatCeiling[i] || 0);
         });
-
-        if (vatCeiling.some(value => value !== null)) {
-            datasets.push({
-                label: 'IVA - limite partilhado',
-                data: vatCeiling,
-                type: 'line',
-                // Distinct stack: two line datasets under a stacked scale would
-                // otherwise pile on each other and lift the Total line.
-                stack: 'vatCeiling',
-                borderColor: '#0891B2',
-                backgroundColor: 'rgba(8, 145, 178, 0.1)',
-                borderWidth: 2,
-                pointRadius: 3,
-                pointHoverRadius: 5,
-                tension: 0.1,
-                borderDash: [2, 3],
-                spanGaps: false
-            });
-        }
 
         datasets.push({
             label: 'Total',
@@ -650,6 +653,15 @@ class TaxCalculator {
                                     return context.dataset.label + ': Não disponível';
                                 }
                                 return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
+                            },
+                            // The VAT sectors share one ceiling and are drawn as a
+                            // single bar, so name them here rather than lose them.
+                            afterLabel: function(context) {
+                                const sectors = context.dataset.sectors &&
+                                    context.dataset.sectors[context.dataIndex];
+                                if (!sectors || !sectors.length) return undefined;
+                                return `${sectors.length} setores, limite partilhado:\n` +
+                                    sectors.map(name => '  · ' + name).join('\n');
                             }
                         }
                     }

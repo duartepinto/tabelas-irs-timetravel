@@ -625,6 +625,56 @@ test('VAT sectors appear and disappear on the right years', async () => {
     }
 });
 
+test('the ceilings Total counts the shared VAT ceiling once', async () => {
+    const { calc, charts } = await ready();
+    const chart = charts.filter(
+        (c) => /Limites de Deduções/.test(c.options?.plugins?.title?.text || '')
+    ).pop();
+    assert.ok(chart, 'ceilings chart was never built');
+
+    const total = chart.data.datasets.find((d) => d.label === 'Total');
+    const vatLine = chart.data.datasets.find((d) => d.label === 'IVA - limite partilhado');
+    assert.ok(total && vatLine, 'missing Total or shared-ceiling line');
+
+    // Each sector still gets a bar of its own.
+    const bars = chart.data.datasets.filter((d) => d.type !== 'line').map((d) => d.label);
+    assert.ok(bars.filter((l) => l.startsWith('IVA')).length >= 3, 'sector bars were dropped');
+
+    // Two line datasets under a stacked scale must not share a stack, or they
+    // pile on each other and the Total is drawn too high. Both need an explicit
+    // stack: leaving one undefined puts it in the default group.
+    assert.equal(typeof total.stack, 'string', 'Total needs an explicit stack');
+    assert.equal(typeof vatLine.stack, 'string', 'the VAT line needs an explicit stack');
+    assert.notEqual(total.stack, vatLine.stack, 'line datasets share a stack');
+
+    for (let i = 0; i < chart.data.labels.length; i++) {
+        const year = deductions[i].year;
+        const rules = deductions[i].deductions;
+
+        const plain = Object.entries(rules)
+            .filter(([k, v]) => v.limit && !k.startsWith('vat'))
+            .reduce((sum, [, v]) => sum + v.limit, 0);
+        const sectors = Object.entries(rules).filter(([k, v]) => v.limit && k.startsWith('vat'));
+        const ceiling = sectors.length ? sectors[0][1].limit : 0;
+
+        const expected = calc.adjustForInflation(plain, year, calc.referenceYear()) +
+            (sectors.length ? calc.adjustForInflation(ceiling, year, calc.referenceYear()) : 0);
+
+        assert.ok(
+            Math.abs(total.data[i] - expected) < 1e-6,
+            `${deductions[i].label}: Total ${total.data[i]} should be ${expected}`
+        );
+
+        // ...and never the sum of one ceiling per sector.
+        if (sectors.length > 1) {
+            const naive = calc.adjustForInflation(
+                plain + ceiling * sectors.length, year, calc.referenceYear());
+            assert.ok(total.data[i] < naive - 1,
+                `${deductions[i].label}: Total counts a ceiling per sector`);
+        }
+    }
+});
+
 test('legend order does not depend on which years carry a category', async () => {
     const { calc, charts } = await ready();
     const chart = charts.filter(

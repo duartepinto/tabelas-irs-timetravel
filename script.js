@@ -517,23 +517,58 @@ class TaxCalculator {
             }
         });
 
-        // Add total deductions as a line
-        const totalDeductionsData = this.deductionsData.map(yearData => {
-            // Calculate total of all deduction limits for this year
+        // The invoice-VAT sectors keep a bar each, because which ones were in
+        // force in which year is worth seeing, but they share a single 250 EUR
+        // household ceiling (art. 78.o-F n.o 1, with n.os 3, 6, 7 and 8 all
+        // counting towards it). Drawn as one line so the shared ceiling is
+        // stated once instead of once per sector.
+        const vatCeiling = this.deductionsData.map(yearData => {
+            const sector = Object.keys(yearData.deductions).find(
+                type => this.isVatCategory(type) && yearData.deductions[type].limit
+            );
+            return sector
+                ? this.adjustForInflation(yearData.deductions[sector].limit, yearData.year, currentYear)
+                : null;
+        });
+
+        // Add total deductions as a line. The VAT sectors contribute their one
+        // shared ceiling between them, not one ceiling each, so summing the bars
+        // would overstate the total by 250 EUR for every extra sector.
+        const totalDeductionsData = this.deductionsData.map((yearData, i) => {
             let totalDeductions = 0;
-            Object.values(yearData.deductions).forEach(deduction => {
-                if (deduction.limit) {
+            Object.entries(yearData.deductions).forEach(([type, deduction]) => {
+                if (deduction.limit && !this.isVatCategory(type)) {
                     totalDeductions += deduction.limit;
                 }
             });
-            return this.adjustForInflation(totalDeductions, yearData.year, currentYear);
+            const total = this.adjustForInflation(totalDeductions, yearData.year, currentYear);
+            return total + (vatCeiling[i] || 0);
         });
 
+        if (vatCeiling.some(value => value !== null)) {
+            datasets.push({
+                label: 'IVA - limite partilhado',
+                data: vatCeiling,
+                type: 'line',
+                // Distinct stack: two line datasets under a stacked scale would
+                // otherwise pile on each other and lift the Total line.
+                stack: 'vatCeiling',
+                borderColor: '#0891B2',
+                backgroundColor: 'rgba(8, 145, 178, 0.1)',
+                borderWidth: 2,
+                pointRadius: 3,
+                pointHoverRadius: 5,
+                tension: 0.1,
+                borderDash: [2, 3],
+                spanGaps: false
+            });
+        }
 
         datasets.push({
             label: 'Total',
             data: totalDeductionsData,
             type: 'line',
+            stack: 'total',
             borderColor: '#DC2626',
             backgroundColor: 'rgba(220, 38, 38, 0.1)',
             borderWidth: 3,

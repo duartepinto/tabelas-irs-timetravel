@@ -1117,83 +1117,86 @@ class TaxCalculator {
         });
     }
 
+    // One collapsible line per year. Inside it, the source for each tax-rate
+    // regime of that year (2025 and 2026 each had two) and the source for the
+    // year's deductions, so the list stays one entry per year instead of one
+    // per data file per regime.
     populateSources() {
         const sourcesContainer = document.getElementById('sourcesList');
+        if (!sourcesContainer) return;
+        sourcesContainer.innerHTML = ''; // idempotent if ever called again
 
-        // Group sources by year to handle cases where there are multiple entries per year
-        const sourcesByYear = {};
+        const byYear = new Map();
+        const entryFor = (year) => {
+            if (!byYear.has(year)) byYear.set(year, { brackets: [], deductions: null });
+            return byYear.get(year);
+        };
 
-        this.taxData.forEach(yearData => {
-            const year = yearData.year;
-            const label = yearData.label || year.toString();
+        // The brackets data is newest-first; within a year read it oldest-first,
+        // so a January regime is listed before the one that replaced it.
+        [...this.taxData].reverse().forEach(yearData => {
+            entryFor(yearData.year).brackets.push(yearData);
+        });
+        this.deductionsData.forEach(yearData => {
+            entryFor(yearData.year).deductions = yearData;
+        });
 
-            if (!sourcesByYear[year]) {
-                sourcesByYear[year] = [];
+        const links = (source) => {
+            if (!source) return '';
+            const row = (label, href) => href ? `
+                <p>
+                    <strong>${label}:</strong>
+                    <a href="${href}" target="_blank" rel="noopener noreferrer">${href}</a>
+                </p>` : '';
+            return row('Fonte', source.url) + row('Backup', source.backup);
+        };
+
+        const years = [...byYear.keys()].sort((a, b) => b - a);
+        years.forEach(year => {
+            const entry = byYear.get(year);
+            const groups = [];
+
+            entry.brackets.forEach(regime => {
+                // "2025 (Jun)" -> "Escalões de IRS (Jun)"; a single regime needs no suffix.
+                const suffix = entry.brackets.length > 1
+                    ? ' ' + (String(regime.label || '').replace(String(year), '').trim())
+                    : '';
+                groups.push({ title: `Escalões de IRS${suffix}`, source: regime.source });
+            });
+            if (entry.deductions) {
+                groups.push({ title: 'Deduções', source: entry.deductions.source });
             }
 
-            sourcesByYear[year].push({
-                label: label,
-                source: yearData.source
+            const sourceDiv = document.createElement('div');
+            sourceDiv.className = 'source-item';
+
+            const sourceHeader = document.createElement('div');
+            sourceHeader.className = 'source-header';
+            sourceHeader.innerHTML = `
+                <h3>${year}</h3>
+                <span class="source-meta">${groups.map(g => g.title).join(' · ')}</span>
+                <span class="source-toggle">▶</span>
+            `;
+
+            const sourceContent = document.createElement('div');
+            sourceContent.className = 'source-content';
+            sourceContent.innerHTML = groups.map(group => `
+                <div class="source-group">
+                    <h4>${group.title}</h4>
+                    ${links(group.source)}
+                </div>`).join('');
+
+            sourceHeader.addEventListener('click', () => {
+                const toggle = sourceHeader.querySelector('.source-toggle');
+                const expanded = sourceContent.classList.contains('expanded');
+                sourceContent.classList[expanded ? 'remove' : 'add']('expanded');
+                toggle.classList[expanded ? 'remove' : 'add']('expanded');
             });
+
+            sourceDiv.appendChild(sourceHeader);
+            sourceDiv.appendChild(sourceContent);
+            sourcesContainer.appendChild(sourceDiv);
         });
-
-        // Sort years in descending order
-        const sortedYears = Object.keys(sourcesByYear).sort((a, b) => parseInt(b) - parseInt(a));
-
-        sortedYears.forEach(year => {
-            const yearSources = sourcesByYear[year];
-
-            yearSources.forEach(item => {
-                const sourceDiv = document.createElement('div');
-                sourceDiv.className = 'source-item';
-
-                // Create header (clickable)
-                const sourceHeader = document.createElement('div');
-                sourceHeader.className = 'source-header';
-                sourceHeader.innerHTML = `
-                    <h3>${item.label}</h3>
-                    <span class="source-toggle">▶</span>
-                `;
-
-                // Create content (collapsible)
-                const sourceContent = document.createElement('div');
-                sourceContent.className = 'source-content';
-                sourceContent.innerHTML = `
-                    <p>
-                        <strong>Fonte:</strong>
-                        <a href="${item.source.url}" target="_blank" rel="noopener noreferrer">
-                            ${item.source.url}
-                        </a>
-                    </p>
-                    <p>
-                        <strong>Backup:</strong>
-                        <a href="${item.source.backup}" target="_blank" rel="noopener noreferrer">
-                            ${item.source.backup}
-                        </a>
-                    </p>
-                `;
-
-                // Add click event to header
-                sourceHeader.addEventListener('click', () => {
-                    const toggle = sourceHeader.querySelector('.source-toggle');
-                    const isExpanded = sourceContent.classList.contains('expanded');
-
-                    if (isExpanded) {
-                        sourceContent.classList.remove('expanded');
-                        toggle.classList.remove('expanded');
-                    } else {
-                        sourceContent.classList.add('expanded');
-                        toggle.classList.add('expanded');
-                    }
-                });
-
-                sourceDiv.appendChild(sourceHeader);
-                sourceDiv.appendChild(sourceContent);
-                sourcesContainer.appendChild(sourceDiv);
-            });
-        });
-
-        this.populateDeductionsSources();
     }
 
     populateComparisonDropdowns() {
@@ -1227,57 +1230,6 @@ class TaxCalculator {
             compareYear1Select.value = this.taxData[this.taxData.length - 1].year;
             compareYear2Select.value = this.taxData[0].year;
         }
-    }
-
-    populateDeductionsSources() {
-        const sourcesContainer = document.getElementById('sourcesList');
-
-        // Add deductions sources
-        this.deductionsData.forEach(yearData => {
-            const sourceDiv = document.createElement('div');
-            sourceDiv.className = 'source-item';
-
-            const sourceHeader = document.createElement('div');
-            sourceHeader.className = 'source-header';
-            sourceHeader.innerHTML = `
-                <h3>Deduções ${yearData.label}</h3>
-                <span class="source-toggle">▶</span>
-            `;
-
-            const sourceContent = document.createElement('div');
-            sourceContent.className = 'source-content';
-            sourceContent.innerHTML = `
-                <p>
-                    <strong>Fonte:</strong>
-                    <a href="${yearData.source.url}" target="_blank" rel="noopener noreferrer">
-                        ${yearData.source.url}
-                    </a>
-                </p>
-                <p>
-                    <strong>Backup:</strong>
-                    <a href="${yearData.source.backup}" target="_blank" rel="noopener noreferrer">
-                        ${yearData.source.backup}
-                    </a>
-                </p>
-            `;
-
-            sourceHeader.addEventListener('click', () => {
-                const toggle = sourceHeader.querySelector('.source-toggle');
-                const isExpanded = sourceContent.classList.contains('expanded');
-
-                if (isExpanded) {
-                    sourceContent.classList.remove('expanded');
-                    toggle.classList.remove('expanded');
-                } else {
-                    sourceContent.classList.add('expanded');
-                    toggle.classList.add('expanded');
-                }
-            });
-
-            sourceDiv.appendChild(sourceHeader);
-            sourceDiv.appendChild(sourceContent);
-            sourcesContainer.appendChild(sourceDiv);
-        });
     }
 
     debounceIncomeTracking(value) {

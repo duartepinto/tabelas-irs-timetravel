@@ -394,7 +394,31 @@ tr:hover {
 }
 
 .source-content.expanded {
-    max-height: 200px;
+    /* A year can hold several groups of long, wrapping URLs; 200px clipped them. */
+    max-height: 1200px;
+}
+
+.source-meta {
+    flex: 1;
+    margin: 0 1rem;
+    color: #6b7280;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.source-group {
+    padding: 0.75rem 0 0.25rem;
+}
+
+.source-group + .source-group {
+    border-top: 1px solid #eef0f3;
+}
+
+.source-group h4 {
+    margin: 0 0 0.4rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    color: #374151;
 }
 
 .source-content p {
@@ -404,11 +428,7 @@ tr:hover {
     padding: 0 1rem;
 }
 
-.source-content p:first-child {
-    padding-top: 1rem;
-}
-
-.source-content p:last-child {
+.source-content .source-group:last-child {
     padding-bottom: 1rem;
 }
 
@@ -451,6 +471,10 @@ tr:hover {
 
     .chart-container:has(#profileChart) canvas {
         height: 380px !important;
+    }
+
+    .source-meta {
+        display: none;
     }
 
     .profile-inputs {

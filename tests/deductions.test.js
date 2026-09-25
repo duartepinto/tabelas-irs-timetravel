@@ -71,7 +71,10 @@ function boot() {
     vm.createContext(sandbox);
     vm.runInContext(fs.readFileSync(path.join(ROOT, 'script.js'), 'utf8'), sandbox);
 
-    onReady();
+    // Construct exactly one instance, as the page does. Firing the
+    // DOMContentLoaded hook as well would build a second one writing into the
+    // same elements, doubling anything that appends (the sources list did).
+    assert.ok(onReady, 'script.js should register a DOMContentLoaded handler');
     const calc = vm.runInContext('globalThis.__calc = new TaxCalculator(); __calc', sandbox);
     return { calc, charts, elements };
 }
@@ -801,6 +804,42 @@ test('each spending input explains where its figure came from', async () => {
         assert.ok(note.includes(entry.note), `${category}: missing value note`);
         assert.ok(badge.getAttribute('aria-label'), `${category}: not exposed to screen readers`);
     }
+});
+
+test('sources list one line per year, with every source of that year inside', async () => {
+    const { elements } = await ready();
+    const brackets = read('tabelas_irs.json');
+    const items = elements.sourcesList.children;
+
+    const years = [...new Set([...brackets, ...deductions].map((e) => e.year))]
+        .sort((a, b) => b - a);
+    assert.equal(items.length, years.length, 'expected exactly one line per year');
+
+    items.forEach((item, i) => {
+        const year = years[i];
+        const [header, content] = item.children;
+        assert.match(header.innerHTML, new RegExp(`<h3>${year}</h3>`), `line ${i} is not ${year}`);
+
+        const regimes = brackets.filter((e) => e.year === year);
+        const ded = deductions.find((e) => e.year === year);
+        for (const source of [...regimes.map((r) => r.source), ded && ded.source]) {
+            if (!source) continue;
+            assert.ok(content.innerHTML.includes(source.url), `${year}: missing ${source.url}`);
+            assert.ok(content.innerHTML.includes(source.backup), `${year}: missing backup`);
+        }
+        assert.ok(!/undefined/.test(content.innerHTML), `${year}: renders "undefined"`);
+
+        // A year with several tax regimes gets one group each, told apart by the
+        // part of the label after the year.
+        const groups = content.innerHTML.match(/<h4>[^<]+<\/h4>/g) || [];
+        assert.equal(groups.length, regimes.length + (ded ? 1 : 0), `${year}: group count`);
+        if (regimes.length > 1) {
+            for (const r of regimes) {
+                const tag = r.label.replace(String(year), '').trim();
+                assert.ok(content.innerHTML.includes(`Escalões de IRS ${tag}`), `${year}: ${tag}`);
+            }
+        }
+    });
 });
 
 test('profiles.json documents the provenance of every value', () => {

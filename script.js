@@ -473,7 +473,7 @@ class TaxCalculator {
         // a color.
         const colors = [
             '#6B7280', '#8B5A3C', '#6366F1', '#DC2626', '#059669', '#0891B2',
-            '#7C2D12', '#4338CA', '#BE185D', '#9333EA', '#D97706'
+            '#7C2D12', '#4338CA', '#BE185D', '#9333EA', '#D97706', '#0F766E'
         ];
 
         const datasets = [];
@@ -720,6 +720,17 @@ class TaxCalculator {
         return sharedCap ? Math.max(dJuros, dRendas) : dJuros + dRendas;
     }
 
+    // Personal deduction per taxpayer (art. 79.o n.o 1 a), abolished in 2015).
+    // In 2005-2006 a single taxpayer got more than each spouse (`limitSingle`);
+    // a one-taxpayer profile is taken to be single, a two-taxpayer one married.
+    personalDeduction(yearData, taxpayers) {
+        const rule = this.deductionRule(yearData, 'personal');
+        if (!rule || !taxpayers) return 0;
+        const single = yearData.deductions.personal.limitSingle;
+        const each = taxpayers === 1 && single ? single : rule.cap;
+        return each * taxpayers;
+    }
+
     // Per-child deduction (art. 79.o before 2015, art. 78.o-A since): a fixed
     // amount per dependent, set by the household rather than by any spending.
     // The extras for children up to 3 or 6 years old are not modelled, since
@@ -832,6 +843,18 @@ class TaxCalculator {
                 backgroundColor: TaxCalculator.PROFILE_COLORS[i % TaxCalculator.PROFILE_COLORS.length]
             };
         });
+
+        const personal = years.map(yearData => this.personalDeduction(yearData, taxpayers));
+        if (personal.some(value => value > 0)) {
+            datasets.push({
+                label: 'Dedução pessoal',
+                data: personal.map((value, j) =>
+                    this.adjustForInflation(value, years[j].year, currentYear)
+                ),
+                capped: personal.map(() => false),
+                backgroundColor: '#0F766E'
+            });
+        }
 
         const dependents = this.currentDependents || 0;
         if (dependents > 0) {
@@ -946,7 +969,7 @@ class TaxCalculator {
     // dropping one from the latest year (juros, closed to new contracts after
     // 2011) shunts it to the end, next to the VAT rows.
     static CATEGORY_ORDER = [
-        'base', 'dependents', 'familyExpenses', 'domesticWork',
+        'base', 'personal', 'dependents', 'familyExpenses', 'domesticWork',
         'health', 'education',
         'mortgageInterest', 'rent', 'nursingHome',
         'retirementSavings',

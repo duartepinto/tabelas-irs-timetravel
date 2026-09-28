@@ -244,6 +244,13 @@ const REGIMES = {
         [2008, 2008, 1, 3680.64], [2009, 2009, 1, 3888], [2010, 2023, 1, 4104],
         [2024, 2024, 1, 4350.24], [2025, 2025, 1, 4462.15], [2026, 2026, 1, 4587.09]
     ],
+    // art. 79.o n.o 1 a): per taxpayer, abolished in 2015. 2005-2006 values are
+    // per spouse (50% of RMMG); a single taxpayer got 60%, held in limitSingle.
+    personal: [
+        [2005, 2005, 1, 187.35], [2006, 2006, 1, 192.95], [2007, 2007, 1, 221.65],
+        [2008, 2008, 1, 234.30], [2009, 2009, 1, 247.50], [2010, 2012, 1, 261.25],
+        [2013, 2014, 1, 213.75], [2015, 2026, 1, null]
+    ],
     // art. 79.o n.o 1 d) then 78.o-A: per dependent. 40% of RMMG to 2010, 40% of
     // the frozen 475 EUR base to 2012, 45% of it to 2014, then fixed amounts.
     dependents: [
@@ -618,6 +625,32 @@ test('the per-child deduction scales with dependents and reaches the profile cha
     assert.ok(Math.abs(series.data[i] - expected) < 1e-9, `2026: ${series.data[i]} vs ${expected}`);
 
     assert.equal(seriesFor(withoutKids), undefined, 'childless profile should have no Dependentes series');
+});
+
+test('the pre-2015 personal deduction counts every taxpayer and ends in 2014', async () => {
+    const { calc, charts } = await ready();
+
+    assert.equal(calc.personalDeduction(byYear[2014], 2), 2 * 213.75);
+    assert.equal(calc.personalDeduction(byYear[2010], 1), 261.25);
+    // 2005-2006: a single taxpayer got 60% of RMMG, each spouse 50%.
+    assert.equal(calc.personalDeduction(byYear[2005], 1), 224.82);
+    assert.equal(calc.personalDeduction(byYear[2005], 2), 2 * 187.35);
+    assert.equal(calc.personalDeduction(byYear[2015], 2), 0);
+    assert.equal(calc.personalDeduction(byYear[2026], 1), 0);
+
+    const couple = profiles.profiles.find((p) => p.household.taxpayers === 2);
+    calc.currentTaxpayers = 2;
+    calc.currentDependents = couple.household.dependents || 0;
+    calc.currentSpending = Object.fromEntries(
+        profiles.categories.map((c) => [c, couple.spending[c].value]));
+    calc.calculateProfileChart();
+    const series = charts[charts.length - 1].data.datasets
+        .find((d) => d.label === 'Dedução pessoal');
+    assert.ok(series, 'profile chart has no Dedução pessoal series');
+    const at = (year) => deductions.findIndex((e) => e.year === year);
+    assert.equal(series.data[at(2015)], 0);
+    const expected = calc.adjustForInflation(2 * 213.75, 2014, calc.referenceYear());
+    assert.ok(Math.abs(series.data[at(2014)] - expected) < 1e-9);
 });
 
 test('invoice-VAT deductions share one global ceiling', async () => {

@@ -1141,6 +1141,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 213.75,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 66-B/2012): 45% do IAS, mantendo-se a RMMG de 2010 (475 €), por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
+      },
       "dependents": {
         "name": "Dependentes",
         "limit": 213.75,
@@ -1216,6 +1222,12 @@
         "limit": 4104.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
+      },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 213.75,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 66-B/2012): 45% do IAS, mantendo-se a RMMG de 2010 (475 €), por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
       },
       "dependents": {
         "name": "Dependentes",
@@ -1293,6 +1305,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 261.25,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 55-A/2010): 55% do IAS, mantendo-se a RMMG de 2010 (475 €) pelo art. 98.º da mesma lei, por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
+      },
       "dependents": {
         "name": "Dependentes",
         "limit": 190.0,
@@ -1350,6 +1368,12 @@
         "limit": 4104.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
+      },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 261.25,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 55-A/2010): 55% do IAS, mantendo-se a RMMG de 2010 (475 €) pelo art. 98.º da mesma lei, por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
       },
       "dependents": {
         "name": "Dependentes",
@@ -1416,6 +1440,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 475,00 €)"
       },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 261.25,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 53-A/2006): 55% da retribuição mínima mensal (RMMG 475,00 €) por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
+      },
       "dependents": {
         "name": "Dependentes",
         "limit": 190.0,
@@ -1480,6 +1510,12 @@
         "limit": 3888.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 450,00 €)"
+      },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 247.5,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 53-A/2006): 55% da retribuição mínima mensal (RMMG 450,00 €) por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
       },
       "dependents": {
         "name": "Dependentes",
@@ -1546,6 +1582,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 426,00 €)"
       },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 234.3,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 53-A/2006): 55% da retribuição mínima mensal (RMMG 426,00 €) por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
+      },
       "dependents": {
         "name": "Dependentes",
         "limit": 170.4,
@@ -1610,6 +1652,12 @@
         "limit": 3481.92,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 403,00 €)"
+      },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 221.65,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) (Lei n.º 53-A/2006): 55% da retribuição mínima mensal (RMMG 403,00 €) por cada sujeito passivo, casado ou não (a alínea b), que distinguia os casados, foi revogada pela Lei n.º 53-A/2006). Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
       },
       "dependents": {
         "name": "Dependentes",
@@ -1676,6 +1724,13 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 385,90 €)"
       },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 192.95,
+        "limitSingle": 231.54,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) e b): 60% do salário mínimo nacional mais elevado (385,90 €) por sujeito passivo não casado, 50% por cada sujeito passivo casado. Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
+      },
       "dependents": {
         "name": "Dependentes",
         "limit": 154.36,
@@ -1740,6 +1795,13 @@
         "limit": 3237.41,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 374,70 €)"
+      },
+      "personal": {
+        "name": "Dedução pessoal",
+        "limit": 187.35,
+        "limitSingle": 224.82,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 a) e b): 60% do salário mínimo nacional mais elevado (374,70 €) por sujeito passivo não casado, 50% por cada sujeito passivo casado. Abolida pela reforma de 2015 (Lei n.º 82-E/2014)."
       },
       "dependents": {
         "name": "Dependentes",

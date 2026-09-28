@@ -151,13 +151,17 @@ const STATUTE = [
 
     // art. 78.o-F - IVA em fatura. One shared 250 EUR ceiling per household.
     // n.o 1 sectors deduct 15%; n.o 3 (transport passes) and n.o 7 (press
-    // subscriptions) deduct 100%; n.o 6 (veterinary medicines) deducts 35%.
+    // subscriptions) deduct 100%; n.o 6 (veterinary medicines) deducts 35% since
+    // 2022, after 15% in 2020 and 22.5% in 2021, and was not covered before.
     [2013, 'vatRestaurants', 0.15, 250],
     [2025, 'vatRestaurants', 0.15, 250],
     [2013, 'vatMechanic', 0.15, 250],
     [2013, 'vatHairdressers', 0.15, 250],
     [2015, 'vatVet', 0.35, null],
-    [2016, 'vatVet', 0.35, 250],
+    [2016, 'vatVet', 0, 250],
+    [2020, 'vatVet', 0.15, 250],
+    [2021, 'vatVet', 0.225, 250],
+    [2022, 'vatVet', 0.35, 250],
     [2015, 'vatPublicTransport', 1.0, null],
     [2016, 'vatPublicTransport', 1.0, 250],
     // Gyms: 15% under n.o 1 f) from 2021; Lei 82/2023 revoked that alinea and in
@@ -200,7 +204,11 @@ test('deductions.json is internally well-formed', () => {
     for (const entry of deductions) {
         for (const [key, rule] of Object.entries(entry.deductions)) {
             const where = `${entry.label}/${key}`;
-            assert.ok(rule.percentage > 0 && rule.percentage <= 1, `${where}: bad percentage`);
+            // Zero is legitimate only for vatVet 2016-2019: the sector existed,
+            // but the veterinary medicines the profile models were not yet covered.
+            const zeroOk = key === 'vatVet' && entry.year >= 2016 && entry.year <= 2019;
+            assert.ok((rule.percentage > 0 || (zeroOk && rule.percentage === 0)) && rule.percentage <= 1,
+                `${where}: bad percentage`);
             assert.ok(rule.limit === null || rule.limit > 0, `${where}: bad limit`);
             if (rule.unlimited) {
                 assert.equal(rule.limit, null, `${where}: unlimited must pair with limit null`);
@@ -235,6 +243,13 @@ const REGIMES = {
         [2005, 2005, 1, 3237.41], [2006, 2006, 1, 3334.18], [2007, 2007, 1, 3481.92],
         [2008, 2008, 1, 3680.64], [2009, 2009, 1, 3888], [2010, 2023, 1, 4104],
         [2024, 2024, 1, 4350.24], [2025, 2025, 1, 4462.15], [2026, 2026, 1, 4587.09]
+    ],
+    // art. 79.o n.o 1 d) then 78.o-A: per dependent. 40% of RMMG to 2010, 40% of
+    // the frozen 475 EUR base to 2012, 45% of it to 2014, then fixed amounts.
+    dependents: [
+        [2005, 2005, 1, 149.88], [2006, 2006, 1, 154.36], [2007, 2007, 1, 161.20],
+        [2008, 2008, 1, 170.40], [2009, 2009, 1, 180], [2010, 2012, 1, 190],
+        [2013, 2014, 1, 213.75], [2015, 2015, 1, 325], [2016, 2026, 1, 600]
     ],
     // art. 82.o then 78.o-C
     health: [[2005, 2011, 0.30, Infinity], [2012, 2014, 0.10, 838.44], [2015, 2026, 0.15, 1000]],
@@ -271,7 +286,12 @@ const REGIMES = {
     vatRestaurants: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
     vatMechanic: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
     vatHairdressers: [[2005, 2012, 0.15, null], [2013, 2026, 0.15, 250]],
-    vatVet: [[2005, 2015, 0.35, null], [2016, 2026, 0.35, 250]],
+    // n.o 1 e) (services, 15%) from 2016; the medicines modelled here only from
+    // 2020 (Lei 2/2020, 15%), then 22.5% (Lei 75-B/2020) and 35% (Lei 12/2022)
+    vatVet: [
+        [2005, 2015, 0, null], [2016, 2019, 0, 250], [2020, 2020, 0.15, 250],
+        [2021, 2021, 0.225, 250], [2022, 2026, 0.35, 250]
+    ],
     vatPublicTransport: [[2005, 2015, 1, null], [2016, 2026, 1, 250]],
     vatFitness: [[2005, 2020, 0.15, null], [2021, 2023, 0.15, 250], [2024, 2026, 0.30, 250]],
     vatPress: [[2005, 2022, 1, null], [2023, 2026, 1, 250]],
@@ -567,6 +587,39 @@ test('no category deflates its spend, not just PPR', async () => {
     );
 });
 
+test('the per-child deduction scales with dependents and reaches the profile chart', async () => {
+    const { calc, charts } = await ready();
+
+    assert.equal(calc.dependentsDeduction(byYear[2026], 2), 1200);
+    assert.equal(calc.dependentsDeduction(byYear[2013], 3), 3 * 213.75);
+    assert.equal(calc.dependentsDeduction(byYear[2026], 0), 0);
+
+    // It is not a spending category, so it must not appear as an input.
+    assert.ok(!profiles.categories.includes('dependents'));
+
+    const withKids = profiles.profiles.find((p) => p.household.dependents > 0);
+    const withoutKids = profiles.profiles.find((p) => !p.household.dependents);
+    assert.ok(withKids && withoutKids, 'need one profile of each kind');
+
+    const seriesFor = (profile) => {
+        calc.currentTaxpayers = profile.household.taxpayers;
+        calc.currentDependents = profile.household.dependents || 0;
+        calc.currentSpending = Object.fromEntries(
+            profiles.categories.map((c) => [c, profile.spending[c].value]));
+        calc.calculateProfileChart();
+        const chart = charts[charts.length - 1];
+        return chart.data.datasets.find((d) => d.label.startsWith('Dependentes'));
+    };
+
+    const series = seriesFor(withKids);
+    assert.ok(series, 'profile with children has no Dependentes series');
+    const i = deductions.findIndex((e) => e.year === 2026);
+    const expected = calc.adjustForInflation(600 * withKids.household.dependents, 2026, calc.referenceYear());
+    assert.ok(Math.abs(series.data[i] - expected) < 1e-9, `2026: ${series.data[i]} vs ${expected}`);
+
+    assert.equal(seriesFor(withoutKids), undefined, 'childless profile should have no Dependentes series');
+});
+
 test('invoice-VAT deductions share one global ceiling', async () => {
     const { calc } = await ready();
     const BASE = 2023;
@@ -625,6 +678,21 @@ test('VAT sectors appear and disappear on the right years', async () => {
     // There is no general-expenses VAT deduction in law.
     for (const entry of deductions) {
         assert.ok(!entry.deductions.vatGeneral, `${entry.label}: vatGeneral should not exist`);
+    }
+});
+
+test('every bar in the ceilings chart has its own color', async () => {
+    const { charts } = await ready();
+    const chart = charts.filter(
+        (c) => /Limites de Deduções/.test(c.options?.plugins?.title?.text || '')
+    ).pop();
+    assert.ok(chart, 'ceilings chart was never built');
+
+    const seen = new Map();
+    for (const d of chart.data.datasets.filter((d) => d.type !== 'line')) {
+        const other = seen.get(d.backgroundColor);
+        assert.ok(!other, `${d.label} and ${other} share ${d.backgroundColor}`);
+        seen.set(d.backgroundColor, d.label);
     }
 });
 

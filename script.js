@@ -124,6 +124,7 @@ class TaxCalculator {
             if (!profile) return;
 
             this.currentTaxpayers = profile.household.taxpayers;
+            this.currentDependents = profile.household.dependents || 0;
             this.profilesData.categories.forEach(category => {
                 const entry = profile.spending[category];
                 const input = document.getElementById(`spend_${category}`);
@@ -467,10 +468,12 @@ class TaxCalculator {
             });
         });
 
-        // Generate colors for each deduction type
+        // One color per bar: every non-VAT category plus the shared VAT bar. The
+        // list must be at least that long, or the index wraps and two bars share
+        // a color.
         const colors = [
             '#6B7280', '#8B5A3C', '#6366F1', '#DC2626', '#059669', '#0891B2',
-            '#7C2D12', '#4338CA', '#BE185D', '#9333EA'
+            '#7C2D12', '#4338CA', '#BE185D', '#9333EA', '#D97706'
         ];
 
         const datasets = [];
@@ -717,6 +720,16 @@ class TaxCalculator {
         return sharedCap ? Math.max(dJuros, dRendas) : dJuros + dRendas;
     }
 
+    // Per-child deduction (art. 79.o before 2015, art. 78.o-A since): a fixed
+    // amount per dependent, set by the household rather than by any spending.
+    // The extras for children up to 3 or 6 years old are not modelled, since
+    // the profiles carry no ages; this is the base amount only.
+    dependentsDeduction(yearData, dependents) {
+        const rule = this.deductionRule(yearData, 'dependents');
+        if (!rule || !dependents) return 0;
+        return rule.cap * dependents;
+    }
+
     // Brackets for that year. Where a year has more than one regime (2025 and
     // 2026 each have two) this takes the first listed, which is the later one,
     // since the data is ordered newest first.
@@ -820,6 +833,19 @@ class TaxCalculator {
             };
         });
 
+        const dependents = this.currentDependents || 0;
+        if (dependents > 0) {
+            const perChild = years.map(yearData => this.dependentsDeduction(yearData, dependents));
+            datasets.push({
+                label: `Dependentes (${dependents})`,
+                data: perChild.map((value, j) =>
+                    this.adjustForInflation(value, years[j].year, currentYear)
+                ),
+                capped: perChild.map(() => false),
+                backgroundColor: '#9333EA'
+            });
+        }
+
         const housingNominal = years.map(yearData =>
             this.housingDeduction(yearData, spending, taxpayers)
         );
@@ -920,7 +946,7 @@ class TaxCalculator {
     // dropping one from the latest year (juros, closed to new contracts after
     // 2011) shunts it to the end, next to the VAT rows.
     static CATEGORY_ORDER = [
-        'base', 'familyExpenses', 'domesticWork',
+        'base', 'dependents', 'familyExpenses', 'domesticWork',
         'health', 'education',
         'mortgageInterest', 'rent', 'nursingHome',
         'retirementSavings',

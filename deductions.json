@@ -13,6 +13,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 8,54 vezes o valor do IAS. IAS de 2026 = 537.13 € (Portaria n.º 480-A/2025/1, de 30 de dezembro), logo 8,54 x 537.13 = 4587.09 €."
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 6 anos (Lei n.º 24-D/2022), não cumuláveis."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -77,7 +83,7 @@
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%."
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 12/2022, OE2022, aplicável a partir de 2022). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -118,6 +124,12 @@
         "limit": 4462.15,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 6 anos (Lei n.º 24-D/2022), não cumuláveis."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -177,7 +189,7 @@
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 12/2022, OE2022, aplicável a partir de 2022). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -218,6 +230,12 @@
         "limit": 4350.24,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 6 anos (Lei n.º 24-D/2022), não cumuláveis."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -277,7 +295,7 @@
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 12/2022, OE2022, aplicável a partir de 2022). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -319,6 +337,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 6 anos (Lei n.º 24-D/2022), não cumuláveis."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -377,7 +401,7 @@
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 12/2022, OE2022, aplicável a partir de 2022). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -413,6 +437,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos; para o segundo dependente e seguintes, 300 € até 3 anos ou 150 € dos 3 aos 6 (Lei n.º 12/2022)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -471,7 +501,7 @@
         "name": "IVA - Veterinários",
         "limit": 250,
         "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 12/2022, OE2022, aplicável a partir de 2022). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -501,6 +531,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 3 anos (Lei n.º 2/2020)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -558,8 +594,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.225,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 22,5% do IVA de medicamentos de uso veterinário (n.º 6, redação da Lei n.º 75-B/2020, OE2021). A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -589,6 +625,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos, ou 300 € para o segundo dependente e seguintes até 3 anos (Lei n.º 2/2020)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -646,8 +688,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.15,
+        "description": "CIRS art. 78.º-F. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 15% do IVA de medicamentos de uso veterinário: o n.º 6, aditado pela Lei n.º 2/2020 (OE2020), incluiu-os na alínea e) do n.º 1, à mesma taxa. A atividade veterinária em si (Secção M, classe 75000, alínea e) do n.º 1, aditada pela Lei n.º 7-A/2016) deduz 15%."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -671,6 +713,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos (Lei n.º 106/2017)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -728,8 +776,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.0,
+        "description": "CIRS art. 78.º-F n.º 1 e), aditada pela Lei n.º 7-A/2016 e aplicável a partir de 2016. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. Só a atividade veterinária (Secção M, classe 75000) deduzia, a 15% do IVA suportado. Os medicamentos de uso veterinário ainda não estavam abrangidos (só a partir de 2020, com o n.º 6), por isso a percentagem aqui é 0: é a que se aplica à despesa do perfil, que é de medicamentos."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -753,6 +801,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos (Lei n.º 106/2017)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -810,8 +864,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.0,
+        "description": "CIRS art. 78.º-F n.º 1 e), aditada pela Lei n.º 7-A/2016 e aplicável a partir de 2016. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. Só a atividade veterinária (Secção M, classe 75000) deduzia, a 15% do IVA suportado. Os medicamentos de uso veterinário ainda não estavam abrangidos (só a partir de 2020, com o n.º 6), por isso a percentagem aqui é 0: é a que se aplica à despesa do perfil, que é de medicamentos."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -835,6 +889,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 126 € até 3 anos (Lei n.º 106/2017)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -892,8 +952,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.0,
+        "description": "CIRS art. 78.º-F n.º 1 e), aditada pela Lei n.º 7-A/2016 e aplicável a partir de 2016. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. Só a atividade veterinária (Secção M, classe 75000) deduzia, a 15% do IVA suportado. Os medicamentos de uso veterinário ainda não estavam abrangidos (só a partir de 2020, com o n.º 6), por isso a percentagem aqui é 0: é a que se aplica à despesa do perfil, que é de medicamentos."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -917,6 +977,12 @@
         "percentage": 1.0,
         "description": "Deduções à coleta"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 600,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A n.º 1 a) (Lei n.º 7-A/2016, que substituiu o quociente familiar): 600 € por dependente, mais 125 € até 3 anos."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": 250,
@@ -974,8 +1040,8 @@
       "vatVet": {
         "name": "IVA - Veterinários",
         "limit": 250,
-        "percentage": 0.35,
-        "description": "CIRS art. 78.º-F (antes de 2015: EBF art. 66.º-B). Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. 35% do IVA de medicamentos de uso veterinário (art. 78.º-F n.º 6). A atividade veterinária em si (Secção M, classe 75000) deduz 15%. Aditado pela Lei n.º 7-A/2016, aplicável a partir de 2016."
+        "percentage": 0.0,
+        "description": "CIRS art. 78.º-F n.º 1 e), aditada pela Lei n.º 7-A/2016 e aplicável a partir de 2016. Todas as deduções de IVA em fatura concorrem para UM ÚNICO limite global de 250 € por agregado familiar. Só a atividade veterinária (Secção M, classe 75000) deduzia, a 15% do IVA suportado. Os medicamentos de uso veterinário ainda não estavam abrangidos (só a partir de 2020, com o n.º 6), por isso a percentagem aqui é 0: é a que se aplica à despesa do perfil, que é de medicamentos."
       },
       "vatPublicTransport": {
         "name": "IVA - Passes Mensais",
@@ -998,6 +1064,12 @@
         "limit": 4104.0,
         "percentage": 1.0,
         "description": "Deduções à coleta"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 325,
+        "percentage": 1.0,
+        "description": "CIRS art. 78.º-A (Lei n.º 82-E/2014): 325 € por dependente, mais 125 € até 3 anos. Só em 2015 existiu também o quociente familiar (art. 69.º, 0,3 por dependente, benefício até 2 000 €), que atua pela taxa e não está aqui incluído — por isso 2015 subavalia o apoio às famílias."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -1069,6 +1141,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 213.75,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d) (Lei n.º 66-B/2012): 45% do IAS por cada dependente, mantendo-se a RMMG de 2010 (475 €). Elevada para o dobro até 3 anos, e para 50% do IAS por dependente nos agregados com três ou mais."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": null,
@@ -1138,6 +1216,12 @@
         "limit": 4104.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 213.75,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d) (Lei n.º 66-B/2012): 45% do IAS por cada dependente, mantendo-se a RMMG de 2010 (475 €). Elevada para o dobro até 3 anos, e para 50% do IAS por dependente nos agregados com três ou mais."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -1209,6 +1293,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 190.0,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d) (Lei n.º 55-A/2010): 40% do IAS por cada dependente, mantendo-se a RMMG de 2010 (475 €) pelo art. 98.º da mesma lei. Elevada para o dobro para dependentes até 3 anos."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": null,
@@ -1260,6 +1350,12 @@
         "limit": 4104.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o IAS, mantendo-se a RMMG de 2010 (475,00 €) por força do art. 98.º da Lei n.º 55-A/2010"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 190.0,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d) (Lei n.º 55-A/2010): 40% do IAS por cada dependente, mantendo-se a RMMG de 2010 (475 €) pelo art. 98.º da mesma lei. Elevada para o dobro para dependentes até 3 anos."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -1320,6 +1416,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 475,00 €)"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 190.0,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 475,00 €) por cada dependente. Elevada para o dobro para dependentes até 3 anos (n.º 3, Lei n.º 67-A/2007)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": null,
@@ -1378,6 +1480,12 @@
         "limit": 3888.0,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 450,00 €)"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 180.0,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 450,00 €) por cada dependente. Elevada para o dobro para dependentes até 3 anos (n.º 3, Lei n.º 67-A/2007)."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -1438,6 +1546,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 426,00 €)"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 170.4,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 426,00 €) por cada dependente. Elevada para o dobro para dependentes até 3 anos (n.º 3, Lei n.º 67-A/2007)."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": null,
@@ -1496,6 +1610,12 @@
         "limit": 3481.92,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 403,00 €)"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 161.2,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 403,00 €) por cada dependente."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
@@ -1556,6 +1676,12 @@
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 385,90 €)"
       },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 154.36,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 385,90 €) por cada dependente."
+      },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",
         "limit": null,
@@ -1614,6 +1740,12 @@
         "limit": 3237.41,
         "percentage": 1.0,
         "description": "Dedução específica dos rendimentos do trabalho dependente (CIRS art. 25.º n.º 1 a): 72% de doze vezes o salário mínimo nacional mais elevado (RMMG 374,70 €)"
+      },
+      "dependents": {
+        "name": "Dependentes",
+        "limit": 149.88,
+        "percentage": 1.0,
+        "description": "CIRS art. 79.º n.º 1 d): 40% da retribuição mínima mensal (RMMG 374,70 €) por cada dependente."
       },
       "familyExpenses": {
         "name": "Despesas Familiares Gerais",

@@ -92,8 +92,7 @@
 
             <div class="chart-container">
                 <h2>Comparação de Deduções IRS</h2>
-                <p class="chart-note">Tectos legais de cada dedução, a preços de hoje. Mostra o que a lei
-                <em>permitia</em> deduzir no máximo — não o que uma família recebia.</p>
+                <p class="chart-note">Tectos legais de cada dedução, a preços de hoje.</p>
                 <canvas id="deductionsChart"></canvas>
             </div>
 
@@ -104,11 +103,6 @@
                 Mostra quanto valeria hoje aquilo que esse gasto dava de volta em cada ano. Escolha um perfil
                 e ajuste os valores ao seu caso.</p>
 
-                <p class="chart-note">Leitura: com a despesa fixa em euros, uma dedução cuja regra nunca mudou
-                também aparece a descer, porque os mesmos euros valiam mais no passado. As quedas mais
-                acentuadas são as dos tectos congelados — o de PPR, por exemplo, está nos 400 € por sujeito
-                passivo desde 2006.</p>
-
                 <div class="controls profile-controls">
                     <div class="input-group">
                         <label for="profileSelect">Perfil:</label>
@@ -117,7 +111,7 @@
                 </div>
 
                 <p class="profile-inputs-hint">Despesa anual de cada categoria, em euros de hoje.
-                A etiqueta por baixo de cada campo diz de onde vem o valor — passe o rato para ver.</p>
+                A etiqueta por baixo de cada campo diz de onde vem o valor, passe o rato para ver.</p>
 
                 <div id="profileInputs" class="profile-inputs"></div>
 
@@ -127,28 +121,49 @@
                     <canvas id="profileChart"></canvas>
                 </div>
 
-                <p class="chart-note chart-caveats">
-                    <strong>Limitações:</strong> os valores por defeito vêm do
+                <div class="chart-note chart-caveats">
+                    <p><strong>Limitações</strong></p>
+
+                    <p><strong>Porque é que a despesa não é ajustada à inflação.</strong>
+                    Nem todas as deduções se usam da mesma maneira. Algumas são, na prática, sempre
+                    esgotadas: nas despesas gerais familiares bastam cerca de 715 € de faturas por sujeito
+                    passivo para chegar aos 250 €; quem poupa para a reforma tende a entregar no PPR o valor
+                    que dá a dedução máxima; e, para a maioria de quem arrenda, a renda passa o tecto em
+                    todos os anos. Nestas, o que decide o valor é o tecto, e manter a despesa fixa em euros
+                    equivale a assumir que foi sempre esgotada.
+                    Outras acompanham o que realmente se gasta, como a saúde. Aí o correto seria atualizar a
+                    despesa pela inflação, e manter os mesmos euros faz os anos mais antigos parecerem mais
+                    generosos do que foram, embora menos do que a inflação geral sugere, porque os preços
+                    da saúde subiram cerca de 31% desde 2005, contra 58% no conjunto dos preços.
+                    Um só modelo tem de servir todas as categorias. Escolheu-se o primeiro porque é nele que
+                    se vê o que esta página quer mostrar: tectos congelados em euros a perder valor. Por isso,
+                    uma descida numa dedução que nunca bate no tecto deve ser lida com cuidado, parte dela
+                    é apenas o efeito de manter os mesmos euros.</p>
+
+                    <p><strong>Origem dos valores e outras simplificações.</strong> Os valores por defeito vêm do
                     <a href="https://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_publicacoes&amp;PUBLICACOESpub_boui=439486878&amp;PUBLICACOESmodo=2&amp;xlang=pt" target="_blank" rel="noopener noreferrer">Inquérito às Despesas das Famílias 2022/2023</a>
                     do INE; a etiqueta ao lado de cada campo diz se o número é lido diretamente do inquérito,
                     derivado dele, ou uma estimativa (passe o rato para ver a origem).
                     A <strong>dedução específica</strong> (art. 25.º) abate ao rendimento e não à coleta,
-                    por isso aparece convertida no imposto que se pagaria a mais sem ela — é a única forma
+                    por isso aparece convertida no imposto que se pagaria a mais sem ela, é a única forma
                     de a somar às restantes sem misturar euros de rendimento com euros de imposto. Depende
                     do rendimento indicado no topo da página.
                     O <strong>IVA em faturas</strong> aparece como uma só barra porque todos os setores
                     (restauração, oficinas, cabeleireiros, veterinários, transportes, ginásios, jornais e,
                     desde 2026, cultura) partilham um único limite de 250 € por agregado. A dedução incide
                     sobre o IVA contido na despesa, não sobre a despesa, pelo que se usa a taxa de IVA de
-                    cada setor — uma aproximação na restauração, que mistura taxas de 6%, 13% e 23%.
+                    cada setor, uma aproximação na restauração, que mistura taxas de 6%, 13% e 23%.
                     Os <strong>juros de habitação</strong> terminam em 2011: a dedução continua na lei
                     (art. 78.º-E n.º 1 b), 296 €) mas só para contratos celebrados até 31/12/2011, a que
                     ninguém consegue aceder desde então.
+                    A dedução por <strong>dependente</strong> usa o número de filhos do perfil e só o valor
+                    base por filho: os acréscimos para crianças até 3 ou 6 anos não entram, porque os perfis
+                    não têm idades. Em 2015 aparece mais baixa porque nesse ano o apoio às famílias passava
+                    sobretudo pelo quociente familiar, que atua pela taxa e não está modelado.
                     Ainda não estão modelados o limite global à soma das deduções (art. 78.º n.º 7), as
-                    deduções por dependente e ascendente (art. 78.º-A), as pensões de alimentos
-                    (art. 83.º-A) nem as deduções por deficiência (art. 87.º), e a dedução nunca pode
-                    exceder a coleta.
-                </p>
+                    deduções por ascendente (art. 78.º-A), as pensões de alimentos (art. 83.º-A) nem as
+                    deduções por deficiência (art. 87.º), e a dedução nunca pode exceder a coleta.</p>
+                </div>
             </div>
         </section>
 
@@ -161,7 +176,7 @@
               <strong>Nota:</strong> Os ajustes de inflação são baseados em médias anuais referentes a
               toda a União Europeia e retirados do site
               <a href="https://www.macrotrends.net/global-metrics/countries/euu/european-union/inflation-rate-cpi" target="_blank" rel="noopener noreferrer">macrotrends.net</a>
-            <p>
+            </p>
         </section>
 
         <section class="sources">

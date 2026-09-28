@@ -163,6 +163,14 @@ tr:hover {
     color: #6b7280;
 }
 
+.chart-caveats p + p {
+    margin-top: 0.7rem;
+}
+
+.chart-caveats strong {
+    color: #4b5563;
+}
+
 .profile-controls {
     margin-bottom: 1rem;
 }

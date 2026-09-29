@@ -273,6 +273,7 @@ class TaxCalculator {
         });
         baseYearSelect.addEventListener('change', () => {
             this.calculate();
+            this.calculateProfileChart(); // the income is deflated from the base year
             this.trackInputEvent('base_year_change', baseYearSelect.value);
         });
         compareYear1Select.addEventListener('change', () => {
@@ -901,13 +902,19 @@ class TaxCalculator {
         }
 
         // Employment-income allowance (art. 25.o), expressed in euros of tax.
+        // The one exception to the constant-nominal rule: the income is carried
+        // into each year's euros from the base year, as the main table does.
+        // Its value is the tax saved at the marginal rate, so an undeflated
+        // income would sit in too high a bracket in the older years.
         const incomeInput = document.getElementById('income');
         const income = parseFloat(incomeInput && incomeInput.value) || 0;
         if (income > 0) {
+            const baseYearSelect = document.getElementById('baseYear');
+            const baseYear = parseInt(baseYearSelect && baseYearSelect.value) || currentYear;
             const specificNominal = years.map(yearData =>
                 this.specificDeductionValue(
                     yearData,
-                    income
+                    this.adjustForInflation(income, baseYear, yearData.year)
                 )
             );
             datasets.push({

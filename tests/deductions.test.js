@@ -594,6 +594,32 @@ test('no category deflates its spend, not just PPR', async () => {
     );
 });
 
+test('the art. 25.o allowance uses the income deflated from the base year', async () => {
+    const { calc, charts, elements } = await ready();
+
+    // 20 000 EUR sits near a bracket edge in the older years, so deflating it
+    // changes the marginal rate and therefore the allowance's value.
+    elements.income.value = '20000';
+    elements.baseYear.value = '2025';
+    calc.calculateProfileChart();
+    const series = charts[charts.length - 1].data.datasets
+        .find((d) => d.label.startsWith('Dedução específica'));
+    assert.ok(series, 'no Dedução específica series');
+
+    const ref = calc.referenceYear();
+    for (const year of [2005, 2015, 2025]) {
+        const i = deductions.findIndex((e) => e.year === year);
+        const deflated = calc.adjustForInflation(20000, 2025, year);
+        const expected = calc.adjustForInflation(
+            calc.specificDeductionValue(byYear[year], deflated), year, ref);
+        assert.ok(Math.abs(series.data[i] - expected) < 1e-9, `${year}: ${series.data[i]} vs ${expected}`);
+    }
+
+    const i2005 = deductions.findIndex((e) => e.year === 2005);
+    const undeflated = calc.adjustForInflation(calc.specificDeductionValue(byYear[2005], 20000), 2005, ref);
+    assert.ok(series.data[i2005] < undeflated - 100, '2005 still looks computed on the undeflated income');
+});
+
 test('the per-child deduction scales with dependents and reaches the profile chart', async () => {
     const { calc, charts } = await ready();
 

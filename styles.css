@@ -21,6 +21,7 @@ header {
 
 header h1 {
     font-size: 2.5rem;
+    line-height: 1.2;
     margin-bottom: 0.5rem;
 }
 
@@ -30,7 +31,7 @@ header p {
 }
 
 main {
-    max-width: 1200px;
+    max-width: min(1500px, 100%);
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -42,9 +43,19 @@ main {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     margin-bottom: 2rem;
     display: flex;
-    gap: 2rem;
-    align-items: center;
+    gap: 1rem 2rem;
+    align-items: flex-end;
     flex-wrap: wrap;
+}
+
+/* Controls nested inside a card: no second card within the card. */
+.chart-container .controls {
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    margin-bottom: 1rem;
+    gap: 1rem;
 }
 
 .input-group {
@@ -73,25 +84,14 @@ main {
     border-color: #667eea;
 }
 
-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-}
-
 .results {
     display: grid;
     gap: 2rem;
+    min-width: 0;
+}
+
+.results > * {
+    min-width: 0;
 }
 
 .comparison-table {
@@ -99,7 +99,21 @@ button:hover {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Scroll shadows: a soft edge appears only on the side that has more content.
+   The white covers (attachment: local) scroll with the content and hide the
+   shadows (attachment: scroll) once that edge is reached. */
+.table-scroll {
     overflow-x: auto;
+    background:
+        linear-gradient(to right, white 30%, rgba(255,255,255,0)) left center,
+        linear-gradient(to left, white 30%, rgba(255,255,255,0)) right center,
+        radial-gradient(farthest-side at 0 50%, rgba(0,0,0,0.25), rgba(0,0,0,0)) left center,
+        radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.25), rgba(0,0,0,0)) right center;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
 }
 
 .comparison-table h2 {
@@ -109,6 +123,7 @@ button:hover {
 
 table {
     width: 100%;
+    white-space: nowrap;
     border-collapse: collapse;
     font-size: 0.9rem;
 }
@@ -134,9 +149,17 @@ tr:hover {
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.chart-container h2 {
+    margin-bottom: 0.75rem;
 }
 
 .chart-container canvas {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
     height: 450px;
 }
 
@@ -452,13 +475,42 @@ tr:hover {
 }
 
 @media (max-width: 768px) {
-    .controls {
+    .controls,
+    .chart-container .controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 1rem;
+    }
+
+    .controls,
+    .comparison-table,
+    .chart-container,
+    .methodology,
+    .sources {
+        padding: 1rem;
+    }
+
+    .controls button {
+        width: 100%;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    header {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1rem;
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
+    }
+
+    header p {
+        font-size: 1rem;
     }
 
     table {
@@ -485,6 +537,17 @@ tr:hover {
         display: none;
     }
 
+    .results,
+    .methodology,
+    .sources {
+        gap: 1rem;
+    }
+
+    .methodology,
+    .sources {
+        margin-top: 1rem;
+    }
+
     .profile-inputs {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 0.9rem 0.75rem;
@@ -505,7 +568,6 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s;
-    align-self: flex-end;
 }
 
 button:hover {
@@ -536,4 +598,14 @@ button:hover {
 
 .coffee-icon {
     font-size: 1.2rem;
+}
+
+.compare-and {
+    padding-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .compare-and {
+        padding-bottom: 0;
+    }
 }

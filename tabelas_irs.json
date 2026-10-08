@@ -1,5 +1,70 @@
 [
   {
+    "year": 2027,
+    "label": "2027 (Proposta)",
+    "source": {
+      "url": "https://economiafinancas.com/2026/escaloes-irs-2027/",
+      "backup": "https://web.archive.org/web/20261008153536/https://economiafinancas.com/2026/escaloes-irs-2027/"
+    },
+    "brackets": [
+      {
+        "from": 0,
+        "until": 8666,
+        "tax": 0.122
+      },
+      {
+        "from": 8666,
+        "until": 13075,
+        "tax": 0.152
+      },
+      {
+        "from": 13075,
+        "until": 18530,
+        "tax": 0.207
+      },
+      {
+        "from": 18530,
+        "until": 23985,
+        "tax": 0.236
+      },
+      {
+        "from": 23985,
+        "until": 30538,
+        "tax": 0.306
+      },
+      {
+        "from": 30538,
+        "until": 44762,
+        "tax": 0.346
+      },
+      {
+        "from": 44762,
+        "until": 48373,
+        "tax": 0.431
+      },
+      {
+        "from": 48373,
+        "until": 80000,
+        "tax": 0.446
+      },
+      {
+        "from": 80000,
+        "until": 89995,
+        "tax": 0.471
+      },
+      {
+        "from": 89995,
+        "until": 250000,
+        "tax": 0.505
+      },
+      {
+        "from": 250000,
+        "until": null,
+        "tax": 0.53
+      }
+    ]
+  },
+  {
     "year": 2026,
     "label": "2026 (Set)",
     "source": {

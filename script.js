@@ -30,6 +30,7 @@ class TaxCalculator {
         this.taxData = [];
         this.deductionsData = [];
         this.inflationData = {};
+        this.estimatedInflationYears = new Set();
         this.deductionsChart = null;
         this.chart = null;
         this.comparisonChart = null;
@@ -65,10 +66,25 @@ class TaxCalculator {
             ]);
 
             this.taxData = await taxResponse.json();
-            this.inflationData = await inflationResponse.json();
+            this.parseInflationData(await inflationResponse.json());
         } catch (error) {
             console.error('Failed to load data:', error);
             throw error;
+        }
+    }
+
+    // Each year in inflation_pt.json is either a plain rate or
+    // {"value": rate, "estimate": true} for a forecast that isn't final yet.
+    parseInflationData(raw) {
+        this.inflationData = {};
+        this.estimatedInflationYears = new Set();
+        for (const [year, entry] of Object.entries(raw)) {
+            if (typeof entry === 'number') {
+                this.inflationData[year] = entry;
+            } else {
+                this.inflationData[year] = entry.value;
+                if (entry.estimate) this.estimatedInflationYears.add(Number(year));
+            }
         }
     }
 
@@ -249,8 +265,11 @@ class TaxCalculator {
             baseYearSelect.appendChild(option);
         });
 
-        // Set default to the most recent year
-        if (sortedYears.length > 0) {
+        // Default to the current year, or the most recent one if it isn't listed
+        const thisYear = new Date().getFullYear().toString();
+        if (sortedYears.includes(thisYear)) {
+            baseYearSelect.value = thisYear;
+        } else if (sortedYears.length > 0) {
             baseYearSelect.value = sortedYears[0];
         }
     }
@@ -332,27 +351,40 @@ class TaxCalculator {
     // The calendar year looks like the obvious choice, but any year missing from
     // inflation_pt.json is treated as 0% (see adjustForInflation), which silently
     // understates every figure and makes the most recent years come out equal.
-    // Anchoring to the last year with data avoids that: adding one line to the
-    // JSON moves the reference forward.
+    // Anchoring to the year after the last one with data avoids that (inflation
+    // during year N is what separates N from N+1): adding one line to the JSON
+    // moves the reference forward.
     referenceYear() {
         const years = Object.keys(this.inflationData).map(Number).filter(Number.isFinite);
         if (!years.length) return new Date().getFullYear();
-        return Math.min(Math.max(...years), new Date().getFullYear());
+        return Math.min(Math.max(...years) + 1, new Date().getFullYear());
     }
 
+    hasInflationData(fromYear, toYear) {
+        return this.getYearRange(fromYear, toYear)
+            .every(year => this.inflationData.hasOwnProperty(year.toString()));
+    }
+
+    estimatedInflationYearsBetween(fromYear, toYear) {
+        return this.getYearRange(fromYear, toYear)
+            .filter(year => this.estimatedInflationYears.has(year))
+            .sort((a, b) => a - b);
+    }
+
+    // inflation_pt.json holds December-on-December rates, i.e. how much prices
+    // rose *during* each year. Tax tables apply from the start of their year, so
+    // going from N to N+1 uses the inflation of year N.
     getYearRange(fromYear, toYear) {
-        const start = Math.min(fromYear, toYear);
-        const end = Math.max(fromYear, toYear);
         const years = [];
 
         if (fromYear < toYear) {
-            // Going forward: use years from fromYear+1 to toYear
-            for (let year = fromYear + 1; year <= toYear; year++) {
+            // Going forward: use years from fromYear to toYear-1
+            for (let year = fromYear; year < toYear; year++) {
                 years.push(year);
             }
         } else {
-            // Going backward: use years from fromYear down to toYear+1 (in reverse)
-            for (let year = fromYear; year > toYear; year--) {
+            // Going backward: use years from fromYear-1 down to toYear (in reverse)
+            for (let year = fromYear - 1; year >= toYear; year--) {
                 years.push(year);
             }
         }
@@ -996,10 +1028,21 @@ class TaxCalculator {
             const purchasingPowerClass = result.purchasingPower > 1 ? 'positive' :
                                        result.purchasingPower < 1 ? 'negative' : '';
 
-            // Check if inflation data exists for this year AND if it's different from base year
-            const hasInflationData = this.inflationData.hasOwnProperty(result.year.toString());
-            const isDifferentFromBaseYear = result.year !== result.baseYear;
-            const warningIcon = (hasInflationData || !isDifferentFromBaseYear) ? '' : '<span class="warning-icon" title="Dados de inflação não disponíveis para este ano">⚠️</span>';
+            // Check the inflation used for this row: from the base year to this one, and
+            // from this one to the reference year (the "a preços de hoje" columns)
+            const referenceYear = this.referenceYear();
+            const hasInflationData = this.hasInflationData(result.baseYear, result.year) &&
+                this.hasInflationData(result.year, referenceYear);
+            const estimatedYears = [...new Set([
+                ...this.estimatedInflationYearsBetween(result.baseYear, result.year),
+                ...this.estimatedInflationYearsBetween(result.year, referenceYear)
+            ])].sort((a, b) => a - b);
+            let warningIcon = '';
+            if (!hasInflationData) {
+                warningIcon = '<span class="warning-icon" title="Dados de inflação não disponíveis para este ano">⚠️</span>';
+            } else if (estimatedYears.length) {
+                warningIcon = `<span class="warning-icon" title="Inclui inflação estimada (ainda não definitiva) para ${estimatedYears.join(', ')}">⚠️</span>`;
+            }
 
             row.innerHTML = `
                 <td><strong>${result.label}</strong>${warningIcon}</td>

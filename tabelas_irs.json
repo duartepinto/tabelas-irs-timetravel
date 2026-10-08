@@ -3,8 +3,8 @@
     "year": 2027,
     "label": "2027 (Proposta)",
     "source": {
-      "url": "https://economiafinancas.com/2026/escaloes-irs-2027/",
-      "backup": "https://web.archive.org/web/20261008153536/https://economiafinancas.com/2026/escaloes-irs-2027/"
+      "url": "https://app.parlamento.pt/webutils/docs/doc.pdf?path=vDs5Ckaqv50jxAucdlhvQwobMGUC4eQ0W7GGpXGhEUrLPsVnWqDAUv9HZHcMIzdhh4sS5nUOJAVqQfDgDcomw9dWrjxn6bc%252fp9aKk9E2C2MndmQRN6mDr2a5nUrAsCW3CT2RoAGV4AUJ2uDthrTJK11xiSqhhhm976KVorrs8JghoHMRbOH6AIF1TYp39vcNM%252bzaWtnML05868RRSp19JpF4QtzJ7pLWycktZ1iohtAT9ksAweBhE6cd6Sv339eUnpMn%252f4Kqe8kun9VH0Wi9F6DsMpQMqnQV7yuTyqPJPaY0an11g%252bve8TPt41I3RRe0E2NLQTfOEKUBDuSt50Q1qXmHY0jVnZLPlOQgJwRU3dY%253d&fich=a4964881-2005-4b3c-8691-2fb725dd2ba9.docx&Inline=true",
+      "backup": "https://web.archive.org/web/20261008154804/https://app.parlamento.pt/webutils/docs/doc.pdf?path=vDs5Ckaqv50jxAucdlhvQwobMGUC4eQ0W7GGpXGhEUrLPsVnWqDAUv9HZHcMIzdhh4sS5nUOJAVqQfDgDcomw9dWrjxn6bc%252fp9aKk9E2C2MndmQRN6mDr2a5nUrAsCW3CT2RoAGV4AUJ2uDthrTJK11xiSqhhhm976KVorrs8JghoHMRbOH6AIF1TYp39vcNM%252bzaWtnML05868RRSp19JpF4QtzJ7pLWycktZ1iohtAT9ksAweBhE6cd6Sv339eUnpMn%252f4Kqe8kun9VH0Wi9F6DsMpQMqnQV7yuTyqPJPaY0an11g%252bve8TPt41I3RRe0E2NLQTfOEKUBDuSt50Q1qXmHY0jVnZLPlOQgJwRU3dY%253d&fich=a4964881-2005-4b3c-8691-2fb725dd2ba9.docx&Inline=true"
     },
     "brackets": [
       {
@@ -44,13 +44,8 @@
       },
       {
         "from": 48373,
-        "until": 80000,
-        "tax": 0.446
-      },
-      {
-        "from": 80000,
         "until": 89995,
-        "tax": 0.471
+        "tax": 0.446
       },
       {
         "from": 89995,

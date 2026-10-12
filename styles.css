@@ -16,7 +16,6 @@ header {
     color: white;
     text-align: center;
     padding: 2rem 1rem;
-    margin-bottom: 2rem;
 }
 
 header h1 {
@@ -46,6 +45,111 @@ main {
     gap: 1rem 2rem;
     align-items: flex-end;
     flex-wrap: wrap;
+}
+
+/* The inputs shared by every section, pinned to the top of the screen so
+   they read as page-wide settings rather than as one section among many. */
+.params-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    border-bottom: 1px solid #e1e5e9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 2rem;
+}
+
+.params-inner {
+    max-width: min(1500px, 100%);
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem 1.75rem;
+    flex-wrap: wrap;
+}
+
+.params-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.param-field {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.param-field label {
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap;
+}
+
+.param-field input,
+.param-field select {
+    padding: 0.45rem 0.6rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 4px;
+    background: white;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.param-field input:focus,
+.param-field select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.param-field input {
+    width: 8.5rem;
+    padding-right: 1.6rem;
+}
+
+/* Keeps the € inside the input, after the number. */
+.param-affix {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.param-affix > span {
+    position: absolute;
+    right: 0.65rem;
+    color: #888;
+    pointer-events: none;
+}
+
+.params-hint {
+    padding-left: 1.75rem;
+    border-left: 1px solid #e1e5e9;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Marks a section that uses the shared inputs and echoes their values. */
+.param-ref {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.param-ref::before {
+    content: "⚙";
+    margin-right: 0.35rem;
+    color: #667eea;
+}
+
+.param-ref-icon {
+    color: #667eea;
+}
+
+.param-ref strong {
+    color: #4b5563;
 }
 
 /* Controls nested inside a card: no second card within the card. */
@@ -475,6 +579,41 @@ tr:hover {
 }
 
 @media (max-width: 768px) {
+    .params-bar {
+        margin-bottom: 1rem;
+    }
+
+    /* Two side-by-side fields to keep the pinned bar short. */
+    .params-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .params-title,
+    .params-hint {
+        display: none;
+    }
+
+    .param-field {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.2rem;
+        min-width: 0;
+    }
+
+    .param-field label {
+        font-size: 0.8rem;
+    }
+
+    .param-affix,
+    .param-field input,
+    .param-field select {
+        width: 100%;
+        min-width: 0;
+    }
+
     .controls,
     .chart-container .controls {
         flex-direction: column;
@@ -488,10 +627,6 @@ tr:hover {
     .methodology,
     .sources {
         padding: 1rem;
-    }
-
-    .controls button {
-        width: 100%;
     }
 
     .input-group input,
@@ -556,22 +691,6 @@ tr:hover {
     .profile-field label {
         font-size: 0.78rem;
     }
-}
-
-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
 }
 
 .coffee-button {

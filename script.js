@@ -48,6 +48,7 @@ class TaxCalculator {
             this.setupProfileControls();
 
             // Initial calculations
+            this.updateParamRefs();
             this.calculate();
             this.calculateComparison();
             this.calculateDeductionsChart();
@@ -275,7 +276,6 @@ class TaxCalculator {
     }
 
     setupEventListeners() {
-        const calculateBtn = document.getElementById('calculate');
         const incomeInput = document.getElementById('income');
         const baseYearSelect = document.getElementById('baseYear');
         const compareYear1Select = document.getElementById('compareYear1Select');
@@ -284,14 +284,16 @@ class TaxCalculator {
         // Populate comparison dropdowns
         this.populateComparisonDropdowns();
 
-        calculateBtn.addEventListener('click', () => this.calculate());
         incomeInput.addEventListener('input', () => {
+            this.updateParamRefs();
             this.calculate();
             this.calculateProfileChart(); // the art. 25.o allowance depends on income
             this.debounceIncomeTracking(incomeInput.value);
         });
         baseYearSelect.addEventListener('change', () => {
+            this.updateParamRefs();
             this.calculate();
+            this.calculateComparison(); // its incomes are in base-year euros
             this.calculateProfileChart(); // the income is deflated from the base year
             this.trackInputEvent('base_year_change', baseYearSelect.value);
         });
@@ -302,6 +304,28 @@ class TaxCalculator {
         compareYear2Select.addEventListener('change', () => {
             this.calculateComparison();
             this.trackInputEvent('compare_year2_change', compareYear2Select.value);
+        });
+    }
+
+    // Fill the "⚙" lines that tell each section which of the top inputs it
+    // uses. data-params lists the inputs (income, baseYear) and data-prefix
+    // optionally replaces the default lead-in.
+    updateParamRefs() {
+        const income = parseFloat(document.getElementById('income').value) || 0;
+        const baseYear = document.getElementById('baseYear').value;
+        const incomeText = `${income.toLocaleString('pt-PT', {maximumFractionDigits: 0})} €`;
+
+        document.querySelectorAll('.param-ref[data-params]').forEach(el => {
+            const params = el.dataset.params.split(' ');
+            let text;
+            if (params.includes('income')) {
+                const prefix = el.dataset.prefix || 'Rendimento anual de';
+                text = `${prefix} <strong>${incomeText}</strong>, ano base <strong>${baseYear}</strong>`;
+            } else {
+                const prefix = el.dataset.prefix || 'Ano base';
+                text = `${prefix} <strong>${baseYear}</strong> (ano base)`;
+            }
+            el.innerHTML = text;
         });
     }
 

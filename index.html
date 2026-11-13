@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparação de Taxas de IRS em Portugal (Ajustado à Inflação)</title>
+    <title data-i18n="html.title">Comparação de Taxas de IRS em Portugal (Ajustado à Inflação)</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -18,8 +18,12 @@
 </head>
 <body>
     <header>
-        <h1>Comparação de Taxas de IRS em Portugal</h1>
-        <p>Compare taxas de IRS ao longo dos anos com ajuste à inflação</p>
+        <nav class="lang-switch" aria-label="Idioma">
+            <a href="?lang=pt" hreflang="pt" lang="pt" data-set-lang="pt" title="Português">PT</a>
+            <a href="?lang=en" hreflang="en" lang="en" data-set-lang="en" title="English">EN</a>
+        </nav>
+        <h1 data-i18n="html.heading">Comparação de Taxas de IRS em Portugal</h1>
+        <p data-i18n="html.tagline">Compare taxas de IRS ao longo dos anos com ajuste à inflação</p>
         <a href="https://coff.ee/duartepinto" target="_blank" class="coffee-button">
             <span class="coffee-icon">☕</span>
             Buy me a coffee
@@ -28,10 +32,10 @@
 
     <div id="params" class="params-bar">
         <div class="params-inner">
-            <span class="params-title">Os seus dados</span>
+            <span class="params-title" data-i18n="html.paramsTitle">Os seus dados</span>
 
             <div class="param-field">
-                <label for="income">Rendimento anual</label>
+                <label for="income" data-i18n="html.income">Rendimento anual</label>
                 <span class="param-affix">
                     <input type="number" id="income" value="30000" min="0" step="1000">
                     <span aria-hidden="true">€</span>
@@ -39,13 +43,13 @@
             </div>
 
             <div class="param-field">
-                <label for="baseYear">Ano base</label>
+                <label for="baseYear" data-i18n="html.baseYear">Ano base</label>
                 <select id="baseYear">
                     <!-- Options will be populated by JavaScript -->
                 </select>
             </div>
 
-            <p class="params-hint">Aplica-se às secções marcadas com
+            <p class="params-hint" data-i18n="html.paramsHint">Aplica-se às secções marcadas com
             <span class="param-ref-icon">⚙</span></p>
         </div>
     </div>
@@ -54,21 +58,21 @@
 
         <section class="results">
             <div class="comparison-table">
-                <h2>Resultados da Comparação de Taxas</h2>
+                <h2 data-i18n="html.resultsTitle">Resultados da Comparação de Taxas</h2>
                 <p class="param-ref" data-params="income baseYear"></p>
                 <div class="table-scroll">
                 <table id="resultsTable">
                     <thead>
                         <tr>
-                            <th>Ano</th>
-                            <th>Rendimento Base (€)</th>
-                            <th>Rendimento Equivalente (€)</th>
-                            <th>Taxa de IRS (%)</th>
-                            <th>Valor de IRS (€)</th>
-                            <th>Valor de IRS Atual (€)</th>
-                            <th>Rendimento Líquido (€)</th>
-                            <th>Rendimento Líquido Atual (€)</th>
-                            <th>Rendimento Real vs Base (%)</th>
+                            <th data-i18n="html.th.year">Ano</th>
+                            <th data-i18n="html.th.baseIncome">Rendimento Base (€)</th>
+                            <th data-i18n="html.th.equivalentIncome">Rendimento Equivalente (€)</th>
+                            <th data-i18n="html.th.taxRate">Taxa de IRS (%)</th>
+                            <th data-i18n="html.th.taxAmount">Valor de IRS (€)</th>
+                            <th data-i18n="html.th.taxAmountCurrent">Valor de IRS Atual (€)</th>
+                            <th data-i18n="html.th.netIncome">Rendimento Líquido (€)</th>
+                            <th data-i18n="html.th.netIncomeCurrent">Rendimento Líquido Atual (€)</th>
+                            <th data-i18n="html.th.realVsBase">Rendimento Real vs Base (%)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -85,17 +89,17 @@
 
             <div class="chart-container chart-container-brackets">
                 <p class="param-ref" data-params="baseYear"
-                   data-prefix="Rendimentos do eixo em euros de"></p>
+                   data-prefix-key="paramRef.prefix.axisEuros"></p>
                 <div class="controls">
                     <div class="input-group">
-                        <label for="compareYear1Select">Anos para comparação:</label>
+                        <label for="compareYear1Select" data-i18n="html.compareYears">Anos para comparação:</label>
                     </div>
                     <div class="input-group">
                         <select id="compareYear1Select">
                             <!-- Options will be populated by JavaScript -->
                         </select>
                     </div>
-                    <span class="compare-and">e</span>
+                    <span class="compare-and" data-i18n="html.and">e</span>
                     <div class="input-group">
                         <select id="compareYear2Select">
                             <!-- Options will be populated by JavaScript -->
@@ -108,28 +112,28 @@
             </div>
 
             <div class="chart-container">
-                <h2>Comparação de Deduções IRS</h2>
-                <p class="chart-note">Tectos legais de cada dedução, a preços de hoje.</p>
+                <h2 data-i18n="html.deductionsTitle">Comparação de Deduções IRS</h2>
+                <p class="chart-note" data-i18n="html.deductionsNote">Tectos legais de cada dedução, a preços de hoje.</p>
                 <canvas id="deductionsChart"></canvas>
             </div>
 
             <div class="chart-container chart-container-profile">
-                <h2>Dedução por Perfil de Despesa</h2>
+                <h2 data-i18n="html.profileTitle">Dedução por Perfil de Despesa</h2>
                 <p class="param-ref" data-params="income baseYear"
-                   data-prefix="Dedução específica (art. 25.º) calculada para"></p>
-                <p class="chart-note">Assume-se que a pessoa gastou <strong>o mesmo montante em euros</strong>
+                   data-prefix-key="paramRef.prefix.specificDeduction"></p>
+                <p class="chart-note" data-i18n="html.profileNote">Assume-se que a pessoa gastou <strong>o mesmo montante em euros</strong>
                 em todos os anos, e converte-se para euros de hoje apenas a dedução que daí resultaria.
                 Mostra quanto valeria hoje aquilo que esse gasto dava de volta em cada ano. Escolha um perfil
                 e ajuste os valores ao seu caso.</p>
 
                 <div class="controls profile-controls">
                     <div class="input-group">
-                        <label for="profileSelect">Perfil:</label>
+                        <label for="profileSelect" data-i18n="html.profileLabel">Perfil:</label>
                         <select id="profileSelect"></select>
                     </div>
                 </div>
 
-                <p class="profile-inputs-hint">Despesa anual de cada categoria, em euros de hoje.
+                <p class="profile-inputs-hint" data-i18n="html.profileInputsHint">Despesa anual de cada categoria, em euros de hoje.
                 A etiqueta por baixo de cada campo diz de onde vem o valor, passe o rato para ver.</p>
 
                 <div id="profileInputs" class="profile-inputs"></div>
@@ -141,9 +145,9 @@
                 </div>
 
                 <div class="chart-note chart-caveats">
-                    <p><strong>Limitações</strong></p>
+                    <p data-i18n="html.caveatsTitle"><strong>Limitações</strong></p>
 
-                    <p><strong>Porque é que a despesa não é ajustada à inflação.</strong>
+                    <p data-i18n="html.caveatInflation"><strong>Porque é que a despesa não é ajustada à inflação.</strong>
                     Nem todas as deduções se usam da mesma maneira. Algumas são, na prática, sempre
                     esgotadas: nas despesas gerais familiares bastam cerca de 715 € de faturas por sujeito
                     passivo para chegar aos 250 €; quem poupa para a reforma tende a entregar no PPR o valor
@@ -159,7 +163,7 @@
                     uma descida numa dedução que nunca bate no tecto deve ser lida com cuidado, parte dela
                     é apenas o efeito de manter os mesmos euros.</p>
 
-                    <p><strong>Origem dos valores e outras simplificações.</strong> Os valores por defeito vêm do
+                    <p data-i18n="html.caveatSources"><strong>Origem dos valores e outras simplificações.</strong> Os valores por defeito vêm do
                     <a href="https://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_publicacoes&amp;PUBLICACOESpub_boui=439486878&amp;PUBLICACOESmodo=2&amp;xlang=pt" target="_blank" rel="noopener noreferrer">Inquérito às Despesas das Famílias 2022/2023</a>
                     do INE; a etiqueta ao lado de cada campo diz se o número é lido diretamente do inquérito,
                     derivado dele, ou uma estimativa (passe o rato para ver a origem).
@@ -193,11 +197,11 @@
         </section>
 
         <section class="methodology">
-            <h2>Metodologia</h2>
-            <p>Esta ferramenta ajusta os escalões de rendimento à inflação utilizando dados do índice de preços ao consumidor em Portugal.
+            <h2 data-i18n="html.methodologyTitle">Metodologia</h2>
+            <p data-i18n="html.methodology">Esta ferramenta ajusta os escalões de rendimento à inflação utilizando dados do índice de preços ao consumidor em Portugal.
             As taxas de IRS são calculadas com base nos escalões progressivos de cada ano, e o poder de compra é calculado
             relativamente ao ano base selecionado.</p>
-            <p>
+            <p data-i18n="html.methodologyNote">
               <strong>Nota:</strong> Os ajustes de inflação são baseados em médias anuais referentes a
               toda a União Europeia e retirados do site
               <a href="https://www.macrotrends.net/global-metrics/countries/euu/european-union/inflation-rate-cpi" target="_blank" rel="noopener noreferrer">macrotrends.net</a>
@@ -205,7 +209,7 @@
         </section>
 
         <section class="sources">
-            <h2>Fontes</h2>
+            <h2 data-i18n="html.sourcesTitle">Fontes</h2>
             <div id="sourcesList">
                 <!-- Sources will be populated by JavaScript -->
             </div>
@@ -213,6 +217,7 @@
 
     </main>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -30,7 +30,9 @@ function makeElement(id) {
     };
 }
 
-function boot() {
+// `browser` stands in for the visitor: { languages, timeZone }. Left out, there
+// is no navigator at all, which the page treats as "can't tell" -> Portuguese.
+function boot(browser) {
     const elements = {};
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     for (const match of html.match(/id="([^"]+)"/g) || []) {
@@ -58,6 +60,7 @@ function boot() {
             getElementById: (id) => elements[id] || null,
             createElement: () => makeElement(''),
             querySelector: () => makeElement('stub'),
+            querySelectorAll: () => [],
             addEventListener(type, fn) { if (type === 'DOMContentLoaded') onReady = fn; }
         },
         Chart: class { constructor(ctx, config) { charts.push(config); } destroy() {} },
@@ -65,10 +68,15 @@ function boot() {
             json: async () => JSON.parse(fs.readFileSync(path.join(ROOT, file), 'utf8'))
         })
     };
+    if (browser) {
+        sandbox.navigator = { languages: browser.languages, language: browser.languages[0] };
+        sandbox.Intl = { DateTimeFormat: () => ({ resolvedOptions: () => ({ timeZone: browser.timeZone }) }) };
+    }
     sandbox.window = sandbox;
     sandbox.globalThis = sandbox;
     sandbox.registerFrom = registerFrom;
     vm.createContext(sandbox);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8'), sandbox);
     vm.runInContext(fs.readFileSync(path.join(ROOT, 'script.js'), 'utf8'), sandbox);
 
     // Construct exactly one instance, as the page does. Firing the
@@ -76,12 +84,13 @@ function boot() {
     // same elements, doubling anything that appends (the sources list did).
     assert.ok(onReady, 'script.js should register a DOMContentLoaded handler');
     const calc = vm.runInContext('globalThis.__calc = new TaxCalculator(); __calc', sandbox);
-    return { calc, charts, elements };
+    const i18n = vm.runInContext('I18n', sandbox);
+    return { calc, charts, elements, i18n };
 }
 
 // Wait for the async init() chain (fetches resolve on the microtask queue).
-async function ready() {
-    const h = boot();
+async function ready(browser) {
+    const h = boot(browser);
     for (let i = 0; i < 50 && !h.calc.deductionsData.length; i++) {
         await new Promise((r) => setTimeout(r, 10));
     }
@@ -981,4 +990,128 @@ test('profiles.json documents the provenance of every value', () => {
             assert.ok(entry.note, `${profile.id}/${category}: missing note`);
         }
     }
+});
+
+// --- languages -------------------------------------------------------------
+
+// Language picked for a visitor, without booting the whole page.
+function detectFor({ languages, timeZone, search = '', saved = null }) {
+    const sandbox = {
+        window: {
+            location: { search },
+            localStorage: { getItem: () => saved, setItem() {} }
+        }
+    };
+    if (languages) sandbox.navigator = { languages, language: languages[0] };
+    sandbox.Intl = { DateTimeFormat: () => ({ resolvedOptions: () => ({ timeZone }) }) };
+    sandbox.URLSearchParams = URLSearchParams;
+    vm.createContext(sandbox);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8'), sandbox);
+    return vm.runInContext('I18n.lang', sandbox);
+}
+
+test('Portuguese unless both the browser language and the time zone say otherwise', () => {
+    const cases = [
+        [{ languages: ['pt-PT'], timeZone: 'Europe/Berlin' }, 'pt'],
+        [{ languages: ['pt-BR'], timeZone: 'America/New_York' }, 'pt'],
+        [{ languages: ['en-US', 'pt'], timeZone: 'Europe/London' }, 'pt'],
+        [{ languages: ['en-GB'], timeZone: 'Europe/Lisbon' }, 'pt'],
+        [{ languages: ['en-GB'], timeZone: 'Atlantic/Azores' }, 'pt'],
+        [{ languages: ['en-US'], timeZone: 'America/Sao_Paulo' }, 'pt'],
+        [{ languages: ['fr-FR'], timeZone: 'Africa/Luanda' }, 'pt'],
+        [{ languages: ['en-GB'], timeZone: 'Europe/London' }, 'en'],
+        [{ languages: ['de-DE', 'en'], timeZone: 'Europe/Berlin' }, 'en'],
+        [{ languages: ['es-ES'], timeZone: 'Europe/Madrid' }, 'en'],
+        // Nothing to go by: stay with the page's own language
+        [{ timeZone: 'Europe/London' }, 'pt'],
+        // An explicit choice beats detection, in both directions
+        [{ languages: ['pt-PT'], timeZone: 'Europe/Lisbon', search: '?lang=en' }, 'en'],
+        [{ languages: ['en-GB'], timeZone: 'Europe/London', search: '?lang=pt' }, 'pt'],
+        [{ languages: ['pt-PT'], timeZone: 'Europe/Lisbon', saved: 'en' }, 'en'],
+        [{ languages: ['en-GB'], timeZone: 'Europe/London', saved: 'pt' }, 'pt'],
+        [{ languages: ['en-GB'], timeZone: 'Europe/London', search: '?lang=xx' }, 'en']
+    ];
+    for (const [visitor, expected] of cases) {
+        assert.equal(detectFor(visitor), expected, JSON.stringify(visitor));
+    }
+});
+
+test('every translatable piece of the page has an English version', () => {
+    const { STRINGS } = vm.runInNewContext(
+        fs.readFileSync(path.join(ROOT, 'i18n.js'), 'utf8') + '; I18n', {});
+    const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+
+    for (const [, key] of html.matchAll(/data-i18n="([^"]+)"/g)) {
+        assert.ok(STRINGS.en[key], `index.html: no English for ${key}`);
+    }
+    for (const [, key] of html.matchAll(/data-prefix-key="([^"]+)"/g)) {
+        assert.ok(STRINGS.pt[key] && STRINGS.en[key], `index.html: ${key} missing a language`);
+    }
+
+    // Strings script.js builds exist in both languages; the English-only ones
+    // translate Portuguese that lives in index.html or the data files.
+    const englishOnly = /^(html|category|basis|yearLabel)\./;
+    const shared = (lang) => Object.keys(STRINGS[lang]).filter((k) => !englishOnly.test(k)).sort();
+    assert.deepEqual(shared('en'), shared('pt'));
+
+    for (const entry of deductions) {
+        for (const category of Object.keys(entry.deductions)) {
+            assert.ok(STRINGS.en[`category.${category}`], `no English name for ${category}`);
+        }
+    }
+    for (const basis of Object.keys(profiles.meta.basisLegend)) {
+        assert.ok(STRINGS.en[`basis.${basis}`], `no English badge for ${basis}`);
+        assert.ok(profiles.meta.en.basisLegend[basis], `no English legend for ${basis}`);
+    }
+    for (const profile of profiles.profiles) {
+        assert.ok(profile.en && profile.en.name && profile.en.description, `${profile.id}: no English name`);
+        for (const category of profiles.categories) {
+            const entry = profile.spending[category];
+            assert.ok(entry.en && entry.en.note, `${profile.id}/${category}: no English note`);
+        }
+    }
+});
+
+test('an English visitor gets English charts, badges and notes', async () => {
+    const { charts, elements, i18n } = await ready({ languages: ['en-GB'], timeZone: 'Europe/London' });
+    assert.equal(i18n.lang, 'en');
+
+    const profileChart = charts.filter((c) => c.options.plugins.title.text.startsWith('Deduction actually')).pop();
+    assert.ok(profileChart, 'profile chart title is not in English');
+    const labels = profileChart.data.datasets.map((d) => d.label);
+    assert.ok(labels.includes('Housing'), labels.join(', '));
+    assert.ok(labels.includes('Health'), labels.join(', '));
+
+    const first = profiles.profiles[0];
+    const badge = elements.basis_health;
+    assert.equal(badge.textContent, 'IDEF-derived');
+    assert.ok(badge.dataset.note.includes(first.spending.health.en.note));
+    assert.ok(badge.dataset.note.includes(profiles.meta.en.basisLegend[first.spending.health.basis]));
+    assert.equal(elements.spendLabel_health.textContent, 'Health');
+
+    const proposal = elements.compareYear1Select.children.concat(elements.compareYear2Select.children)
+        .map((o) => o.textContent);
+    assert.ok(proposal.includes('2027 (Proposal)'), proposal.join(', '));
+    assert.ok(elements.sourcesList.children[0].children[1].innerHTML.includes('IRS brackets'));
+});
+
+test('switching language redraws in place and keeps what the user typed', async () => {
+    const { calc, charts, elements, i18n } = await ready();
+    assert.equal(i18n.lang, 'pt');
+
+    elements.spend_health.value = '1234';
+    calc.readSpendingInputs();
+    elements.compareYear1Select.value = '2015';
+
+    i18n.setLang('en');
+    const latest = charts[charts.length - 1];
+    assert.ok(latest.data.datasets.some((d) => d.label === 'Housing'), 'profile chart not redrawn');
+    assert.equal(elements.spend_health.value, '1234');
+    assert.equal(calc.currentSpending.health, 1234);
+    assert.equal(elements.compareYear1Select.value, '2015');
+    assert.equal(elements.spendLabel_health.textContent, 'Health');
+
+    i18n.setLang('pt');
+    assert.equal(elements.spendLabel_health.textContent, 'Saúde');
+    assert.ok(charts[charts.length - 1].data.datasets.some((d) => d.label === 'Habitação'));
 });

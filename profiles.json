@@ -12,6 +12,13 @@
       "idef-derivado": "Calculado a partir de valores do IDEF (a derivação está na nota).",
       "estimativa": "Não é medido pelo IDEF (não é consumo). Valor plausível, para o utilizador ajustar."
     },
+    "en": {
+      "basisLegend": {
+        "idef": "Read directly from INE's Household Budget Survey (IDEF) 2022/2023.",
+        "idef-derivado": "Calculated from IDEF values (the derivation is in the note).",
+        "estimativa": "Not measured by the IDEF (it isn't consumption). A plausible value, for you to adjust."
+      }
+    },
     "reference": {
       "despesaTotalMedia": 23900,
       "rendasSubjetivas": 6539,
@@ -85,6 +92,10 @@
       "id": "jovem-arrendatario",
       "name": "Jovem a arrendar",
       "description": "1 adulto não idoso, em casa arrendada",
+      "en": {
+        "name": "Young renter",
+        "description": "1 non-elderly adult, in a rented home"
+      },
       "household": {
         "taxpayers": 1,
         "dependents": 0,
@@ -94,82 +105,130 @@
         "health": {
           "value": 662,
           "basis": "idef-derivado",
-          "note": "919 € (média nacional, COICOP 06) x 0,72, o índice de despesa total de um agregado de 1 adulto não idoso (17 105 € vs 23 900 €)"
+          "note": "919 € (média nacional, COICOP 06) x 0,72, o índice de despesa total de um agregado de 1 adulto não idoso (17 105 € vs 23 900 €)",
+          "en": {
+            "note": "€919 (national average, COICOP 06) x 0.72, the total-spending index for a household of 1 non-elderly adult (€17,105 vs €23,900)"
+          }
         },
         "education": {
           "value": 68,
           "basis": "idef-derivado",
-          "note": "0,4% da despesa total em agregados sem crianças x 17 105 €"
+          "note": "0,4% da despesa total em agregados sem crianças x 17 105 €",
+          "en": {
+            "note": "0.4% of total spending in households without children x €17,105"
+          }
         },
         "rent": {
           "value": 5113,
           "basis": "idef-derivado",
-          "note": "818 € (rendas efetivas, COICOP 041, média de TODOS os agregados) / 16,0% (quota de agregados arrendatários). A média nacional de 818 € é diluída pelos 76% que são proprietários."
+          "note": "818 € (rendas efetivas, COICOP 041, média de TODOS os agregados) / 16,0% (quota de agregados arrendatários). A média nacional de 818 € é diluída pelos 76% que são proprietários.",
+          "en": {
+            "note": "€818 (actual rents, COICOP 041, average across ALL households) / 16.0% (share of renting households). The national average of €818 is diluted by the 76% who are homeowners."
+          }
         },
         "mortgageInterest": {
           "value": 0,
           "basis": "idef",
-          "note": "Arrendatário: sem crédito à habitação"
+          "note": "Arrendatário: sem crédito à habitação",
+          "en": {
+            "note": "Renter: no mortgage"
+          }
         },
         "nursingHome": {
           "value": 0,
           "basis": "idef",
-          "note": "Sem encargos com lar"
+          "note": "Sem encargos com lar",
+          "en": {
+            "note": "No care-home costs"
+          }
         },
         "retirementSavings": {
           "value": 2000,
           "basis": "estimativa",
-          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 2000 € para 1 sujeito passivo. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 2000 € para 1 sujeito passivo. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €.",
+          "en": {
+            "note": "The payment that maxes out the benefit: 20% of €2,000 per taxpayer gives exactly the €400 cap, so €2000 for 1 taxpayer. The IDEF does not measure savings. The €400 cap only applies under 35: it is €350 from 35 to 50 and €300 above, and the model always uses €400."
+          }
         },
         "familyExpenses": {
           "value": 11262,
           "basis": "idef-derivado",
-          "note": "Despesa total (17 105 €) menos renda, saúde e educação. Satura sempre o limite de 250 €/sujeito passivo."
+          "note": "Despesa total (17 105 €) menos renda, saúde e educação. Satura sempre o limite de 250 €/sujeito passivo.",
+          "en": {
+            "note": "Total spending (€17,105) minus rent, health and education. Always maxes out the €250 per taxpayer cap."
+          }
         },
         "vatRestaurants": {
           "value": 1473,
           "basis": "idef-derivado",
-          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,72"
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,72",
+          "en": {
+            "note": "COICOP 11 (restaurants and accommodation services), €2,046 national, x 0.72"
+          }
         },
         "vatMechanic": {
           "value": 324,
           "basis": "estimativa",
-          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,72."
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,72.",
+          "en": {
+            "note": "About 1/4 of the €1,782 in COICOP 072 (operation of personal transport equipment), which lumps together fuel, maintenance and repairs; the IDEF does not separate repairs. Scaled x 0.72."
+          }
         },
         "vatHairdressers": {
           "value": 144,
           "basis": "estimativa",
-          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,72."
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,72.",
+          "en": {
+            "note": "About 40% of the €497 in COICOP 131 (personal care), which lumps together products and services; only hairdressing and beauty services count. Scaled x 0.72."
+          }
         },
         "vatVet": {
           "value": 22,
           "basis": "estimativa",
-          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,72."
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,72.",
+          "en": {
+            "note": "Share of veterinary medicines within the €141 in COICOP 093 (gardening and pets). The IDEF does not isolate it. Scaled x 0.72."
+          }
         },
         "vatPublicTransport": {
           "value": 177,
           "basis": "idef-derivado",
-          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,72. Só passes e bilhetes contam para a dedução."
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,72. Só passes e bilhetes contam para a dedução.",
+          "en": {
+            "note": "COICOP 073 (passenger transport services), €246 national, x 0.72. Only passes and tickets count towards the deduction."
+          }
         },
         "vatFitness": {
           "value": 500,
           "basis": "estimativa",
-          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica."
+          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica.",
+          "en": {
+            "note": "Gym membership of about €42/month. The IDEF only gives €279 for COICOP 094 (recreational services), an average diluted by people who don't go to a gym, just as with rents; a typical membership fee is used instead."
+          }
         },
         "vatPress": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas.",
+          "en": {
+            "note": "Assumed zero: no newspaper or magazine subscriptions."
+          }
         },
         "domesticWork": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H).",
+          "en": {
+            "note": "Pay for domestic work. The IDEF does not measure it as consumer spending and most households have none. Fill it in if it applies to you: 5% of the amount, up to €200, deductible from 2024 (art. 78-H)."
+          }
         },
         "vatCulture": {
           "value": 86,
           "basis": "estimativa",
-          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,72. Só dedutível a partir de 2026."
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,72. Só dedutível a partir de 2026.",
+          "en": {
+            "note": "Books, theatre, shows and museums. Approximated from the €89 in COICOP 097 (newspapers, books and stationery) and the €27 in COICOP 096 (cultural services), scaled x 0.72. Only deductible from 2026."
+          }
         }
       }
     },
@@ -177,6 +236,10 @@
       "id": "familia-com-filhos",
       "name": "Família com filhos",
       "description": "2 adultos e 2 crianças dependentes, casa própria",
+      "en": {
+        "name": "Family with children",
+        "description": "2 adults and 2 dependent children, own home"
+      },
       "household": {
         "taxpayers": 2,
         "dependents": 2,
@@ -186,82 +249,130 @@
         "health": {
           "value": 1296,
           "basis": "idef-derivado",
-          "note": "919 € x 1,41, o índice de despesa total de 2 adultos com 2 crianças (33 795 € vs 23 900 €)"
+          "note": "919 € x 1,41, o índice de despesa total de 2 adultos com 2 crianças (33 795 € vs 23 900 €)",
+          "en": {
+            "note": "€919 x 1.41, the total-spending index for 2 adults with 2 children (€33,795 vs €23,900)"
+          }
         },
         "education": {
           "value": 1284,
           "basis": "idef-derivado",
-          "note": "3,8% da despesa total em agregados com 2 ou mais crianças x 33 795 € (o IDEF indica 0,4% sem crianças, 2,1% com uma, 3,8% com duas ou mais)"
+          "note": "3,8% da despesa total em agregados com 2 ou mais crianças x 33 795 € (o IDEF indica 0,4% sem crianças, 2,1% com uma, 3,8% com duas ou mais)",
+          "en": {
+            "note": "3.8% of total spending in households with 2 or more children x €33,795 (the IDEF gives 0.4% with no children, 2.1% with one, 3.8% with two or more)"
+          }
         },
         "rent": {
           "value": 0,
           "basis": "idef",
-          "note": "Casa própria"
+          "note": "Casa própria",
+          "en": {
+            "note": "Own home"
+          }
         },
         "mortgageInterest": {
           "value": 1500,
           "basis": "estimativa",
-          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo). Desde 2012 a dedução só cobre contratos até 31/12/2011, o que o gráfico mostra como queda."
+          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo). Desde 2012 a dedução só cobre contratos até 31/12/2011, o que o gráfico mostra como queda.",
+          "en": {
+            "note": "Annual mortgage interest. The IDEF does not measure interest (it isn't consumption). Since 2012 the deduction only covers contracts up to 31/12/2011, which the chart shows as a drop."
+          }
         },
         "nursingHome": {
           "value": 0,
           "basis": "idef",
-          "note": "Sem encargos com lar"
+          "note": "Sem encargos com lar",
+          "en": {
+            "note": "No care-home costs"
+          }
         },
         "retirementSavings": {
           "value": 4000,
           "basis": "estimativa",
-          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €.",
+          "en": {
+            "note": "The payment that maxes out the benefit: 20% of €2,000 per taxpayer gives exactly the €400 cap, so €4000 for 2 taxpayers. The IDEF does not measure savings. The €400 cap only applies under 35: it is €350 from 35 to 50 and €300 above, and the model always uses €400."
+          }
         },
         "familyExpenses": {
           "value": 21955,
           "basis": "idef-derivado",
-          "note": "Despesa total (33 795 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite."
+          "note": "Despesa total (33 795 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite.",
+          "en": {
+            "note": "Total spending (€33,795) minus 27.4% imputed rent, minus health and education. Always maxes out the cap."
+          }
         },
         "vatRestaurants": {
           "value": 2885,
           "basis": "idef-derivado",
-          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,41"
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,41",
+          "en": {
+            "note": "COICOP 11 (restaurants and accommodation services), €2,046 national, x 1.41"
+          }
         },
         "vatMechanic": {
           "value": 634,
           "basis": "estimativa",
-          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,41."
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,41.",
+          "en": {
+            "note": "About 1/4 of the €1,782 in COICOP 072 (operation of personal transport equipment), which lumps together fuel, maintenance and repairs; the IDEF does not separate repairs. Scaled x 1.41."
+          }
         },
         "vatHairdressers": {
           "value": 282,
           "basis": "estimativa",
-          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,41."
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,41.",
+          "en": {
+            "note": "About 40% of the €497 in COICOP 131 (personal care), which lumps together products and services; only hairdressing and beauty services count. Scaled x 1.41."
+          }
         },
         "vatVet": {
           "value": 42,
           "basis": "estimativa",
-          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,41."
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,41.",
+          "en": {
+            "note": "Share of veterinary medicines within the €141 in COICOP 093 (gardening and pets). The IDEF does not isolate it. Scaled x 1.41."
+          }
         },
         "vatPublicTransport": {
           "value": 347,
           "basis": "idef-derivado",
-          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,41. Só passes e bilhetes contam para a dedução."
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,41. Só passes e bilhetes contam para a dedução.",
+          "en": {
+            "note": "COICOP 073 (passenger transport services), €246 national, x 1.41. Only passes and tickets count towards the deduction."
+          }
         },
         "vatFitness": {
           "value": 500,
           "basis": "estimativa",
-          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica."
+          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica.",
+          "en": {
+            "note": "Gym membership of about €42/month. The IDEF only gives €279 for COICOP 094 (recreational services), an average diluted by people who don't go to a gym, just as with rents; a typical membership fee is used instead."
+          }
         },
         "vatPress": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas.",
+          "en": {
+            "note": "Assumed zero: no newspaper or magazine subscriptions."
+          }
         },
         "domesticWork": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H).",
+          "en": {
+            "note": "Pay for domestic work. The IDEF does not measure it as consumer spending and most households have none. Fill it in if it applies to you: 5% of the amount, up to €200, deductible from 2024 (art. 78-H)."
+          }
         },
         "vatCulture": {
           "value": 169,
           "basis": "estimativa",
-          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,41. Só dedutível a partir de 2026."
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,41. Só dedutível a partir de 2026.",
+          "en": {
+            "note": "Books, theatre, shows and museums. Approximated from the €89 in COICOP 097 (newspapers, books and stationery) and the €27 in COICOP 096 (cultural services), scaled x 1.41. Only deductible from 2026."
+          }
         }
       }
     },
@@ -269,6 +380,10 @@
       "id": "casal-reformado",
       "name": "Casal reformado",
       "description": "2 adultos idosos, casa própria já paga",
+      "en": {
+        "name": "Retired couple",
+        "description": "2 elderly adults, own home already paid off"
+      },
       "household": {
         "taxpayers": 2,
         "dependents": 0,
@@ -278,82 +393,130 @@
         "health": {
           "value": 1600,
           "basis": "estimativa",
-          "note": "Partindo de 919 € x 0,87 (índice de 2 adultos idosos, 20 703 € vs 23 900 €) sairia 800 €, mas o IDEF documenta que a saúde pesa muito mais nos agregados idosos. Valor elevado para o dobro; é o número menos sólido destes perfis."
+          "note": "Partindo de 919 € x 0,87 (índice de 2 adultos idosos, 20 703 € vs 23 900 €) sairia 800 €, mas o IDEF documenta que a saúde pesa muito mais nos agregados idosos. Valor elevado para o dobro; é o número menos sólido destes perfis.",
+          "en": {
+            "note": "Starting from €919 x 0.87 (index for 2 elderly adults, €20,703 vs €23,900) would give €800, but the IDEF shows that health weighs much more in elderly households. Value doubled; it is the least solid figure in these profiles."
+          }
         },
         "education": {
           "value": 0,
           "basis": "idef",
-          "note": "Sem despesas de educação"
+          "note": "Sem despesas de educação",
+          "en": {
+            "note": "No education expenses"
+          }
         },
         "rent": {
           "value": 0,
           "basis": "idef",
-          "note": "Casa própria"
+          "note": "Casa própria",
+          "en": {
+            "note": "Own home"
+          }
         },
         "mortgageInterest": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Crédito já liquidado"
+          "note": "Crédito já liquidado",
+          "en": {
+            "note": "Mortgage already paid off"
+          }
         },
         "nursingHome": {
           "value": 0,
           "basis": "estimativa",
-          "note": "A viver em casa. Ponha aqui os encargos se houver apoio domiciliário ou lar."
+          "note": "A viver em casa. Ponha aqui os encargos se houver apoio domiciliário ou lar.",
+          "en": {
+            "note": "Living at home. Enter the costs here if there is home care or a care home."
+          }
         },
         "retirementSavings": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Zero: após a passagem à reforma as entregas em PPR deixam de ser dedutíveis (EBF art. 21.º n.º 10)."
+          "note": "Zero: após a passagem à reforma as entregas em PPR deixam de ser dedutíveis (EBF art. 21.º n.º 10).",
+          "en": {
+            "note": "Zero: once retired, payments into a PPR stop being deductible (EBF art. 21(10))."
+          }
         },
         "familyExpenses": {
           "value": 13430,
           "basis": "idef-derivado",
-          "note": "Despesa total (20 703 €) menos 27,4% de rendas subjetivas, menos saúde. Satura sempre o limite."
+          "note": "Despesa total (20 703 €) menos 27,4% de rendas subjetivas, menos saúde. Satura sempre o limite.",
+          "en": {
+            "note": "Total spending (€20,703) minus 27.4% imputed rent, minus health. Always maxes out the cap."
+          }
         },
         "vatRestaurants": {
           "value": 1780,
           "basis": "idef-derivado",
-          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,87"
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 0,87",
+          "en": {
+            "note": "COICOP 11 (restaurants and accommodation services), €2,046 national, x 0.87"
+          }
         },
         "vatMechanic": {
           "value": 392,
           "basis": "estimativa",
-          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,87."
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 0,87.",
+          "en": {
+            "note": "About 1/4 of the €1,782 in COICOP 072 (operation of personal transport equipment), which lumps together fuel, maintenance and repairs; the IDEF does not separate repairs. Scaled x 0.87."
+          }
         },
         "vatHairdressers": {
           "value": 174,
           "basis": "estimativa",
-          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,87."
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 0,87.",
+          "en": {
+            "note": "About 40% of the €497 in COICOP 131 (personal care), which lumps together products and services; only hairdressing and beauty services count. Scaled x 0.87."
+          }
         },
         "vatVet": {
           "value": 26,
           "basis": "estimativa",
-          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,87."
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 0,87.",
+          "en": {
+            "note": "Share of veterinary medicines within the €141 in COICOP 093 (gardening and pets). The IDEF does not isolate it. Scaled x 0.87."
+          }
         },
         "vatPublicTransport": {
           "value": 214,
           "basis": "idef-derivado",
-          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,87. Só passes e bilhetes contam para a dedução."
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 0,87. Só passes e bilhetes contam para a dedução.",
+          "en": {
+            "note": "COICOP 073 (passenger transport services), €246 national, x 0.87. Only passes and tickets count towards the deduction."
+          }
         },
         "vatFitness": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Assumido zero para este agregado."
+          "note": "Assumido zero para este agregado.",
+          "en": {
+            "note": "Assumed zero for this household."
+          }
         },
         "vatPress": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas.",
+          "en": {
+            "note": "Assumed zero: no newspaper or magazine subscriptions."
+          }
         },
         "domesticWork": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H).",
+          "en": {
+            "note": "Pay for domestic work. The IDEF does not measure it as consumer spending and most households have none. Fill it in if it applies to you: 5% of the amount, up to €200, deductible from 2024 (art. 78-H)."
+          }
         },
         "vatCulture": {
           "value": 104,
           "basis": "estimativa",
-          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,87. Só dedutível a partir de 2026."
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 0,87. Só dedutível a partir de 2026.",
+          "en": {
+            "note": "Books, theatre, shows and museums. Approximated from the €89 in COICOP 097 (newspapers, books and stationery) and the €27 in COICOP 096 (cultural services), scaled x 0.87. Only deductible from 2026."
+          }
         }
       }
     },
@@ -361,6 +524,10 @@
       "id": "casal-sem-filhos",
       "name": "Casal sem filhos",
       "description": "2 adultos não idosos, casa própria com crédito",
+      "en": {
+        "name": "Couple without children",
+        "description": "2 non-elderly adults, own home with a mortgage"
+      },
       "household": {
         "taxpayers": 2,
         "dependents": 0,
@@ -370,82 +537,130 @@
         "health": {
           "value": 937,
           "basis": "idef-derivado",
-          "note": "919 € x 1,02, o índice de despesa total de 2 adultos não idosos (24 349 € vs 23 900 €)"
+          "note": "919 € x 1,02, o índice de despesa total de 2 adultos não idosos (24 349 € vs 23 900 €)",
+          "en": {
+            "note": "€919 x 1.02, the total-spending index for 2 non-elderly adults (€24,349 vs €23,900)"
+          }
         },
         "education": {
           "value": 97,
           "basis": "idef-derivado",
-          "note": "0,4% da despesa total em agregados sem crianças x 24 349 €"
+          "note": "0,4% da despesa total em agregados sem crianças x 24 349 €",
+          "en": {
+            "note": "0.4% of total spending in households without children x €24,349"
+          }
         },
         "rent": {
           "value": 0,
           "basis": "idef",
-          "note": "Casa própria"
+          "note": "Casa própria",
+          "en": {
+            "note": "Own home"
+          }
         },
         "mortgageInterest": {
           "value": 1500,
           "basis": "estimativa",
-          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo)."
+          "note": "Juros anuais de crédito à habitação. O IDEF não mede juros (não são consumo).",
+          "en": {
+            "note": "Annual mortgage interest. The IDEF does not measure interest (it isn't consumption)."
+          }
         },
         "nursingHome": {
           "value": 0,
           "basis": "idef",
-          "note": "Sem encargos com lar"
+          "note": "Sem encargos com lar",
+          "en": {
+            "note": "No care-home costs"
+          }
         },
         "retirementSavings": {
           "value": 4000,
           "basis": "estimativa",
-          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €."
+          "note": "Entrega que esgota o benefício: 20% de 2 000 € por sujeito passivo dá exatamente os 400 € de tecto, logo 4000 € para 2 sujeitos passivos. O IDEF não mede poupança. O tecto de 400 € só vale abaixo dos 35 anos: é 350 € dos 35 aos 50 e 300 € acima, e o modelo usa sempre 400 €.",
+          "en": {
+            "note": "The payment that maxes out the benefit: 20% of €2,000 per taxpayer gives exactly the €400 cap, so €4000 for 2 taxpayers. The IDEF does not measure savings. The €400 cap only applies under 35: it is €350 from 35 to 50 and €300 above, and the model always uses €400."
+          }
         },
         "familyExpenses": {
           "value": 16640,
           "basis": "idef-derivado",
-          "note": "Despesa total (24 349 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite."
+          "note": "Despesa total (24 349 €) menos 27,4% de rendas subjetivas, menos saúde e educação. Satura sempre o limite.",
+          "en": {
+            "note": "Total spending (€24,349) minus 27.4% imputed rent, minus health and education. Always maxes out the cap."
+          }
         },
         "vatRestaurants": {
           "value": 2087,
           "basis": "idef-derivado",
-          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,02"
+          "note": "COICOP 11 (restaurantes e serviços de alojamento), 2 046 € nacional, x 1,02",
+          "en": {
+            "note": "COICOP 11 (restaurants and accommodation services), €2,046 national, x 1.02"
+          }
         },
         "vatMechanic": {
           "value": 459,
           "basis": "estimativa",
-          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,02."
+          "note": "Cerca de 1/4 dos 1 782 € da COICOP 072 (utilização de equipamento de transporte pessoal), que junta combustível, manutenção e reparação; o IDEF não separa a reparação. Escalado x 1,02.",
+          "en": {
+            "note": "About 1/4 of the €1,782 in COICOP 072 (operation of personal transport equipment), which lumps together fuel, maintenance and repairs; the IDEF does not separate repairs. Scaled x 1.02."
+          }
         },
         "vatHairdressers": {
           "value": 204,
           "basis": "estimativa",
-          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,02."
+          "note": "Cerca de 40% dos 497 € da COICOP 131 (cuidados pessoais), que junta produtos e serviços; só os serviços de cabeleireiro e estética contam. Escalado x 1,02.",
+          "en": {
+            "note": "About 40% of the €497 in COICOP 131 (personal care), which lumps together products and services; only hairdressing and beauty services count. Scaled x 1.02."
+          }
         },
         "vatVet": {
           "value": 31,
           "basis": "estimativa",
-          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,02."
+          "note": "Parcela de medicamentos veterinários dentro dos 141 € da COICOP 093 (jardinagem e animais de estimação). O IDEF não a isola. Escalado x 1,02.",
+          "en": {
+            "note": "Share of veterinary medicines within the €141 in COICOP 093 (gardening and pets). The IDEF does not isolate it. Scaled x 1.02."
+          }
         },
         "vatPublicTransport": {
           "value": 251,
           "basis": "idef-derivado",
-          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,02. Só passes e bilhetes contam para a dedução."
+          "note": "COICOP 073 (serviços de transporte de passageiros), 246 € nacional, x 1,02. Só passes e bilhetes contam para a dedução.",
+          "en": {
+            "note": "COICOP 073 (passenger transport services), €246 national, x 1.02. Only passes and tickets count towards the deduction."
+          }
         },
         "vatFitness": {
           "value": 500,
           "basis": "estimativa",
-          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica."
+          "note": "Mensalidade de ginásio de cerca de 42 €/mês. O IDEF só dá 279 € na COICOP 094 (serviços recreativos), média diluída por quem não frequenta ginásio, tal como acontece com as rendas; usa-se antes uma mensalidade típica.",
+          "en": {
+            "note": "Gym membership of about €42/month. The IDEF only gives €279 for COICOP 094 (recreational services), an average diluted by people who don't go to a gym, just as with rents; a typical membership fee is used instead."
+          }
         },
         "vatPress": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Assumido zero: sem assinaturas de jornais ou revistas."
+          "note": "Assumido zero: sem assinaturas de jornais ou revistas.",
+          "en": {
+            "note": "Assumed zero: no newspaper or magazine subscriptions."
+          }
         },
         "domesticWork": {
           "value": 0,
           "basis": "estimativa",
-          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H)."
+          "note": "Retribuição paga a trabalho doméstico. O IDEF não a mede como despesa de consumo e a maioria dos agregados não tem. Preencha se for o seu caso: 5% do valor, até 200 €, dedutível a partir de 2024 (art. 78.º-H).",
+          "en": {
+            "note": "Pay for domestic work. The IDEF does not measure it as consumer spending and most households have none. Fill it in if it applies to you: 5% of the amount, up to €200, deductible from 2024 (art. 78-H)."
+          }
         },
         "vatCulture": {
           "value": 122,
           "basis": "estimativa",
-          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,02. Só dedutível a partir de 2026."
+          "note": "Livros, teatro, espetáculos e museus. Aproximado a partir dos 89 € da COICOP 097 (jornais, livros e papelaria) e dos 27 € da COICOP 096 (serviços culturais), escalado x 1,02. Só dedutível a partir de 2026.",
+          "en": {
+            "note": "Books, theatre, shows and museums. Approximated from the €89 in COICOP 097 (newspapers, books and stationery) and the €27 in COICOP 096 (cultural services), scaled x 1.02. Only deductible from 2026."
+          }
         }
       }
     }

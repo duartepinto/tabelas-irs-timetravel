@@ -43,6 +43,7 @@ class TaxCalculator {
             await this.loadTaxData();
             await this.loadDeductionsData();
             await this.loadProfilesData();
+            this.applyChartLocale();
             this.populateBaseYearDropdown();
             this.setupEventListeners();
             this.setupProfileControls();
@@ -54,9 +55,37 @@ class TaxCalculator {
             this.calculateDeductionsChart();
             this.calculateProfileChart();
             this.populateSources();
+
+            I18n.onChange(() => this.onLanguageChange());
         } catch (error) {
             console.error('Failed to initialize:', error);
         }
+    }
+
+    // Redraw everything that script.js wrote, in the new language. Inputs keep
+    // what the user typed: only labels, charts and tables are rebuilt.
+    onLanguageChange() {
+        this.applyChartLocale();
+        this.updateParamRefs();
+        this.populateComparisonDropdowns({ keepSelection: true });
+        this.renderProfileTexts();
+        this.calculate();
+        this.calculateComparison();
+        this.calculateDeductionsChart();
+        this.calculateProfileChart();
+        this.populateSources();
+    }
+
+    // Number formatting on chart axes and tooltips follows the page language.
+    applyChartLocale() {
+        if (typeof Chart !== 'undefined' && Chart.defaults) {
+            Chart.defaults.locale = I18n.locale();
+        }
+    }
+
+    // "€1 234" in Portuguese, "€1,234" in English.
+    money(value) {
+        return '€' + I18n.number(value, { maximumFractionDigits: 0 });
     }
 
     async loadTaxData() {
@@ -116,19 +145,18 @@ class TaxCalculator {
         const inputs = document.getElementById('profileInputs');
         if (!select || !inputs) return;
 
-        this.profilesData.profiles.forEach(profile => {
+        this.profileOptions = this.profilesData.profiles.map(profile => {
             const option = document.createElement('option');
             option.value = profile.id;
-            option.textContent = `${profile.name} — ${profile.description}`;
             select.appendChild(option);
+            return { option, profile };
         });
-
 
         this.profilesData.categories.forEach(category => {
             const field = document.createElement('div');
             field.className = 'input-group profile-field';
             field.innerHTML = `
-                <label for="spend_${category}">${this.categoryLabel(category)}</label>
+                <label for="spend_${category}" id="spendLabel_${category}">${this.categoryLabel(category)}</label>
                 <input type="number" id="spend_${category}" data-category="${category}"
                        min="0" step="50" inputmode="numeric">
                 <span class="profile-basis" id="basis_${category}" tabindex="0" role="note"></span>
@@ -140,25 +168,18 @@ class TaxCalculator {
             const profile = this.profilesData.profiles.find(p => p.id === profileId);
             if (!profile) return;
 
+            this.currentProfile = profile;
             this.currentTaxpayers = profile.household.taxpayers;
             this.currentDependents = profile.household.dependents || 0;
             this.profilesData.categories.forEach(category => {
-                const entry = profile.spending[category];
                 const input = document.getElementById(`spend_${category}`);
-                const basis = document.getElementById(`basis_${category}`);
                 // Shown exactly as stored. The figure is the spend applied to
                 // every year, so converting it between years on the way in would
                 // only distort it - including deliberate round numbers such as
                 // 2 000 EUR per taxpayer, which is what exhausts the PPR cap.
-                input.value = entry.value;
-                const legend = (this.profilesData.meta.basisLegend || {})[entry.basis] || '';
-                basis.textContent = entry.basis;
-                basis.className = `profile-basis basis-${entry.basis}`;
-                // Rendered by CSS on hover/focus; `title` is left off so the
-                // native tooltip does not double up with it.
-                basis.dataset.note = legend ? `${legend}\n\n${entry.note}` : entry.note;
-                basis.setAttribute('aria-label', `${entry.basis}. ${legend} ${entry.note}`);
+                input.value = profile.spending[category].value;
             });
+            this.renderProfileTexts();
             this.readSpendingInputs();
             this.calculateProfileChart();
         };
@@ -174,6 +195,39 @@ class TaxCalculator {
         });
 
         applyProfile(this.profilesData.profiles[0].id);
+    }
+
+    // The words around the spending inputs: profile names, field labels and the
+    // badge saying where each default value came from. Kept apart from the
+    // values so a language switch does not overwrite what the user typed.
+    renderProfileTexts() {
+        if (!this.profilesData) return;
+
+        (this.profileOptions || []).forEach(({ option, profile }) => {
+            option.textContent =
+                `${I18n.localized(profile, 'name')} — ${I18n.localized(profile, 'description')}`;
+        });
+
+        const legends = I18n.localized(this.profilesData.meta, 'basisLegend') || {};
+        const profile = this.currentProfile;
+
+        this.profilesData.categories.forEach(category => {
+            const label = document.getElementById(`spendLabel_${category}`);
+            if (label) label.textContent = this.categoryLabel(category);
+
+            const basis = document.getElementById(`basis_${category}`);
+            if (!profile || !basis) return;
+            const entry = profile.spending[category];
+            const legend = legends[entry.basis] || '';
+            const note = I18n.localized(entry, 'note');
+            const name = I18n.t(`basis.${entry.basis}`, null, entry.basis);
+            basis.textContent = name;
+            basis.className = `profile-basis basis-${entry.basis}`;
+            // Rendered by CSS on hover/focus; `title` is left off so the
+            // native tooltip does not double up with it.
+            basis.dataset.note = legend ? `${legend}\n\n${note}` : note;
+            basis.setAttribute('aria-label', `${name}. ${legend} ${note}`);
+        });
     }
 
     // Read the inputs. The figure typed is the spend applied to EVERY year,
@@ -206,12 +260,12 @@ class TaxCalculator {
                 interaction: { mode: 'index', intersect: false },
                 scales: {
                     x: {
-                        title: { display: true, text: 'Ano' },
+                        title: { display: true, text: I18n.t('chart.year') },
                         reverse: true,
                         stacked: true
                     },
                     y: {
-                        title: { display: true, text: `Dedução obtida (€ de ${this.referenceYear()})` },
+                        title: { display: true, text: I18n.t('profile.yAxis', { year: this.referenceYear() }) },
                         beginAtZero: true,
                         stacked: true
                     }
@@ -219,23 +273,22 @@ class TaxCalculator {
                 plugins: {
                     title: {
                         display: true,
-                        text: `Dedução realmente obtida com o mesmo cabaz de despesa (a preços de ${this.referenceYear()})`
+                        text: I18n.t('profile.title', { year: this.referenceYear() })
                     },
                     legend: { position: 'top', labels: { boxWidth: 12 } },
                     tooltip: {
                         callbacks: {
                             label: (context) => {
-                                const amount = context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
                                 const capped = context.dataset.capped && context.dataset.capped[context.dataIndex];
-                                return context.dataset.label + ': €' + amount +
-                                    (capped ? '  ⛔ no tecto legal' : '');
+                                return context.dataset.label + ': ' + this.money(context.parsed.y) +
+                                    (capped ? I18n.t('profile.atCap') : '');
                             },
                             afterBody: (items) => {
                                 const i = items[0].dataIndex;
                                 const capped = items
                                     .filter(it => it.dataset.capped && it.dataset.capped[i])
                                     .map(it => it.dataset.label);
-                                return capped.length ? ['', 'No tecto: ' + capped.join(', ')] : [];
+                                return capped.length ? ['', I18n.t('profile.atCapList') + capped.join(', ')] : [];
                             }
                         }
                     }
@@ -308,24 +361,30 @@ class TaxCalculator {
     }
 
     // Fill the "⚙" lines that tell each section which of the top inputs it
-    // uses. data-params lists the inputs (income, baseYear) and data-prefix
-    // optionally replaces the default lead-in.
+    // uses. data-params lists the inputs (income, baseYear) and data-prefix-key
+    // optionally names an I18n string to replace the default lead-in.
     updateParamRefs() {
         const income = parseFloat(document.getElementById('income').value) || 0;
         const baseYear = document.getElementById('baseYear').value;
-        const incomeText = `${income.toLocaleString('pt-PT', {maximumFractionDigits: 0})} €`;
+        const incomeText = I18n.t('money.suffix', {
+            amount: I18n.number(income, {maximumFractionDigits: 0})
+        });
 
         document.querySelectorAll('.param-ref[data-params]').forEach(el => {
             const params = el.dataset.params.split(' ');
-            let text;
+            const custom = el.dataset.prefixKey && I18n.t(el.dataset.prefixKey);
             if (params.includes('income')) {
-                const prefix = el.dataset.prefix || 'Rendimento anual de';
-                text = `${prefix} <strong>${incomeText}</strong>, ano base <strong>${baseYear}</strong>`;
+                el.innerHTML = I18n.t('paramRef.income', {
+                    prefix: custom || I18n.t('paramRef.prefix.income'),
+                    income: incomeText,
+                    year: baseYear
+                });
             } else {
-                const prefix = el.dataset.prefix || 'Ano base';
-                text = `${prefix} <strong>${baseYear}</strong> (ano base)`;
+                el.innerHTML = I18n.t('paramRef.baseYearOnly', {
+                    prefix: custom || I18n.t('paramRef.prefix.baseYear'),
+                    year: baseYear
+                });
             }
-            el.innerHTML = text;
         });
     }
 
@@ -462,7 +521,7 @@ class TaxCalculator {
         for (const yearData of this.taxData) {
             const datapoint = this.calculateSingleDatapoint(income, baseYear, yearData, currentYear);
             const year = yearData.year;
-            const label = yearData.label || year.toString();
+            const label = I18n.yearLabel(yearData.label || year.toString());
 
             results.push({
                 year,
@@ -597,10 +656,10 @@ class TaxCalculator {
 
         if (vatCeiling.some(value => value !== null)) {
             datasets.push({
-                label: 'IVA - Exigência de Fatura',
+                label: I18n.t('deductions.vatBar'),
                 data: vatCeiling,
                 sectors: vatSectors.map(list =>
-                    list.map(type => this.categoryLabel(type).replace(/^IVA - /, ''))
+                    list.map(type => this.categoryLabel(type).replace(/^(IVA|VAT) - /, ''))
                 ),
                 borderColor: colors[colorIndex % colors.length],
                 backgroundColor: colors[colorIndex % colors.length] + 'CC',
@@ -628,7 +687,7 @@ class TaxCalculator {
         });
 
         datasets.push({
-            label: 'Total',
+            label: I18n.t('chart.total'),
             data: totalDeductionsData,
             type: 'line',
             stack: 'total',
@@ -641,7 +700,7 @@ class TaxCalculator {
             borderDash: [5, 5]
         });
 
-        this.updateDeductionsChart(datasets, this.deductionsData.map(d => d.label || d.year.toString()));
+        this.updateDeductionsChart(datasets, this.deductionsData.map(d => I18n.yearLabel(d.label || d.year.toString())));
     }
 
     updateDeductionsChart(datasets, labels) {
@@ -673,7 +732,7 @@ class TaxCalculator {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Ano'
+                            text: I18n.t('chart.year')
                         },
                         reverse: true,
                         stacked: true
@@ -684,7 +743,7 @@ class TaxCalculator {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Limite de Dedução (€)'
+                            text: I18n.t('deductions.yAxis')
                         },
                         beginAtZero: true,
                         ticks: {
@@ -696,7 +755,7 @@ class TaxCalculator {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Evolução dos Limites de Deduções IRS (Valores Atuais)'
+                        text: I18n.t('deductions.title')
                     },
                     legend: {
                         display: true,
@@ -708,11 +767,11 @@ class TaxCalculator {
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(context) {
+                            label: (context) => {
                                 if (context.parsed.y === null) {
-                                    return context.dataset.label + ': Não disponível';
+                                    return context.dataset.label + ': ' + I18n.t('deductions.notAvailable');
                                 }
-                                return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT', {maximumFractionDigits: 0});
+                                return context.dataset.label + ': ' + this.money(context.parsed.y);
                             },
                             // The VAT sectors share one ceiling and are drawn as a
                             // single bar, so name them here rather than lose them.
@@ -720,7 +779,7 @@ class TaxCalculator {
                                 const sectors = context.dataset.sectors &&
                                     context.dataset.sectors[context.dataIndex];
                                 if (!sectors || !sectors.length) return undefined;
-                                return `${sectors.length} setores, limite partilhado:\n` +
+                                return I18n.t('deductions.sharedCap', { count: sectors.length }) + '\n' +
                                     sectors.map(name => '  · ' + name).join('\n');
                             }
                         }
@@ -904,7 +963,7 @@ class TaxCalculator {
         const personal = years.map(yearData => this.personalDeduction(yearData, taxpayers));
         if (personal.some(value => value > 0)) {
             datasets.push({
-                label: 'Dedução pessoal',
+                label: I18n.t('profile.personal'),
                 data: personal.map((value, j) =>
                     this.adjustForInflation(value, years[j].year, currentYear)
                 ),
@@ -917,7 +976,7 @@ class TaxCalculator {
         if (dependents > 0) {
             const perChild = years.map(yearData => this.dependentsDeduction(yearData, dependents));
             datasets.push({
-                label: `Dependentes (${dependents})`,
+                label: I18n.t('profile.dependents', { count: dependents }),
                 data: perChild.map((value, j) =>
                     this.adjustForInflation(value, years[j].year, currentYear)
                 ),
@@ -930,7 +989,7 @@ class TaxCalculator {
             this.housingDeduction(yearData, spending, taxpayers)
         );
         datasets.push({
-            label: 'Habitação',
+            label: I18n.t('profile.housing'),
             data: housingNominal.map((value, j) =>
                 this.adjustForInflation(value, years[j].year, currentYear)
             ),
@@ -945,7 +1004,7 @@ class TaxCalculator {
         );
         if (vatNominal.some(value => value > 0)) {
             datasets.push({
-                label: 'IVA em faturas',
+                label: I18n.t('profile.vat'),
                 data: vatNominal.map((value, j) =>
                     this.adjustForInflation(value, years[j].year, currentYear)
                 ),
@@ -974,7 +1033,7 @@ class TaxCalculator {
                 )
             );
             datasets.push({
-                label: 'Dedução específica (em imposto)',
+                label: I18n.t('profile.specific'),
                 data: specificNominal.map((value, j) =>
                     this.adjustForInflation(value, years[j].year, currentYear)
                 ),
@@ -986,7 +1045,7 @@ class TaxCalculator {
         const totals = years.map((_, i) => datasets.reduce((sum, d) => sum + d.data[i], 0));
 
         datasets.push({
-            label: 'Total',
+            label: I18n.t('chart.total'),
             data: totals,
             type: 'line',
             borderColor: '#DC2626',
@@ -998,33 +1057,34 @@ class TaxCalculator {
             borderDash: [5, 5]
         });
 
-        this.updateProfileChart(datasets, years.map(d => d.label || d.year.toString()));
+        this.updateProfileChart(datasets, years.map(d => I18n.yearLabel(d.label || d.year.toString())));
         this.displayProfileSummary(years, totals);
     }
 
+    // The Portuguese name comes from deductions.json; other languages from I18n.
     categoryLabel(category) {
         const first = this.deductionsData.find(d => d.deductions[category]);
-        return first ? first.deductions[category].name : category;
+        const name = first ? first.deductions[category].name : category;
+        return I18n.t(`category.${category}`, null, name);
     }
 
     displayProfileSummary(years, totals) {
         const el = document.getElementById('profileSummary');
         if (!el) return;
 
-        const byYear = years.map((d, i) => ({ year: d.year, label: d.label, total: totals[i] }));
+        const byYear = years.map((d, i) => ({ year: d.year, label: I18n.yearLabel(d.label), total: totals[i] }));
         const latest = byYear.reduce((a, b) => (a.year > b.year ? a : b));
         const best = byYear.reduce((a, b) => (a.total > b.total ? a : b));
         const delta = latest.total - best.total;
 
-        el.innerHTML = `
-            Com este cabaz, a dedução seria de
-            <strong>€${latest.total.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong> em ${latest.label}.
-            O melhor ano foi <strong>${best.label}</strong>, com
-            <strong>€${best.total.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong>
-            — uma diferença de
-            <strong class="${delta < 0 ? 'negative' : 'positive'}">€${Math.abs(delta).toLocaleString('pt-PT', {maximumFractionDigits: 0})}</strong>
-            (tudo a preços de ${this.referenceYear()}).
-        `;
+        el.innerHTML = I18n.t('profile.summary', {
+            latest: this.money(latest.total),
+            latestYear: latest.label,
+            bestYear: best.label,
+            best: this.money(best.total),
+            delta: `<strong class="${delta < 0 ? 'negative' : 'positive'}">${this.money(Math.abs(delta))}</strong>`,
+            year: this.referenceYear()
+        });
     }
 
     // Legend order for the ceilings chart. Without this the order falls out of
@@ -1063,21 +1123,24 @@ class TaxCalculator {
             ])].sort((a, b) => a - b);
             let warningIcon = '';
             if (!hasInflationData) {
-                warningIcon = '<span class="warning-icon" title="Dados de inflação não disponíveis para este ano">⚠️</span>';
+                warningIcon = `<span class="warning-icon" title="${I18n.t('table.noInflationData')}">⚠️</span>`;
             } else if (estimatedYears.length) {
-                warningIcon = `<span class="warning-icon" title="Inclui inflação estimada (ainda não definitiva) para ${estimatedYears.join(', ')}">⚠️</span>`;
+                warningIcon = `<span class="warning-icon" title="${I18n.t('table.estimatedInflation', { years: estimatedYears.join(', ') })}">⚠️</span>`;
             }
+
+            const percent = (value, digits) =>
+                I18n.number(value, { minimumFractionDigits: digits, maximumFractionDigits: digits }) + '%';
 
             row.innerHTML = `
                 <td><strong>${result.label}</strong>${warningIcon}</td>
-                <td>€${result.originalIncome.toLocaleString('pt-PT')}</td>
-                <td>€${result.adjustedIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
-                <td>${result.taxRate.toFixed(2)}%</td>
-                <td>€${result.taxAmount.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
-                <td>€${result.taxAmountCurrent.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
-                <td>€${result.netIncome.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
-                <td>€${result.netIncomeCurrent.toLocaleString('pt-PT', {maximumFractionDigits: 0})}</td>
-                <td class="${purchasingPowerClass}">${(result.purchasingPower * 100).toFixed(1)}%</td>
+                <td>€${I18n.number(result.originalIncome)}</td>
+                <td>${this.money(result.adjustedIncome)}</td>
+                <td>${percent(result.taxRate, 2)}</td>
+                <td>${this.money(result.taxAmount)}</td>
+                <td>${this.money(result.taxAmountCurrent)}</td>
+                <td>${this.money(result.netIncome)}</td>
+                <td>${this.money(result.netIncomeCurrent)}</td>
+                <td class="${purchasingPowerClass}">${percent(result.purchasingPower * 100, 1)}</td>
             `;
 
             tbody.appendChild(row);
@@ -1097,7 +1160,7 @@ class TaxCalculator {
                 labels: results.map(r => r.label),
                 datasets: [
                     {
-                        label: 'Taxa de IRS (%)',
+                        label: I18n.t('main.taxRate'),
                         data: results.map(r => r.taxRate),
                         borderColor: '#667eea',
                         backgroundColor: 'rgba(102, 126, 234, 0.1)',
@@ -1105,7 +1168,7 @@ class TaxCalculator {
                         yAxisID: 'y'
                     },
                     {
-                        label: 'Poder de Compra (%)',
+                        label: I18n.t('main.purchasingPower'),
                         data: results.map(r => r.purchasingPower * 100),
                         borderColor: '#764ba2',
                         backgroundColor: 'rgba(118, 75, 162, 0.1)',
@@ -1126,7 +1189,7 @@ class TaxCalculator {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Ano'
+                            text: I18n.t('chart.year')
                         },
                         reverse: true
                     },
@@ -1136,7 +1199,7 @@ class TaxCalculator {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Taxa de IRS (%)'
+                            text: I18n.t('main.taxRate')
                         },
                     },
                     y1: {
@@ -1145,7 +1208,7 @@ class TaxCalculator {
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Poder de Compra (%)'
+                            text: I18n.t('main.purchasingPower')
                         },
                         grid: {
                             drawOnChartArea: false,
@@ -1156,7 +1219,7 @@ class TaxCalculator {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Taxa de IRS vs Poder de Compra ao Longo do Tempo'
+                        text: I18n.t('main.title')
                     },
                     legend: {
                         display: true
@@ -1211,7 +1274,7 @@ class TaxCalculator {
                         display: true,
                         title: {
                             display: true,
-                            text: 'Rendimento coletável'
+                            text: I18n.t('comparison.xAxis')
                         },
                         type: 'linear'
                     },
@@ -1221,7 +1284,7 @@ class TaxCalculator {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Taxa de IRS (%)'
+                            text: I18n.t('main.taxRate')
                         },
                         min: 0,
                     }
@@ -1230,7 +1293,7 @@ class TaxCalculator {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Taxa de IRS ajustada à inflação'
+                        text: I18n.t('comparison.title')
                     },
                     legend: {
                         display: true
@@ -1271,7 +1334,7 @@ class TaxCalculator {
                     <strong>${label}:</strong>
                     <a href="${href}" target="_blank" rel="noopener noreferrer">${href}</a>
                 </p>` : '';
-            return row('Fonte', source.url) + row('Backup', source.backup);
+            return row(I18n.t('sources.source'), source.url) + row(I18n.t('sources.backup'), source.backup);
         };
 
         const years = [...byYear.keys()].sort((a, b) => b - a);
@@ -1282,12 +1345,12 @@ class TaxCalculator {
             entry.brackets.forEach(regime => {
                 // "2025 (Jun)" -> "Escalões de IRS (Jun)"; a single regime needs no suffix.
                 const suffix = entry.brackets.length > 1
-                    ? ' ' + (String(regime.label || '').replace(String(year), '').trim())
+                    ? ' ' + (I18n.yearLabel(regime.label).replace(String(year), '').trim())
                     : '';
-                groups.push({ title: `Escalões de IRS${suffix}`, source: regime.source });
+                groups.push({ title: `${I18n.t('sources.brackets')}${suffix}`, source: regime.source });
             });
             if (entry.deductions) {
-                groups.push({ title: 'Deduções', source: entry.deductions.source });
+                groups.push({ title: I18n.t('sources.deductions'), source: entry.deductions.source });
             }
 
             const sourceDiv = document.createElement('div');
@@ -1322,9 +1385,10 @@ class TaxCalculator {
         });
     }
 
-    populateComparisonDropdowns() {
+    populateComparisonDropdowns({ keepSelection = false } = {}) {
         const compareYear1Select = document.getElementById('compareYear1Select');
         const compareYear2Select = document.getElementById('compareYear2Select');
+        const previous = [compareYear1Select.value, compareYear2Select.value];
 
         // Clear existing options
         compareYear1Select.innerHTML = '';
@@ -1333,7 +1397,7 @@ class TaxCalculator {
         // Create options from tax data (each entry gets its own option)
         this.taxData.forEach(yearData => {
             const year = yearData.year;
-            const label = yearData.label || year.toString();
+            const label = I18n.yearLabel(yearData.label || year.toString());
 
             // Create option for first dropdown
             const option1 = document.createElement('option');
@@ -1348,8 +1412,11 @@ class TaxCalculator {
             compareYear2Select.appendChild(option2);
         });
 
-        // Set default values to first two entries if available
-        if (this.taxData.length >= 2) {
+        if (keepSelection) {
+            compareYear1Select.value = previous[0];
+            compareYear2Select.value = previous[1];
+        } else if (this.taxData.length >= 2) {
+            // Default to the oldest and the newest entries
             compareYear1Select.value = this.taxData[this.taxData.length - 1].year;
             compareYear2Select.value = this.taxData[0].year;
         }

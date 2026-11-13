@@ -12,10 +12,45 @@ body {
 }
 
 header {
+    position: relative;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-align: center;
     padding: 2rem 1rem;
+}
+
+/* PT / EN switch, tucked into the header's top-right corner (same as
+   imi-timetravel's). */
+.lang-switch {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.lang-switch a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.25rem 0.6rem;
+    opacity: 0.8;
+}
+
+.lang-switch a:hover,
+.lang-switch a:focus-visible {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.lang-switch a[aria-current="true"] {
+    background: white;
+    color: #5a4fcf;
+    opacity: 1;
 }
 
 header h1 {
@@ -636,7 +671,7 @@ tr:hover {
     }
 
     header {
-        padding: 1.5rem 1rem;
+        padding: 3rem 1rem 1.5rem;
         margin-bottom: 1rem;
     }
 
